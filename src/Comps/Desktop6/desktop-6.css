@@ -1,0 +1,41 @@
+.desktop-6-RwC {
+  box-sizing: border-box;
+    width: 100%;
+    height: 140.4rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffee;
+}
+.desktop-6-RwC .measuring-and-reporting-AJS {
+font-size: 4rem;
+font-weight: 400;
+line-height: 1.2125;
+color: rgba(0, 0, 17, 0.6299999952);
+font-family: Inter, 'Source Sans Pro';
+white-space: nowrap;
+  position: absolute;
+  left: 47.9rem;
+  top: 10.7rem;
+}
+
+.desktop-6-RwC .auto-group-czst-tVL {
+ position: absolute;
+left: 36.9rem;
+top: 16.5rem;
+display: flex;
+justify-content: center;
+align-content: center;
+flex-direction: column;
+}
+
+
+.desktop-6-RwC .line-5-ck6 {
+width: 100%;
+height:40vh;
+position: absolute;
+left: 0;
+top:43rem;
+object-fit: contain;
+vertical-align: top;
+z-index: 10;
+}
