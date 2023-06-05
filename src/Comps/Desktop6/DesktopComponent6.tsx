@@ -2,7 +2,7 @@ import React from 'react';
 import { Box,Card,Typography, TextField } from '@mui/material';
 import './desktop-6.css';
 import Header from '../../Header';
-import BottomImage from '../../assets/f325653570f530b582479c8e909c6f48bf13ffmv2-removebg-preview-1.png'
+import BottomImage from '../../assets/page6.png';
 
 const DesktopComponent6: React.FC = () => {
     return (
