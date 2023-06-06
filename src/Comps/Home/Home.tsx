@@ -505,7 +505,6 @@ const Home = (props: HomeProps) => {
             <Box className="auto-group-zlsh-nEi">
                 <Box className="auto-group-gjdw-qin">
                     <img className="gotlogouncut-removebg-preview-1-j3U" src={gotlogouncut} alt='removebg' />
-                    <p className="image-text">Green Climate Token</p>
                     <img className="pngwing-2-PNv" src={pngwing} alt='pngwing' />
                     <img className="full-solana-logo-1-3iN" src={solana} alt='solana' />
                 </Box>

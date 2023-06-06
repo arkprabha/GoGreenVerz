@@ -80,7 +80,7 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
                 <img src={selectedImage} alt="selected" />
               </Dialog>
                 <Box className="auto-group-jevh-zjx" textAlign='left'>
-                    <Typography variant="body1" className="number-of-nfts-3-7Jn">Number of NFT’s = {images.length}</Typography>
+                    <Typography variant="body1" className="number-of-nfts-3-7Jn">Number of NFTs = {images.length}</Typography>
                     <Typography variant="body1" className="number-of-trees-15-2Ar">Number of Trees = {images.length * 5}</Typography>
                     <Typography variant="body1" className="total-value-3-sol-x4W"> Total value = {images.length} SOL</Typography>
                 </Box>
