@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/GoGreenVerz/static/css/main.88270745.chunk.css",
+    "main.js": "/GoGreenVerz/static/js/main.43858d4f.chunk.js",
+    "main.js.map": "/GoGreenVerz/static/js/main.43858d4f.chunk.js.map",
+    "runtime-main.js": "/GoGreenVerz/static/js/runtime-main.aae73b76.js",
+    "runtime-main.js.map": "/GoGreenVerz/static/js/runtime-main.aae73b76.js.map",
+    "static/js/2.e1f8df47.chunk.js": "/GoGreenVerz/static/js/2.e1f8df47.chunk.js",
+    "static/js/2.e1f8df47.chunk.js.map": "/GoGreenVerz/static/js/2.e1f8df47.chunk.js.map",
+    "static/js/3.03e4f85d.chunk.js": "/GoGreenVerz/static/js/3.03e4f85d.chunk.js",
+    "static/js/3.03e4f85d.chunk.js.map": "/GoGreenVerz/static/js/3.03e4f85d.chunk.js.map",
+    "static/js/4.31273051.chunk.js": "/GoGreenVerz/static/js/4.31273051.chunk.js",
+    "static/js/4.31273051.chunk.js.map": "/GoGreenVerz/static/js/4.31273051.chunk.js.map",
+    "static/js/5.d7891077.chunk.js": "/GoGreenVerz/static/js/5.d7891077.chunk.js",
+    "static/js/5.d7891077.chunk.js.map": "/GoGreenVerz/static/js/5.d7891077.chunk.js.map",
+    "index.html": "/GoGreenVerz/index.html",
+    "static/css/main.88270745.chunk.css.map": "/GoGreenVerz/static/css/main.88270745.chunk.css.map",
+    "static/js/2.e1f8df47.chunk.js.LICENSE.txt": "/GoGreenVerz/static/js/2.e1f8df47.chunk.js.LICENSE.txt",
+    "static/media/full-solana-logo-1.7e92907b.png": "/GoGreenVerz/static/media/full-solana-logo-1.7e92907b.png",
+    "static/media/gotlogouncut-removebg-preview-1.786cae6e.png": "/GoGreenVerz/static/media/gotlogouncut-removebg-preview-1.786cae6e.png",
+    "static/media/page6.5be3b35c.png": "/GoGreenVerz/static/media/page6.5be3b35c.png",
+    "static/media/pagenotfound.da355087.png": "/GoGreenVerz/static/media/pagenotfound.da355087.png",
+    "static/media/pngegg-3-1.4b10e8df.png": "/GoGreenVerz/static/media/pngegg-3-1.4b10e8df.png",
+    "static/media/desktop-3.css": "/GoGreenVerz/static/media/pngimg-1-bg.bcd5b54d.png",
+    "static/media/pngwing-1.9564415e.png": "/GoGreenVerz/static/media/pngwing-1.9564415e.png",
+    "static/media/pngwing-2-tqL.abdff7dc.png": "/GoGreenVerz/static/media/pngwing-2-tqL.abdff7dc.png",
+    "static/media/pngwing-2.9564415e.png": "/GoGreenVerz/static/media/pngwing-2.9564415e.png",
+    "static/media/pngwing-3.51555899.png": "/GoGreenVerz/static/media/pngwing-3.51555899.png",
+    "static/media/pngwing-4.c61ec9bf.png": "/GoGreenVerz/static/media/pngwing-4.c61ec9bf.png",
+    "static/media/desktop-2.css": "/GoGreenVerz/static/media/rectangle-10-bg.9564415e.png",
+    "static/media/removebg-preview-1.aea25a56.png": "/GoGreenVerz/static/media/removebg-preview-1.aea25a56.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.aae73b76.js",
+    "static/js/2.e1f8df47.chunk.js",
+    "static/css/main.88270745.chunk.css",
+    "static/js/main.43858d4f.chunk.js"
+  ]
+}
