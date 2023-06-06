@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import * as anchor from "@project-serum/anchor";
-
 import styled from "styled-components";
 import { Container, Snackbar , Box,  } from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -42,10 +41,14 @@ const ConnectButton = styled(WalletDialogButton)`
   height: 60px;
   margin-top: 10px;
   margin-bottom: 5px;
-  background: linear-gradient(180deg, #604ae5 0%, #813eee 100%);
+  background:#84cb25;
   color: white;
   font-size: 16px;
   font-weight: bold;
+  &:hover {
+    background: #ffffee ;
+    color:#262626;
+  }
 `;
 
 const MintContainer = styled.div``; // add your owns styles here
@@ -77,10 +80,14 @@ const Home = (props: HomeProps) => {
   const [needTxnSplit, setNeedTxnSplit] = useState(true);
   const [setupTxn, setSetupTxn] = useState<SetupState>();
 
+
+
   const rpcUrl = props.rpcHost;
   const anchorWallet = useAnchorWallet();
   const { connect, connected, publicKey, wallet } = useWallet();
   const cluster = props.network;
+
+
 
   const refreshCandyMachineState = useCallback(
     async (commitment: Commitment = "confirmed") => {
@@ -470,13 +477,35 @@ const Home = (props: HomeProps) => {
     })();
   }, [refreshCandyMachineState]);
 
+
+  useEffect(() => {
+    const checkWalletConnection = async () => {
+      if (anchorWallet?.publicKey) {
+     
+        localStorage.setItem('Wallet', String(true));
+      }
+      else {
+        localStorage.setItem('Wallet', String(false));
+      }
+    };
+  
+    checkWalletConnection();
+  }, [anchorWallet]);
+
+  const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
+
+
+
+
+
   return (
      <>
         <Box className="desktop-1-42a" sx={{  overflowY: 'hidden'}}>
-            <Header />
+            <Header  isConnectedWallet={ isConnectedWallet} />
             <Box className="auto-group-zlsh-nEi">
                 <Box className="auto-group-gjdw-qin">
                     <img className="gotlogouncut-removebg-preview-1-j3U" src={gotlogouncut} alt='removebg' />
+                    <p className="image-text">Green Climate Token</p>
                     <img className="pngwing-2-PNv" src={pngwing} alt='pngwing' />
                     <img className="full-solana-logo-1-3iN" src={solana} alt='solana' />
                 </Box>

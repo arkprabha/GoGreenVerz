@@ -92,6 +92,7 @@ input {
   color: #fdfffe;
   font-family: Inter, 'Source Sans Pro';
   white-space: nowrap;
+  
 }
 
 /* Second Layout  */
@@ -125,6 +126,8 @@ input {
   background-color: #ffffee;
   border-radius: 1.5rem;
   flex-shrink: 0;
+  box-shadow: 55px;
+  border: 1px solid silver;
 }
 .desktop-2-HUr .auto-group-qsb3-GX8 .auto-group-wwau-kSJ .item-8-Ftr {
   margin-top: 0.1rem;
@@ -162,6 +165,8 @@ input {
   flex-direction: column;
   justify-content: center;
   background-color: #ffffee;
+  box-shadow: 55px;
+  border: 1px solid silver;
   border-radius: 2rem;
   flex-shrink: 0;
 }

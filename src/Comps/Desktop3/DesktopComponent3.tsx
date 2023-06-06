@@ -10,9 +10,10 @@ import flag6 from '../../assets/icon-flag-gSA.png';
 import Header from '../../Header';
 
 const DesktopComponent3: React.FC = () => {
+    const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     return (
         <Box className="desktop-3-jKU">
-            <Header />
+            <Header  isConnectedWallet={ isConnectedWallet} />
             <Typography variant="body1" className="your-project-tracking-ecn">Your Project Tracking</Typography>
             <Box className="auto-group-6581-xNa">
                 <Box className="rectangle-10-rD4"></Box>

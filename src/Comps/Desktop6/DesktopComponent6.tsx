@@ -5,10 +5,11 @@ import Header from '../../Header';
 import BottomImage from '../../assets/page6.png';
 
 const DesktopComponent6: React.FC = () => {
+    const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     return (
             <Box className="desktop-6-RwC">
                 <img className="line-5-ck6" src={BottomImage} alt="line" />
-                <Header />
+                <Header  isConnectedWallet={ isConnectedWallet} />
             <Typography className="measuring-and-reporting-AJS">Measuring and Reporting</Typography>
                  <Box className="auto-group-czst-tVL">
                 <Box component={Card} bgcolor='#84cb25' width={600} display='flex' justifyContent='center' textAlign='left' flexDirection='column' gap={3} p={3}>

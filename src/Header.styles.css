@@ -26,6 +26,7 @@ input {
     vertical-align: top;
     flex-shrink: 0;
     float: left;
+    cursor: pointer;
 }
 
 .desktop-1-42aa .auto-group-wh57-8wY .home-VSe {
@@ -39,6 +40,7 @@ input {
     border-right: 1px solid #000000;
     padding-right: 20px;
     padding-left: 20px;
+    cursor: pointer;
 }
 
 .desktop-1-42aa .auto-group-wh57-8wY .home-VSe:last-child {

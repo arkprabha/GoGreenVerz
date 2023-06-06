@@ -6,9 +6,10 @@ import pngwing2 from '../../assets/pngwing-2.png';
 import Header from '../../Header';
 
 const DesktopComponent5: React.FC = () => {
+    const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     return (
         <Box className="desktop-4-AX8">
-        <Header />
+      <Header  isConnectedWallet={ isConnectedWallet} />
             <Typography variant="body1" className="your-carbon-footprint-jXc">Carbon offset</Typography>
             <Box className="auto-group-ynay-crJ">
                 <img className="pngegg-3-1-jA" src={pngwing4} alt="image" />
