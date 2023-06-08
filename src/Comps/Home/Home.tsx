@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import * as anchor from "@project-serum/anchor";
 import styled from "styled-components";
-import { Container, Snackbar , Box,  } from "@mui/material";
+import { Container, Snackbar , Box,Button  } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Alert from "@mui/lab/Alert";
 import Grid from "@mui/material/Grid";
@@ -84,7 +84,7 @@ const Home = (props: HomeProps) => {
 
   const rpcUrl = props.rpcHost;
   const anchorWallet = useAnchorWallet();
-  const { connect, connected, publicKey, wallet } = useWallet();
+  const { connect, connected, publicKey, wallet , disconnect } = useWallet();
   const cluster = props.network;
 
 
@@ -495,7 +495,9 @@ const Home = (props: HomeProps) => {
   const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
 
 
-
+  const disconnectWallet = () =>{
+    disconnect();
+  }
 
 
   return (
@@ -653,8 +655,10 @@ const Home = (props: HomeProps) => {
                               (isPresale && isWhitelistUser && isValidBalance)
                             }
                           />
+                         
                         </GatewayProvider>
                       ) : (
+                        <>
                         <MintButton
                           candyMachine={candyMachine}
                           isMinting={isUserMinting}
@@ -665,6 +669,8 @@ const Home = (props: HomeProps) => {
                             (isPresale && isWhitelistUser && isValidBalance)
                           }
                         />
+                        <Button variant="contained" className='disconnectbtn' onClick={disconnectWallet} >Disconnect</Button>
+                      </>
                       )}
                     </MintContainer>
                   </>

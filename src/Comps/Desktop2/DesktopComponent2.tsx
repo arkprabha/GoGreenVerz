@@ -26,15 +26,12 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
       if (isConnectedWallet === 'true') {
         const nftUrl = `https://api.shyft.to/sol/v1/nft/read_all?network=${network}&address=${anchorWallet?.publicKey}`;
 
-        const controller = new AbortController();
-
         fetch(nftUrl, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
             "x-api-key": "kRSK8MBUbvIZbaAa",
           },
-          signal: controller.signal,
         })
           .then((response) => {
             if (!response.ok) {
@@ -49,26 +46,10 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
           .catch((error) => {
             console.warn('Error fetching NFTs:', error);
           });
-
-        return () => {
-          controller.abort();
-        };
       }
     };
 
-    useEffect(() => {
-      let isMounted = true;
-
-      const cleanup = fetchNFTs();
-
-      return () => {
-        isMounted = false;
-
-        if (cleanup) {
-          cleanup();
-        }
-      };
-    }, []);
+    useEffect(() => { fetchNFTs() }, [])
 
      
       const images: string[] = dataFetched?.result?.map((item: { image_uri: string }) => item.image_uri) || [];
