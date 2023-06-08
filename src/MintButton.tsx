@@ -111,6 +111,9 @@ export const MintButton = ({
     }
   }, [waitForActiveToken, gatewayStatus, onMint]);
 
+  console.log(isMinting , 'IsMint');
+  console.log(isActive,'Active');
+
   return (
     <CTAButton
       disabled={isMinting || !isActive}

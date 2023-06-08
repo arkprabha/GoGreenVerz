@@ -1,6 +1,6 @@
 {
   "name": "candy-machine-ui",
-  "homepage": "https://go-green.mdqapps.tk/",
+  "homepage": "https://arkprabha.github.io/GoGreenVerz/",
   "version": "0.3.0",
   "private": true,
   "license": "Apache-2.0",
@@ -42,7 +42,9 @@
     "lint:fix": "prettier --write 'src/**/*.{ts,tsx}' && eslint --fix 'src/**/*.{ts,tsx}'",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
