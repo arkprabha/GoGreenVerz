@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import './desktop-3.css';
+import './ProjectTracking.css';
 import flag1 from '../../assets/icon-flag-iDt.png';
 import flag2 from '../../assets/icon-flag-NbY.png';
 import flag3 from '../../assets/icon-flag.png';
@@ -9,7 +9,7 @@ import flag5 from '../../assets/icon-flag-sC2.png';
 import flag6 from '../../assets/icon-flag-gSA.png';
 import Header from '../../Header';
 
-const DesktopComponent3: React.FC = () => {
+const ProjectTracking: React.FC = () => {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     return (
         <Box className="desktop-3-jKU">
@@ -38,4 +38,4 @@ const DesktopComponent3: React.FC = () => {
     );
 };
 
-export default DesktopComponent3;
+export default ProjectTracking;

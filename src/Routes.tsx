@@ -1,14 +1,22 @@
-import { useRoutes } from 'react-router-dom'
-import DesktopComponent2 from './Comps/Desktop2/DesktopComponent2';
-import DesktopComponent3 from './Comps/Desktop3/DesktopComponent3';
-import DesktopComponent4 from './Comps/Desktop4/DesktopComponent4';
-import DesktopComponent5 from './Comps/Desktop5/DesktopComponent5';
-import DesktopComponent6 from './Comps/Desktop6/DesktopComponent6';
+import { useRoutes, Navigate, } from 'react-router-dom'
 import * as anchor from "@project-serum/anchor";
 import { DEFAULT_TIMEOUT } from "./connection";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+
+
+// PAGE COMPONENTS
+import Contribution from './Comps/Contribution/Contribution';
+import ProjectTracking from './Comps/ProjectTracking/ProjectTracking';
+import Footprint from './Comps/Footprint/Footprint';
+import Offset from './Comps/Offset/Offset';
+import MRV from './Comps/MRV/MRV';
+import LoginPage from './Comps/LoginPage/LoginPage';
+import ListedLands from './Comps/ListedLands/ListedLands';
+import AddLands from './Comps/AddLands/AddLands';
+import Profile from './Comps/Profile/Profile';
 import Home from './Comps/Home/Home';
-import Pagenotfound from './Comps/Pagenotfound';
+import Pagenotfound from './Comps/PagenotFound/Pagenotfound';
+
 
 
 //this variable is for local development 
@@ -44,7 +52,7 @@ const connection = new anchor.web3.Connection(rpcHost);
 
 function Routes() {
 
-    
+    const UserAuth: string | null = localStorage.getItem('UserAuth') ?? ''
 
 
 
@@ -55,36 +63,58 @@ function Routes() {
         },
         {
             path: startUrl,
-            element: <Home
-                candyMachineId={candyMachineId}
-                connection={connection}
-                txTimeout={DEFAULT_TIMEOUT}
-                rpcHost={rpcHost}
-                network={network}
-                error={error}
-            />,
+            element: <LoginPage />
         },
         {
-            path: 'desktop2',
-            element: <DesktopComponent2 />,
+            path: `${startUrl}home`,
+            element: UserAuth === 'true' ? (
+                <Home
+                    candyMachineId={candyMachineId}
+                    connection={connection}
+                    txTimeout={DEFAULT_TIMEOUT}
+                    rpcHost={rpcHost}
+                    network={network}
+                    error={error}
+                />
+            ) : (
+                <Navigate to={startUrl} />
+            ),
         },
         {
-                    path: 'desktop4',
-            element: <DesktopComponent3 />,
+            path: 'contribution',
+            element: <Contribution />,
         },
         {
-                    path: 'desktop3',
-            element: <DesktopComponent4 />,
+            path: 'trackproject',
+            element: <ProjectTracking />,
         },
         {
-                    path: 'desktop5',
-            element: <DesktopComponent5 />,
+            path: 'footprint',
+            element: <Footprint />,
         },
         {
-            path: 'desktop6',
-            element: <DesktopComponent6 />,
+            path: 'offset',
+            element: <Offset />,
         },
-    ])
+        {
+            path: 'mrv',
+            element: <MRV />,
+        },
+
+        {
+            path: 'listedlands',
+            element: <ListedLands />,
+        },
+        {
+        path: 'addyourlands',
+            element: <AddLands />,
+        },
+        {
+        path: 'profile',
+        element: <Profile />,
+        },
+
+    ]);
 }
 
 export default Routes

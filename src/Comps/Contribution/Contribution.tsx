@@ -1,5 +1,5 @@
 import { Box, Typography , Dialog } from '@mui/material';
-import './desktop-2.css';
+import './Contribution.css';
 // import onejk from '../../assets/-1jk.png';
 // import png from '../../assets/twoJk.png';
 // import collection from '../../assets/collection.png';
@@ -10,7 +10,7 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 
 
-  const DesktopComponent2 = () => {
+const Contribution = () => {
 
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const [dataFetched, setDataFetched] = useState<any>(null);
@@ -91,4 +91,4 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
     );
 };
 
-export default DesktopComponent2;
+export default Contribution;

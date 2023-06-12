@@ -669,7 +669,7 @@ const Home = (props: HomeProps) => {
                             (isPresale && isWhitelistUser && isValidBalance)
                           }
                         />
-                        <Button variant="contained" className='disconnectbtn' onClick={disconnectWallet} >Disconnect</Button>
+                      <Button variant="contained" color='error' sx={{fontSize:16}} className='disconnectbtn' onClick={disconnectWallet} >Disconnect</Button>
                       </>
                       )}
                     </MintContainer>

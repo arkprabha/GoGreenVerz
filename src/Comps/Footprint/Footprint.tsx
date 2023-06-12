@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import './desktop-4.css';
+import './Footprint.css';
 import pngengg from '../../assets/pngegg-3-1.png';
 import pngwing1 from '../../assets/pngwing-1.png';
 import Header from '../../Header';
 
-const DesktopComponent4: React.FC = () => {
+const Footprint: React.FC = () => {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     return (
         <Box className="desktop-4-AX8">
@@ -36,4 +36,4 @@ const DesktopComponent4: React.FC = () => {
     );
 };
 
-export default DesktopComponent4;
+export default Footprint;

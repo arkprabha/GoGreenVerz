@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box,Card,Typography, TextField } from '@mui/material';
-import './desktop-6.css';
+import './MRV.css';
 import Header from '../../Header';
 import BottomImage from '../../assets/page6.png';
 
-const DesktopComponent6: React.FC = () => {
+const MRV: React.FC = () => {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     return (
             <Box className="desktop-6-RwC">
@@ -105,4 +105,4 @@ const DesktopComponent6: React.FC = () => {
     );
 };
 
-export default DesktopComponent6;
+export default MRV;

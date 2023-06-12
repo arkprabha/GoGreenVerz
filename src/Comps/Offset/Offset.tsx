@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import './desktop-5.css';
+import './Offset.css';
 import pngwing4 from '../../assets/pngwing-4.png';
 import pngwing2 from '../../assets/pngwing-2.png';
 import Header from '../../Header';
 
-const DesktopComponent5: React.FC = () => {
+const Offset : React.FC = () => {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     return (
         <Box className="desktop-4-AX8">
@@ -36,5 +36,5 @@ const DesktopComponent5: React.FC = () => {
     );
 };
 
-export default DesktopComponent5;
+export default Offset ;
 

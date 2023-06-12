@@ -1,4 +1,4 @@
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid , MenuItem, Menu} from '@mui/material';
 import { useNavigate} from 'react-router-dom';
 import RemoveBg from './assets/removebg-preview-1.png';
 import './Header.styles.css';
@@ -6,7 +6,7 @@ import {useState} from "react";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import * as React from 'react';
-
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 interface  HeaderProps {
@@ -23,13 +23,19 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 
 export default function Header({ isConnectedWallet} : HeaderProps) {
-
-  const navigate = useNavigate();
   
   const [isSnackbarOpen, setIsSnackbarOpen] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
+  const open = Boolean(anchorEl);
 
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
 
   const handleOpenPage = (item: string) => {
@@ -59,22 +65,41 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
                 <Box>
                 <img className="removebg-preview-1-FoC" src={RemoveBg} alt='removebg' />
                 </Box>
-                  <Box display='flex' flexDirection='row'>
-                      <Typography className="home-VSe" onClick={() =>navigate('/')}>Home</Typography>
-                      <Typography className="home-VSe" onClick={() =>handleOpenPage('desktop2')}>Contribution</Typography>
-                      <Typography className="home-VSe" onClick={() => handleOpenPage('desktop3')}>Carbon Footprint</Typography>
-                      <Typography className="home-VSe" onClick={() =>handleOpenPage('desktop4')}>Project Tracking</Typography>
-                      <Typography className="home-VSe" onClick={() => handleOpenPage('desktop5')}>Carbon Offset</Typography>
-                      <Typography className="home-VSe" onClick={() => handleOpenPage('desktop6')}>MRV</Typography>
-                  </Box>
-                  <Snackbar open={isSnackbarOpen} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-          Please! Connect Your Wallet!
-        </Alert>
-      </Snackbar>
+              <Box display='flex' flexDirection='row'>
+              <Typography className="home-VSe" onClick={() =>navigate('/home')}>Home</Typography>
+              <Typography className="home-VSe" onClick={handleClick}>Menu</Typography>
+              <Box>
+                <Menu
+                  className="home-VSe"
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleCloseMenu}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                  sx={{ padding: 2, marginTop: 1 }}
+                >
+                  <MenuItem onClick={() => handleOpenPage('contribution')} sx={{ fontSize: 16 }}>Contribution</MenuItem>
+                  <MenuItem onClick={() => handleOpenPage('footprint')} sx={{ fontSize: 16 }}>Carbon Footprint</MenuItem>
+                  <MenuItem onClick={() => handleOpenPage('trackproject')} sx={{ fontSize: 16 }}>Project Tracking</MenuItem>
+                  <MenuItem onClick={() => handleOpenPage('offset')} sx={{ fontSize: 16 }}>Carbon Offset</MenuItem>
+                  <MenuItem onClick={() => handleOpenPage('mrv')} sx={{ fontSize: 16 }}>Renewal</MenuItem>
+                </Menu>
               </Box>
-    </Grid>
-    </Grid>
-</div>
-  );
-}
+              <Typography className="home-VSe" onClick={() => handleOpenPage('listedlands')}>Listed Lands</Typography>
+              <Typography className="home-VSe" onClick={() => handleOpenPage('addyourlands')}>Add Lands</Typography>
+              <Typography className="home-VSe" onClick={() => handleOpenPage('profile')}>Profile</Typography>
+              <Typography className="home-VSe" onClick={() => navigate('/')}>Logout<LogoutIcon  sx={{verticalAlign:'middle'}}/></Typography>
+              </Box>
+              <Snackbar open={isSnackbarOpen} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                Please! Connect Your Wallet!
+              </Alert>
+            </Snackbar>
+              </Box>
+        </Grid>
+        </Grid>
+    </div>
+      );
+    }
