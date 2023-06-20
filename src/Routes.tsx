@@ -10,12 +10,23 @@ import ProjectTracking from './Comps/ProjectTracking/ProjectTracking';
 import Footprint from './Comps/Footprint/Footprint';
 import Offset from './Comps/Offset/Offset';
 import MRV from './Comps/MRV/MRV';
-import LoginPage from './Comps/LoginPage/LoginPage';
 import ListedLands from './Comps/ListedLands/ListedLands';
 import AddLands from './Comps/AddLands/AddLands';
 import Profile from './Comps/Profile/Profile';
 import Home from './Comps/Home/Home';
 import Pagenotfound from './Comps/PagenotFound/Pagenotfound';
+import NewLoginPage from './Comps/LoginPage/NewLogin';
+import SignUpForm from './Comps/SignUpAndForgotPass/SignupForm';
+import ForgotPassword from './Comps/SignUpAndForgotPass/ForgotPassword';
+import AdminProfileForm from './Comps/ProfileForms/AdminProfileForm';
+import AfforestationForm from './Comps/ProfileForms/AfforestationForm';
+import BuyersProfileForm from './Comps/ProfileForms/BuyersForm';
+import CRICarbonForm from './Comps/ProfileForms/CRICarbonForm';
+import GoProjectDeveloperForm from './Comps/ProfileForms/GoProjectDeveloperForm';
+import InvesterProfileForm from './Comps/ProfileForms/InvestForm';
+import PlantationForm from './Comps/ProfileForms/PlantationForm';
+import VVBForm from './Comps/ProfileForms/VVBForm';
+import ProjectionTable from './Comps/ProjectionTable/ProjectionTable';
 
 
 
@@ -63,7 +74,7 @@ function Routes() {
         },
         {
             path: startUrl,
-            element: <LoginPage />
+            element: <NewLoginPage />
         },
         {
             path: `${startUrl}home`,
@@ -113,7 +124,50 @@ function Routes() {
         path: 'profile',
         element: <Profile />,
         },
-
+        {
+            path: 'signup',
+            element: <SignUpForm />
+        },
+        {
+            path: 'resetpassword',
+            element: <ForgotPassword />
+        },
+        {
+            path: 'adminprofileform',
+            element: <AdminProfileForm />
+        },
+        {
+            path: 'afforestationform',
+            element: <AfforestationForm />
+        },
+        {
+            path: 'buyersform',
+            element: <BuyersProfileForm />
+        },
+        {
+            path: 'cricarbonform',
+            element: <CRICarbonForm />
+        },
+        {
+            path: 'goprojectdeveloperform',
+            element: <GoProjectDeveloperForm />
+        },
+        {
+            path: 'investerprofileform',
+            element: <InvesterProfileForm />
+        },
+        {
+            path: 'planationform',
+            element: <PlantationForm />
+        },
+        {
+            path: 'vvbform',
+            element: <VVBForm />
+        },
+        {
+            path: 'projecttiontable',
+            element: <ProjectionTable />
+        },
     ]);
 }
 

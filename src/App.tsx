@@ -10,8 +10,6 @@ import {
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletDialogProvider } from "@solana/wallet-adapter-material-ui";
-
-import { createTheme, ThemeProvider } from "@mui/material";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import { SlopeWalletAdapter } from "@solana/wallet-adapter-slope";
 import { SolflareWalletAdapter } from "@solana/wallet-adapter-solflare";
@@ -23,11 +21,6 @@ import {
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './Routes';
 
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
 
 
 
@@ -50,7 +43,6 @@ const App = () => {
   );
 
   return (
-    <ThemeProvider theme={theme}>
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletDialogProvider>
@@ -60,7 +52,6 @@ const App = () => {
           </WalletDialogProvider>
         </WalletProvider>
       </ConnectionProvider>
-    </ThemeProvider>
   );
 };
 

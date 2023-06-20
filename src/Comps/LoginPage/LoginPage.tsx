@@ -87,9 +87,9 @@ function LoginPage() {
                 <Box component="div" className='loginback'>
                     <Grid container sx={{ height: "100vh" }} alignItems={"center"} justifyContent="center">
                         <Grid className="glassCard" item xs={10} sm={10} md={10} lg={4} xl={4} sx={{ textAlign: 'center' }}>
-                            <Box sx={{ px: 4, py: 4 }}>
+                            <Box sx={{ px: 4, py: 2 }}>
                                 <Box>
-                                    <img src={logo} style={{width:150 , height:150 , objectFit:'contain' , verticalAlign:'middle'}} alt="gogreen logo" />
+                                    <img src={logo} style={{ width: 300, height: 180, objectFit: 'scale-down', verticalAlign: 'middle' }} alt="gogreen logo" />
                                 </Box>
                                 <form onSubmit={onSubmit} id='form1'>
                                 <Box sx={{ py: 2, color: '#7bc54c' }}>
@@ -108,51 +108,24 @@ function LoginPage() {
                                
                                     <Box sx={{ py: 2 }} >
                                         <TextField
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    color: '#000000',
-                                                    background: '#FFFFFF',
-                                                    borderColor: 'silver',
-                                                },
-                                            }}
                                             fullWidth
                                             label="User Name"
                                             variant="outlined"
                                             autoComplete="off"
-                                            InputLabelProps={{ shrink: true }}
                                         />
-
                                     </Box>
                                     <Box sx={{ py: 2 }}>
                                         <TextField
                                             fullWidth
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    color: '#000000',
-                                                    background: '#FFFFFF',
-                                                    borderColor: 'silver',
-                                                },
-                                            }}
                                             variant="outlined"
                                             autoComplete="off"
-                                            InputLabelProps={{ shrink: true }}
-                                            type={showPassword ? "password" : "text"}
+                                            type={showPassword ? 'password' : 'text'}
                                             label="Password"
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton
-                                                            onClick={() =>
-                                                                setShowPassword(!showPassword)
-                                                            }
-                                                            edge="end"
-                                                            sx={{ color: '#262626' }}
-                                                        >
-                                                            {showPassword ? (
-                                                                <VisibilityOff sx={{color:'#262626'}} />
-                                                            ) : (
-                                                                <Visibility sx={{ color: '#262626' }} />
-                                                            )}
+                                                        <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" sx={{color:'black'}}>
+                                                            {showPassword ? <VisibilityOff sx={{ color: 'black' }} /> : <Visibility sx={{ color: 'black' }} />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 ),
@@ -163,11 +136,11 @@ function LoginPage() {
                                         <Button
                                             type='submit'
                                             form='form1'
-                                            sx={{ p: 2, color: 'white', bgcolor: '#84cb25', ':hover': { bgColor:'#7bc54c'}}}
+                                            sx={{ p: 2, color: 'white', bgcolor: '#7bc54c', ':hover': { bgcolor:'#84cb25'}}}
                                             fullWidth
                                             variant="contained"
                                         >
-                                            Login
+                                        Login
                                         </Button>
                                     </Box>
                                 </form>

@@ -551,6 +551,7 @@ const Home = (props: HomeProps) => {
                             color="textPrimary"
                             style={{
                               fontWeight: "bold",
+                              color: "#FFFFFF"
                             }}
                           >
                             {`${itemsRemaining}`}
@@ -565,7 +566,7 @@ const Home = (props: HomeProps) => {
                           <Typography
                             variant="h6"
                             color="textPrimary"
-                            style={{ fontWeight: "bold" }}
+                              style={{ fontWeight: "bold", color: "#FFFFFF" }}
                           >
                             {isWhitelistUser && discountPrice
                               ? `◎ ${formatNumber.asNumber(discountPrice)}`
@@ -588,7 +589,7 @@ const Home = (props: HomeProps) => {
                                 variant="caption"
                                 align="center"
                                 display="block"
-                                style={{ fontWeight: "bold" }}
+                                  style={{ fontWeight: "bold", color: "#FFFFFF" }}
                               >
                                 TO END OF MINT
                               </Typography>
@@ -617,7 +618,7 @@ const Home = (props: HomeProps) => {
                                     variant="caption"
                                     align="center"
                                     display="block"
-                                    style={{ fontWeight: "bold" }}
+                                      style={{ fontWeight: "bold", color: "#FFFFFF" }}
                                   >
                                     UNTIL PUBLIC MINT
                                   </Typography>

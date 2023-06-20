@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import { Box, Card, Container, Grid } from '@mui/material';
+import { Box, Card, Grid } from '@mui/material';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import LandscapeIcon from '@mui/icons-material/Landscape';
@@ -10,111 +10,109 @@ import Header from '../../Header';
 export default function Profile() {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     return (
-        <div>
+        <>
             <Header isConnectedWallet={isConnectedWallet} />
             <Box className='pageSizeandBack'>
-            <Container>
-                <Box p={3}>
-                    <Grid container spacing={4} rowSpacing={4}>
+                <Box mx={3} mt={2} mb={2}>
+                    <Grid container spacing={4} rowSpacing={4} mb={1}>
                         <Grid item xs={6} sm={6} md={6} lg={6}>
-                            <Box component={Card} p={4} alignItems='center'
-                                display='flex' flexDirection='row'>
+                            <Box component={Card} boxShadow={5} p={4} alignItems='center'
+                                display='flex' flexDirection='row' bgcolor='#FFFFFF'>
                                 <Box>
                                     <img alt='profile' src='https://wallpapers.com/images/featured/s52z1uggme5sj92d.jpg'
                                         style={{ objectFit: 'contain', width: 100, height: 100, borderRadius: 10 }} />
                                 </Box>
                                 <Box px={2}>
                                     <Typography color='#28313c' fontWeight={600} fontSize={17}>VijayaPrasath</Typography>
-                                    <Typography color='#616e80' variant='subtitle1'>Land Owner</Typography>
-                                    <Typography color='#616e80' variant='caption'>Customer Id : #XXXX</Typography>
+                                        <Typography color='#616e80' fontSize={16}>Land Owner</Typography>
+                                        <Typography color='#616e80' variant='subtitle1'>Customer Id : #XXXX</Typography>
                                 </Box>
                             </Box>
 
-                            <Box mt={2} component={Card} p={2} display='flex' justifyContent='space-between' flexDirection='column'>
+                                <Box mt={2} component={Card} boxShadow={5} p={2} bgcolor='#FFFFFF' display='flex' justifyContent='space-between' flexDirection='column'>
                                 <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                                    <Typography fontWeight={600}>Lands Status</Typography>
+                                        <Typography fontWeight={600} color='#28313c' fontSize={17}>Lands Status</Typography>
                                     <Box alignSelf='center'>
                                         <LandscapeIcon sx={{ color: '#616e80' }} fontSize='large' />
                                     </Box>
                                 </Box>
                                 <Box display='flex' flexDirection='row' mt={5} justifyContent='space-around'>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>Active</Typography>
-                                        <Typography color='#84cb25'>1</Typography>                                       
+                                            <Typography color='#3860b5' fontSize={16}>Active</Typography>
+                                            <Typography color='#84cb25' fontSize={16}>1</Typography>                                       
                                     </Box>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>In Review</Typography>
-                                        <Typography color='#84cb25'>1</Typography>                                        
+                                            <Typography color='#3860b5' fontSize={16}>In Review</Typography>
+                                            <Typography color='#84cb25' fontSize={16}>1</Typography>                                        
                                     </Box>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>On Hold</Typography>
-                                        <Typography color='#84cb25'>1</Typography>                                      
+                                            <Typography color='#3860b5' fontSize={16}>On Hold</Typography>
+                                            <Typography color='#84cb25' fontSize={16}>1</Typography>                                      
                                     </Box>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>Sold</Typography>
-                                        <Typography color='#84cb25'>1</Typography>                                     
+                                            <Typography color='#3860b5' fontSize={16}>Sold</Typography>
+                                            <Typography color='#84cb25' fontSize={16}>1</Typography>                                     
                                     </Box>
                                     <Box textAlign='center'>
-                                        <Typography color='#c2312f'>Expired</Typography>
-                                        <Typography color='#c2312f'>1</Typography>                                      
+                                            <Typography color='#c2312f' fontSize={16}>Expired</Typography>
+                                            <Typography color='#c2312f' fontSize={16}>1</Typography>                                      
                                     </Box>
                                 </Box>
                             </Box>
                         </Grid>
 
                         <Grid item xs={6} sm={6} md={6} lg={6}>
-                            <Box component={Card} p={3} display='flex' justifyContent='space-between' flexDirection='column'>
+                                <Box component={Card} boxShadow={5} bgcolor='#FFFFFF' p={3} display='flex' justifyContent='space-between' flexDirection='column'>
                                 <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                                    <Typography fontWeight={600}>Lands</Typography>
+                                        <Typography fontWeight={600} color='#28313c' fontSize={17}>Lands</Typography>
                                     <Box alignSelf='center'>
                                         <FormatListBulletedIcon sx={{ color: '#616e80' }} fontSize='large' />
                                     </Box>
                                 </Box>
-                                <Box display='flex' flexDirection='row' mt={5} justifyContent='space-around'>
+                                <Box display='flex' flexDirection='row' mt={6} justifyContent='space-around'>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>Listed Lands</Typography>
-                                        <Typography color='#84cb25'>4</Typography>
+                                            <Typography color='#3860b5' fontSize={16}>Listed Lands</Typography>
+                                            <Typography color='#84cb25' fontSize={16}>4</Typography>
                                     </Box>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>Add Lands</Typography>
-                                        <Typography color='#84cb25'><PlaylistAddIcon /></Typography>
+                                            <Typography color='#3860b5' fontSize={16}>Add Lands</Typography>
+                                            <Typography color='#84cb25' fontSize={16}><PlaylistAddIcon fontSize='large' sx={{ verticalAlign: "middle" }} /></Typography>
                                     </Box>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>Update Lands</Typography>
-                                        <Typography color='#84cb25'><UpgradeIcon /></Typography>
+                                            <Typography color='#3860b5' fontSize={16}>Update Lands</Typography>
+                                            <Typography color='#84cb25'><UpgradeIcon fontSize='large' sx={{verticalAlign:"middle"}} /></Typography>
                                     </Box>
                                 </Box>
 
                             </Box>
 
-                            <Box mt={2} component={Card} p={2} display='flex' justifyContent='space-between' flexDirection='column'>
+                                <Box mt={2} component={Card} boxShadow={5} bgcolor='#FFFFFF' p={2} display='flex' justifyContent='space-between' flexDirection='column'>
                                 <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                                    <Typography fontWeight={600}>Contact</Typography>
+                                        <Typography fontWeight={600} color='#28313c' fontSize={17}>Contact</Typography>
                                     <Box alignSelf='center'>
                                         <ContactsIcon sx={{ color: '#616e80' }} fontSize='large' />
                                     </Box>
                                 </Box>
                                 <Box display='flex' flexDirection='row' mt={5} justifyContent='space-around'>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>Phone Number</Typography>
-                                        <Typography color='#84cb25'>9887263452</Typography>
+                                            <Typography color='#3860b5' fontSize={16}>Phone Number</Typography>
+                                            <Typography color='#84cb25' fontSize={16}>9887263452</Typography>
                                     </Box>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>Email</Typography>
-                                        <Typography color='#84cb25'>XXXX@gmail.com</Typography>
+                                            <Typography color='#3860b5' fontSize={16}>Email</Typography>
+                                            <Typography color='#84cb25' fontSize={16}>XXXX@gmail.com</Typography>
                                     </Box>
                                     <Box textAlign='center'>
-                                        <Typography color='#3860b5'>Address</Typography>
-                                        <Typography color='#84cb25'>XXXX, XXX , XXX</Typography>
+                                            <Typography color='#3860b5' fontSize={16}>Address</Typography>
+                                            <Typography color='#84cb25' fontSize={16}>XXXX, XXX , XXX</Typography>
                                     </Box>
                                 </Box>
                             </Box>
                         </Grid>
                     </Grid>
                 </Box>
-            </Container>
             </Box>
 
-        </div>
+        </>
     );
 }

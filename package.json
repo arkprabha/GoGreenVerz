@@ -23,6 +23,7 @@
     "@solana/wallet-adapter-solflare": "^0.6.18",
     "@solana/wallet-adapter-sollet": "^0.11.12",
     "@solana/web3.js": "^1.58.0",
+    "axios": "^1.4.0",
     "mime": "^3.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
