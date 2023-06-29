@@ -70,6 +70,7 @@ export default function NewLoginPage() {
                     localStorage.setItem('UserProfileTypeId', String(res.data.data.UserProfileTypeId));
                     localStorage.setItem('UserProfileType', String(res.data.data.UserProfileType));
                     localStorage.setItem('UserToken', String(res.data.data.UserToken));
+                    localStorage.setItem('UserId', String(res.data.data.UserId));
                     navigate('/home');
                 }
             })

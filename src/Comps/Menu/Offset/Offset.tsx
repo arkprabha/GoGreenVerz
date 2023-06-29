@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import './Offset.css';
 import pngwing4 from '../../assets/pngwing-4.png';
 import pngwing2 from '../../assets/pngwing-2.png';
-import Header from '../../Header';
+import Header from '../../../Header';
 
 const Offset : React.FC = () => {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';

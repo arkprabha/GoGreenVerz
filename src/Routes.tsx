@@ -5,28 +5,32 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 
 // PAGE COMPONENTS
-import Contribution from './Comps/Contribution/Contribution';
+import Contribution from './Comps/Menu/Contribution/Contribution';
 import ProjectTracking from './Comps/ProjectTracking/ProjectTracking';
-import Footprint from './Comps/Footprint/Footprint';
-import Offset from './Comps/Offset/Offset';
-import MRV from './Comps/MRV/MRV';
-import ListedLands from './Comps/ListedLands/ListedLands';
-import AddLands from './Comps/AddLands/AddLands';
-import Profile from './Comps/Profile/Profile';
+import Footprint from './Comps/Menu/Footprint/Footprint';
+import Offset from './Comps/Menu/Offset/Offset';
+import MRV from './Comps/Menu/MRV/MRV';
+import ListedLands from './Comps/NineProfilePageComps/LandComponents/ListedLands';
+import AddLands from './Comps/NineProfilePageComps/LandComponents/AddLands';
 import Home from './Comps/Home/Home';
 import Pagenotfound from './Comps/PagenotFound/Pagenotfound';
 import NewLoginPage from './Comps/LoginPage/NewLogin';
 import SignUpForm from './Comps/SignUpAndForgotPass/SignupForm';
 import ForgotPassword from './Comps/SignUpAndForgotPass/ForgotPassword';
-import AdminProfileForm from './Comps/ProfileForms/AdminProfileForm';
-import AfforestationForm from './Comps/ProfileForms/AfforestationForm';
-import BuyersProfileForm from './Comps/ProfileForms/BuyersForm';
-import CRICarbonForm from './Comps/ProfileForms/CRICarbonForm';
-import GoProjectDeveloperForm from './Comps/ProfileForms/GoProjectDeveloperForm';
-import InvesterProfileForm from './Comps/ProfileForms/InvestForm';
-import PlantationForm from './Comps/ProfileForms/PlantationForm';
-import VVBForm from './Comps/ProfileForms/VVBForm';
+import AdminProfileForm from './Comps/NineProfilePageComps/Admin/AdminProfileForm';
+import AfforestationForm from './Comps/NineProfilePageComps/Afforestation/AfforestationForm';
+import BuyersProfileForm from './Comps/NineProfilePageComps/Buyer/BuyersForm';
+import CRICarbonForm from './Comps/NineProfilePageComps/CRI Carbon/CRICarbonForm';
+import GoProjectDeveloperForm from './Comps/NineProfilePageComps/GOGreenProjectDeveloper/GoProjectDeveloperForm';
+import InvesterProfileForm from './Comps/NineProfilePageComps/InvestorComponents/InvestForm';
+import PlantationForm from './Comps/NineProfilePageComps/Planatation/PlantationForm';
+import VVBForm from './Comps/NineProfilePageComps/VVB/VVBForm';
 import ProjectionTable from './Comps/ProjectionTable/ProjectionTable';
+import UserProfile from './Comps/ProfilePageSection/UserProfile';
+import UpdateInvestLands from './Comps/NineProfilePageComps/InvestorComponents/UpdateInvestLands';
+import GovtAgencyForm from './Comps/NineProfilePageComps/GovtAgency/GovtAgencyForm';
+import InvestedLands from './Comps/NineProfilePageComps/InvestorComponents/InvestedLands';
+import UpdateAddedLands from './Comps/NineProfilePageComps/LandComponents/UpdateAddedLands';
 
 
 
@@ -121,10 +125,6 @@ function Routes() {
             element: <AddLands />,
         },
         {
-        path: 'profile',
-        element: <Profile />,
-        },
-        {
             path: 'signup',
             element: <SignUpForm />
         },
@@ -165,9 +165,29 @@ function Routes() {
             element: <VVBForm />
         },
         {
-            path: 'projecttiontable',
+            path: 'projectiontable',
             element: <ProjectionTable />
         },
+        {
+            path: 'updateaddedlands',
+            element: <UpdateAddedLands />,
+        },
+        {
+            path: 'profile',
+            element: <UserProfile />,
+        },
+         {
+            path: 'investedlands',
+            element: <InvestedLands />
+        },
+        {
+            path: 'govtagencyform',
+            element: <GovtAgencyForm />
+        },
+        {
+            path:'updateinvestedlands',
+            element:<UpdateInvestLands />,
+        }
     ]);
 }
 

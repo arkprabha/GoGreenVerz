@@ -3,7 +3,7 @@ import './Contribution.css';
 // import onejk from '../../assets/-1jk.png';
 // import png from '../../assets/twoJk.png';
 // import collection from '../../assets/collection.png';
-import Header from '../../Header';
+import Header from '../../../Header';
 import { useState , useEffect } from "react";
 import { useAnchorWallet} from "@solana/wallet-adapter-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";

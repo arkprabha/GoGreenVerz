@@ -1,10 +1,10 @@
 import { Box, Button, Grid, TextField, Stack , Autocomplete } from "@mui/material";
-import Header from '../../Header';
-import { appendData } from "../../Variables/ProcessVariable";
-import { add_land_owner } from "../../API_Service/API_Service";
+import Header from '../../../Header';
+import { appendData } from "../../../Variables/ProcessVariable";
+import { add_land_owner, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import axios from "axios";
-import { useState } from "react";
-import SnackBar from "../SnackBar/SnackBar";
+import { useEffect, useState } from "react";
+import SnackBar from "../../SnackBar/SnackBar";
 
 interface LandOwnerData {
     UserId: string;
@@ -14,8 +14,8 @@ interface LandOwnerData {
     AlternateMobile: string;
     LandAddress1: string;
     LandAddress2: string;
-    LandCity: string;
-    LandState: string;
+    LandCity: any;
+    LandState: any;
     LandPostalCode: string;
     LandCountry: string;
     LandSize: string;
@@ -30,17 +30,27 @@ interface LandOwnerData {
     Remarks: string;
 }
 
+interface State {
+  StateId: string;
+  StateName: string;
+}
+
+interface District {
+  DistrictId: string;
+  DistrictName: string;
+}
+
 export default function AddLands() {
 
-    const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
+
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [mobileNum, setMobileNum] = useState<string>('');
     const [alternateMobile, setAlternateMobile] = useState<string>('');
     const [landAddress1, setLandAddress1] = useState<string>('');
     const [landAddress2, setLandAddress2] = useState<string>('');
-    const [landCity, setLandCity] = useState<string>('');
-    const [landState, setLandState] = useState<string>('');
+    const [landCity, setLandCity] = useState<District | null>(null);
+    const [landState, setLandState] = useState<State | null>(null);
     const [landPostalCode, setLandPostalCode] = useState<string>('');
     const [landCountry, setLandCountry] = useState<string>('');
     const [landSize, setLandSize] = useState<string>('');
@@ -53,14 +63,81 @@ export default function AddLands() {
     const [landStatus, setLandStatus] = useState<string>('');
     const [VirtualVideo, setVirtualVideo] = useState<File | null>(null);
     const [Remarks, setRemarks] = useState<string>('');
+    const [state, setState] = useState<State[]>([]);
+    const [districtList, setDistrictList] = useState<District[]>([]);
 
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
     const [color, setColor] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
-
+    const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
+
+
+ useEffect(() => {
+            axios({
+                method: methodGet,
+                url: get_state,
+                headers: {
+                'Authorization': `Bearer ${UserToken}`,
+            }
+            }).then(res => {
+                if (res.data.error) {
+                    setMessage(res.data.message)
+                    setOpen(true)
+                    setStatus(false)
+                    setColor(false)
+                } else {
+                    setMessage(res.data.message)
+                    setState(res.data.data)
+                    setOpen(true)
+                    setStatus(true)
+                    setColor(true)
+
+                }
+            }).catch(err => {
+                alert('Oops something went wrong ' + err)
+            });
+    }, [])
+
+ // POST FETCH
+    useEffect(() => {
+        if(landState !== null ){
+            const lData = new FormData()
+            lData.append('StateId', landState.StateId.toString());
+            axios({
+                method: methodPost,
+                url: get_district,
+                data: lData,
+                headers: {
+                'Authorization': `Bearer ${UserToken}`,
+            }
+            }).then(res => {
+                if (res.data.error) {
+                    setMessage(res.data.message)
+                    setOpen(true)
+                    setStatus(false)
+                    setColor(false)
+                    setDistrictList([])
+                } else {
+                    setMessage(res.data.message)
+                    setDistrictList(res.data.data)
+                    setOpen(true)
+                    setStatus(true)
+                    setColor(true)
+
+                }
+            }).catch(err => {
+                alert('Oops something went wrong ' + err)
+            });
+        }
+        else{
+            setMessage('Select a State First');
+        }
+
+    }, [landState])
+
 
     const handleSubmit = () => {
         const obj: LandOwnerData = {
@@ -214,30 +291,40 @@ export default function AddLands() {
                                         />
                                     </Grid>
 
-                                    <Grid item lg={3} sm={4} xl={3} xs={12} md={3} sx={{ py: 1 }}  >
-                                        <TextField
-                                            fullWidth
-                                            id="Address"
-                                            label="City"
-                                            type="text"
-                                            variant="outlined"
-                                            size='small'
-                                            color='secondary'
-                                            onChange={(e) => setLandCity(e.target.value)}
-                                        />
+                               <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Autocomplete
+                                        id="combo-box-demo"
+                                        size="small"
+                                        freeSolo
+                                          onChange={(event, value: string | State | null) => setLandState(prevState => {
+                                                if (typeof value === 'string') {
+                                                return null;
+                                                } else {
+                                                return value ?? prevState;
+                                                }
+                                            })}
+                                        options={state}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        renderInput={(params) => <TextField {...params} label="State" />}
+                                    />
                                     </Grid>
 
-                                    <Grid item lg={3} sm={4} xl={3} xs={12} md={3} sx={{ py: 1 }}  >
-                                        <TextField
-                                            fullWidth
-                                            id="Address"
-                                            label="State"
-                                            type="text"
-                                            variant="outlined"
-                                            size='small'
-                                            color='secondary'
-                                            onChange={(e) => setLandState(e.target.value)}
-                                        />
+                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Autocomplete
+                                        id="combo-box-demo"
+                                        size="small"
+                                        freeSolo
+                                         onChange={(event, value: string | District | null) => setLandCity(prevCity => {
+                                            if (typeof value === 'string') {
+                                            return null;
+                                            } else {
+                                            return value ?? prevCity;
+                                            }
+                                        })}
+                                        options={districtList}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        renderInput={(params) => <TextField {...params} label="City" />}
+                                    />
                                     </Grid>
 
                                     <Grid item lg={3} sm={4} xl={3} xs={12} md={3} sx={{ py: 1 }}  >

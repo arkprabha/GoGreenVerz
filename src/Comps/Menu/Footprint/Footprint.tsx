@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import './Footprint.css';
 import pngengg from '../../assets/pngegg-3-1.png';
 import pngwing1 from '../../assets/pngwing-1.png';
-import Header from '../../Header';
+import Header from '../../../Header';
 
 const Footprint: React.FC = () => {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';

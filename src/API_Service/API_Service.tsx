@@ -1,37 +1,90 @@
-// This is for common path for API
-const baseApiUrl: string = `https://gogreenverz.in/api/`;
+// this is for common path for api
 
-// File Path For LandOwner
-const LandOwnerFiles: string = `https://gogreenverz.in/api/uploading_files/land_owner/`;
+// this is for development server 
+const baseApiurl: string =  `https://gogreenverz.in/api/`;
 
-// File Path For Investor
-const InvestorFiles: string = `https://gogreenverz.in/api/uploading_files/investor/`;
+
+// File Path For User's Profile image:
+const ProfilePic: string =  `https://gogreenverz.in/api/uploading_files/user_image/`
+
+
+// File Path For LandOwner:
+const LandOwnerFiles: string =  `https://gogreenverz.in/api/uploading_files/land_owner/`
+
+
+// File Path For Investor:
+const InvestorFiles: string =  `https://gogreenverz.in/api/uploading_files/investor/`
+
+
+// File Path For Project Developer:
+const ProjectDeveloperFiles: string =`https://gogreenverz.in/api/uploading_files/project_developer/`
+
+
+// File Path For Plantation Partner:
+const PlantationFiles: string = `https://gogreenverz.in/api/uploading_files/plantation_partner/`
+
+
+// File Path For Verification and Validation Body:
+const VVBFiles: string = `https://gogreenverz.in/api/uploading_files/vvb/`
+
+
+// File Path For Carbon Registry of India:
+const CRIFiles: string = `https://gogreenverz.in/api/uploading_files/cri/`
+
+
+// File Path For Government Agencies:
+const GOVTFiles: string = `https://gogreenverz.in/api/uploading_files/government_agency/`
+
+
+// File Path For Admin:
+const AdminFiles: string  = `https://gogreenverz.in/api/uploading_files/admin_profile/`
+
+
+// File Path For Buyer:
+const BuyerFiles: string  =  `https://gogreenverz.in/api/uploading_files/buyer/`
+
 
 // get method
-const methodGet: string = 'GET';
+const methodGet = 'GET';
 
 // post method
-const methodPost: string = 'POST';
+const methodPost = 'POST';
 
-// Add Customer Details and project details
-const get_all_user_profile_type: string = `${baseApiUrl}get_all_user_profile_type`;
+//Add Customer Details and project details
+const get_all_user_profile_type: string  = `${baseApiurl}get_all_user_profile_type`;
 
-const user_sign_up: string = `${baseApiUrl}user_sign_up`;
+const user_sign_up: string  = `${baseApiurl}user_sign_up`;
 
-const user_sign_in: string = `${baseApiUrl}user_sign_in`;
+const user_sign_in: string  = `${baseApiurl}user_sign_in`;
 
-const add_land_owner: string = `${baseApiUrl}add_land_owner`;
+const add_land_owner: string  = `${baseApiurl}add_land_owner`;
 
-const get_all_land_owner: string = `${baseApiUrl}get_all_land_owner`;
+const get_all_land_owner: string  = `${baseApiurl}get_all_land_owner`;
 
-export {
-    get_all_user_profile_type,
-    user_sign_in,
-    user_sign_up,
-    add_land_owner,
-    get_all_land_owner,
-    LandOwnerFiles,
-    InvestorFiles,
-    methodGet,
-    methodPost,
-};
+const add_investor: string  = `${baseApiurl}add_investor`;
+
+const add_project_developer: string  = `${baseApiurl}add_project_developer`;
+
+const add_vvb: string  = `${baseApiurl}add_vvb`;
+
+const add_cri: string  = `${baseApiurl}add_cri`;
+
+const add_plantation_partner: string  = `${baseApiurl}add_plantation_partner`;
+
+const add_admin: string  = `${baseApiurl}add_admin`;
+
+const add_buyer: string  = `${baseApiurl}add_buyer`;
+
+const add_afforestation: string  =  `${baseApiurl}add_afforestation`;
+
+const get_state: string  =  `${baseApiurl}get_state`;
+
+const get_district: string  = `${baseApiurl}get_district`;
+
+const get_user: string  = `${baseApiurl}get_user`;
+
+const get_land_owner: string  = `${baseApiurl}get_land_owner`;
+
+const get_investor: string  = `${baseApiurl}get_investor`;
+
+export { get_all_user_profile_type,add_admin,get_state,get_investor, get_district,get_user,get_land_owner, add_afforestation, add_buyer , add_cri, add_plantation_partner, BuyerFiles, AdminFiles, GOVTFiles, CRIFiles, VVBFiles, PlantationFiles, ProjectDeveloperFiles, ProfilePic, methodGet, add_project_developer, add_vvb, methodPost,  user_sign_in, add_investor, user_sign_up, add_land_owner, get_all_land_owner, LandOwnerFiles, InvestorFiles };
