@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
 import SnackBar from "../../SnackBar/SnackBar";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface GovtFormData {
             UserId: string;
@@ -28,6 +29,7 @@ interface GovtFormData {
             AuditReportFile:File | null;
             ComplianceRecordFile:File | null;
             Remarks: string;
+            LandId:string;
 }
 
 interface State {
@@ -77,6 +79,10 @@ export default function GovtAgencyForm() {
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
 
+        
+    const navigate = useNavigate();
+    const location = useLocation()
+    const { id } = location.state;
 
 
   useEffect(() => {
@@ -148,6 +154,7 @@ export default function GovtAgencyForm() {
         const obj : GovtFormData = {
             UserId: UserId,
             GovAgencyName: name,
+            LandId:id,
             Email: email,
             MobileNum: mobileNum,
             AlternateMobile: alternateMobile,
@@ -189,12 +196,17 @@ export default function GovtAgencyForm() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
+                    navigate('/govtsubmissions');
                 }
             })
             .catch((err) => {
                 alert("Oops something went wrong " + err);
             });
     };
+
+    const Cancel = () => {
+        navigate(-1);
+    }
 
 
     return (
@@ -276,7 +288,7 @@ export default function GovtAgencyForm() {
                                             variant="outlined"
                                             size='small'
                                             color='secondary'
-                                            onChange={(e) => setGovAgencyAddress2(e.target.value)}
+                                            onChange={(e) => setGovAgencyAddress1(e.target.value)}
                                         />
                                     </Grid>
 
@@ -529,7 +541,7 @@ export default function GovtAgencyForm() {
                                 <Grid item lg={3} sm={3} xl={3} xs={3} md={3} sx={{ py: 2 }}>
                                     <Stack spacing={2} direction="row">
 
-                                        <Button fullWidth variant="outlined"
+                                        <Button fullWidth variant="outlined" onClick={Cancel}
                                             sx={{
                                                 color: 'white', backgroundColor: '#c62828', borderColor: '#c62828',
                                                 ':hover': { borderColor: '#c62828', color: '#000000' }

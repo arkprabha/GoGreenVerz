@@ -5,6 +5,7 @@ import { appendData } from "../../../Variables/ProcessVariable";
 import { add_project_developer, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import axios from "axios";
 import SnackBar from "../../SnackBar/SnackBar";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface GoProjectFormData {
             UserId: string;
@@ -27,6 +28,7 @@ interface GoProjectFormData {
             CommunicationHistoryFile:File | null;
             DevelopmentReportFile:File | null;
              Remarks: string;
+             LandId:string;
 }
 
 interface State {
@@ -73,6 +75,9 @@ export default function GoProjectDeveloperForm() {
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {id} = location.state;
 
  useEffect(() => {
             axios({
@@ -142,6 +147,7 @@ export default function GoProjectDeveloperForm() {
         const obj : GoProjectFormData = {
             UserId: UserId,
             DeveloperName:name,
+            LandId:id,
             Email:email,
             MobileNum:mobileNum,
             AlternateMobile:alternateMobile,
@@ -182,12 +188,18 @@ export default function GoProjectDeveloperForm() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
+                    navigate('/devsubmittedlands');
                 }
             })
             .catch((err) => {
                 alert("Oops something went wrong " + err);
             });
     };
+
+
+            const Cancel = () =>{
+        navigate(-1);
+    }
 
 
     return (
@@ -503,7 +515,7 @@ export default function GoProjectDeveloperForm() {
                                 <Grid item lg={3} sm={3} xl={3} xs={3} md={3} sx={{ py: 2 }}>
                                     <Stack spacing={2} direction="row">
 
-                                        <Button fullWidth variant="outlined"
+                                        <Button fullWidth variant="outlined" onClick={Cancel}
                                             sx={{
                                                 color: 'white', backgroundColor: '#c62828', borderColor: '#c62828',
                                                 ':hover': { borderColor: '#c62828', color: '#000000' }

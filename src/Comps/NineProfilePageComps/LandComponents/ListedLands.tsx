@@ -1,220 +1,84 @@
-import React, { useEffect, useState } from 'react';
-import Tabs, { tabsClasses } from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import React, {ChangeEvent, useEffect} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import { Box , Stack} from '@mui/material';
-import Header from '../../../Header';
+import { Button, CardActionArea, CardActions, Grid, Stack, TextField,
+TablePagination, Autocomplete } from '@mui/material';
+import { useState } from 'react';
+import { Box} from '@mui/material';
 import axios from 'axios';
-import { LandOwnerFiles, get_all_land_owner } from '../../../API_Service/API_Service';
-import SnackBar from "../../SnackBar/SnackBar";
+import { LandOwnerFiles, get_all_land_owner, get_state, methodGet } from '../../../API_Service/API_Service';
+import Header from '../../../Header';
+import { useNavigate } from 'react-router-dom';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
+import Skeleton from '@mui/material/Skeleton';
+import CloseIcon from '@mui/icons-material/Close';
+import LandDataDialog from './LandDataDialog';
+import SnackBar from '../../SnackBar/SnackBar';
+
+
+interface LandItem {
+  LandOwnerId: string;
+  VirtualVideo: string;
+  Longitude: string;
+  Latitude: string;
+  LandSize: string;
+  LandOwnerName: string;
+  LandAddress1: string;
+  LandAddress2: string;
+  LandCity: string;
+  LandState: string;
+  LandCountry: string;
+  MobileNum: string;
+  CreationDate: string;
+  ProjectCommenceDate: string;
+  LandStatus: string;
+  Remarks: string;
+}
+
+
+interface State {
+  StateId: string;
+  StateName: string;
+}
 
 const ListedLands: React.FC = () => {
-  const [value, setValue] = useState<number>(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
-  const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
+  const [state, setState] = useState<any[]>([]);
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const [data, setData] = useState<any[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [status, setStatus] = useState<boolean>(false);
   const [color, setColor] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const [data, setData] = useState<any[]>([]);
+  const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
   const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
+  // const UserId: string | null = localStorage.getItem('UserId') ?? '';
   const UserType: string | null = localStorage.getItem('UserProfileType') ?? '';
-
-  useEffect(() => {
-    axios({
-      method: 'GET',
-      url: get_all_land_owner,
-      headers: {
-        'Authorization': `Bearer ${UserToken}`,
-      }
-    })
-      .then((res) => {
-        if (res.data.error) {
-          setMessage(res.data.message);
-          setOpen(true);
-          setStatus(false);
-          setColor(false);
-        } else {
-          setMessage(res.data.message);
-          setOpen(true);
-          setStatus(true);
-          setColor(true);
-          setData(res.data.data);
-        }
-      })
-      .catch((err) => {
-        alert("Oops something went wrong " + err);
-      });
-  }, [])
-
-
-
-  return (
-    <Box className='pageSizeandBack'>
-      <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
-      <Header isConnectedWallet={isConnectedWallet} />
-      <Box sx={{ width: 540 }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          scrollButtons
-          aria-label="visible arrows tabs example"
-          sx={{
-            [`& .${tabsClasses.scrollButtons}`]: {
-              '&.Mui-disabled': { opacity: 0.3 },
-            },
-          }}
-        >
-          {data.map((tab, index) => (
-            <Tab key={index} label={tab.LandState} />
-          ))}
-        </Tabs>
-        <Box my={2} mx={5}>
-          {data.length > 0 && value < data.length && (
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="video"
-                  height="200"
-                  width='100%'
-                  src={`${LandOwnerFiles}${data[value].VirtualVideo}`}
-                  controls
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div" textAlign='left'>
-                    {data[value].LandOwnerId}
-                  </Typography>
-                  <Stack spacing={1}>
-                    <Box display='flex' gap={1} flexDirection='row'>
-                      <Typography variant="body2" color="text.secondary" fontWeight={600}>Land ID:</Typography>
-                      <Typography variant="body2">{data[value].LandOwnerId}</Typography>
-                    </Box>
-                    <Box display='flex' gap={1} flexDirection='row'>
-                      <Typography variant="body2" color="text.secondary" fontWeight={600}>Longitude:</Typography>
-                      <Typography variant="body2"> {data[value].Longitude}</Typography>
-                    </Box>
-                    <Box display='flex' gap={1} flexDirection='row'>
-                      <Typography variant="body2" color="text.secondary" fontWeight={600}>Latitude:</Typography>
-                      <Typography variant="body2"> {data[value].Latitude}</Typography>
-                    </Box>
-                    <Box display='flex' gap={1} flexDirection='row'>
-                      <Typography variant="body2" color="text.secondary" fontWeight={600}>Land Size:</Typography>
-                      <Typography variant="body2"> {data[value].LandSize}</Typography>
-                    </Box>
-                    <Box display='flex' gap={1} flexDirection='row'>
-                      <Typography variant="body2" color="text.secondary" fontWeight={600}>Creation Date:</Typography>
-                      <Typography variant="body2"> {data[value].CreationDate}</Typography>
-                    </Box>
-                    <Box display='flex' gap={1} flexDirection='row'>
-                      <Typography variant="body2" color="text.secondary" fontWeight={600}>Project Commence Date:</Typography>
-                      <Typography variant="body2"> {data[value].ProjectCommenceDate}</Typography>
-                    </Box>
-                    <Box display='flex' gap={1} flexDirection='row'>
-                      <Typography variant="body2" color="text.secondary" fontWeight={600}>Status:</Typography>
-                      <Typography variant="body2"> {data[value].LandStatus}</Typography>
-                    </Box>
-                  </Stack>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>import React, {useEffect} from 'react';
-import Tabs, { tabsClasses } from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, Checkbox, FormControlLabel, Grid, Stack,  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead, TextField,
-  TableRow,  TablePagination, Table, Dialog, DialogTitle, DialogContent, Autocomplete } from '@mui/material';
-import { useState } from 'react';
-import { Box} from '@mui/material';
-import axios from 'axios';
-import { LandOwnerFiles, get_all_land_owner, get_state, methodGet } from '../API_Service/API_Service';
-import Header from './Header';
-import { useNavigate } from 'react-router-dom';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import styled from '@emotion/styled';
-import Skeleton from '@mui/material/Skeleton';
-import CloseIcon from '@mui/icons-material/Close';
-import LandDataDialog from './LandDataDialog';
-
-export default function ListedLands() {
-    const [value, setValue] = useState(0);
-    const [state, setState] = useState([]);
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [data , setData] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [status, setStatus] = useState(false);
-    const [color, setColor] = useState(false);
-    const [message, setMessage] = useState("");
-    const UserToken = localStorage.getItem('UserToken');
-    const UserType = localStorage.getItem('UserProfileType');
-    const [selectedStates, setSelectedStates] = useState([]);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [selectedItem, setSelectedItem] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    const [ShowFilterList, setShowFilterList] = useState(false);
-    const [Loading , setLoading] = useState(true);
-    const[recentSearch , setRecentSearch] = useState([]);
-    const [input , setInput] = useState(false);
-     
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<LandItem | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [ShowFilterList, setShowFilterList] = useState<boolean>(false);
+  const [Loading, setLoading] = useState<boolean>(true);
+  const [recentSearch, setRecentSearch] = useState<any[]>([]);
+  const [inputKey, setInputKey] = useState<number>(0);
+  const navigate = useNavigate();
     
-    useEffect(() => {
-      const storedRecentSearch = JSON.parse(localStorage.getItem('RecentSearch'));
-      if (storedRecentSearch) {
-      setRecentSearch(storedRecentSearch);
-      }
+      useEffect(() => {
+        const storedRecentSearch = localStorage.getItem('RecentSearch');
+        if (storedRecentSearch !== null) {
+          const parsedRecentSearch = JSON.parse(storedRecentSearch);
+          setRecentSearch(parsedRecentSearch);
+        }
       }, []);
 
-  const handleOpenDialog = (item) => {
-    setSelectedItem(item);
-    setOpenDialog(true);
-  };
 
-
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-      const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleStateChange = (event) => {
-    const stateName = event.target.name;
-    setSelectedStates((prevSelectedStates) => {
-      if (prevSelectedStates.includes(stateName)) {
-        return prevSelectedStates.filter((state) => state !== stateName);
-      } else {
-        return [...prevSelectedStates, stateName];
-      }
-    });
-  };
-
-    const navigate = useNavigate();
-
-            useEffect(() => {
+           useEffect(() => {
             axios({
                 method: methodGet,
                 url: get_state,
@@ -264,12 +128,31 @@ export default function ListedLands() {
    }, [UserToken])
 
 
+  const handleOpenDialog = (item : LandItem) => {
+    setSelectedItem(item);
+    setOpenDialog(true);
+  };
 
- const movedtoEditPage  = (id) =>{
+
+
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number,) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+       
+
+
+
+ const movedtoEditPage  = (id : string) =>{
     navigate('/updateaddedlands', {state:{id:id}})
  }
 
-const handleSearchChange = (event, newValue) => {
+const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null) => {
   const selectedValue = newValue ? newValue.StateName : event.target.value;
   setSearchQuery(selectedValue);
 };
@@ -316,7 +199,7 @@ const handleSearchChange = (event, newValue) => {
      const LandList = searchResults && searchResults.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
 
-    const removeSearchText = (index) => {
+    const removeSearchText = (index : number) => {
       if (index >= 0 && index < recentSearch.length) {
         const updatedRecentSearch = [...recentSearch];
         updatedRecentSearch.splice(index, 1);
@@ -327,12 +210,13 @@ const handleSearchChange = (event, newValue) => {
 
   const resetFilter = () =>{
     setShowFilterList(false);
-    setInput(true);
+     setInputKey((prevKey) => prevKey + 1);
   }
 
     return (
         <Box>
-            <Header />
+           <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
+             <Header isConnectedWallet={isConnectedWallet} />
             <Box p={1}>
             <LandDataDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
            <Grid container spacing={2}  display='flex' justifyContent='space-between'>
@@ -345,7 +229,7 @@ const handleSearchChange = (event, newValue) => {
           id="combo-box-demo"
           size="small"
           freeSolo
-          key={input}
+          key={inputKey}
           onChange={handleSearchChange}
           options={state}
           getOptionLabel={(option) => (option ? option.StateName : '')}
@@ -355,8 +239,7 @@ const handleSearchChange = (event, newValue) => {
           placeholder="Search Lands By Address, ID, Lat"
           variant="standard"
           sx={{ width: '25ch' }}
-          value={searchQuery}
-          onChange={handleSearchChange}
+           onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
           />
           )}
           />
@@ -367,10 +250,10 @@ const handleSearchChange = (event, newValue) => {
             </Box>
             <Box py={3}>
             <Stack spacing={2}>
-            <Typography variant='Subtitle1' color='primary' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
+            <Typography color='primary' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
            {
             recentSearch && recentSearch.map((i , index)=>
-            <Typography sx={{marginBottom:1}}>{i}<CloseIcon sx={{verticalAlign:'middle'}} fontSize='small'  onClick={()=>removeSearchText(index)}/> </Typography>
+            <Typography sx={{marginBottom:1}} key={index}>{i}<CloseIcon sx={{verticalAlign:'middle'}} fontSize='small'  onClick={()=>removeSearchText(index)}/> </Typography>
            )}
            </Stack>
             </Box>
@@ -443,11 +326,40 @@ const handleSearchChange = (event, newValue) => {
         ) : (
           <>
             {
-            UserType === 'Investor' ?
+            UserType !== 'Land owner' ?
            <Box display='flex' justifyContent='space-between' flexDirection='row'>
-            <Button size="small" color="primary" onClick={()=>navigate('/investorprofileform')}>
-            Invest
-            </Button>
+            {
+            UserType === 'Investor' &&  
+            <Button size="small" color="primary" onClick={()=>navigate('/investorprofileform', {state:{id:i.LandOwnerId}})}>Invest</Button>
+            }
+            {
+            UserType === 'GoGreenverz or Project Developer' &&
+            <Button size="small" color="primary" onClick={()=>navigate('/goprojectdeveloperform', {state:{id:i.LandOwnerId}})}> GoProject Dev Form</Button>
+            }
+            {
+            UserType === 'Plantation Partner' && 
+            <Button size="small" color="primary" onClick={()=>navigate('/planationform', {state:{id:i.LandOwnerId}})}>Add Plantation</Button>
+            }
+            {
+            UserType === 'Verification and Validation Body' && 
+            <Button size="small" color="primary" onClick={()=>navigate('/vvbform', {state:{id:i.LandOwnerId}})}>VVB Form</Button>
+            }
+            {
+            UserType === 'Carbon Registry of India' && 
+            <Button size="small" color="primary" onClick={()=>navigate('/cricarbonform', {state:{id:i.LandOwnerId}})}>CRI Form</Button>
+            }
+            {
+            UserType === 'Government Agencies' && 
+            <Button size="small" color="primary" onClick={()=>navigate('/govtagencyform', {state:{id:i.LandOwnerId}})}>Govt Agency Form</Button>
+            }
+            {
+            UserType === 'Admin' &&
+            <Button size="small" color="primary" onClick={()=>navigate('/adminprofileform', {state:{id:i.LandOwnerId}})}>Admin Form</Button>
+            }
+            {
+            UserType === 'Buyers' &&
+            <Button size="small" color="primary" onClick={()=>navigate('/buyersform', {state:{id:i.LandOwnerId}})}>Buy Land</Button>
+            }
               
             <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
              View
@@ -534,11 +446,40 @@ const handleSearchChange = (event, newValue) => {
         ) : (
           <>
             {
-            UserType === 'Investor' ?
+            UserType !== 'Land owner' ?
            <Box display='flex' justifyContent='space-between' flexDirection='row'>
-            <Button size="small" color="primary" onClick={()=>navigate('/investorprofileform')}>
-            Invest
-            </Button>
+            {
+            UserType === 'Investor' &&  
+            <Button size="small" color="primary" onClick={()=>navigate('/investorprofileform')}>Invest</Button>
+            }
+            {
+            UserType === 'GoGreenverz or Project Developer' &&
+            <Button size="small" color="primary" onClick={()=>navigate('/goprojectdeveloperform')}> GoProject Dev Form</Button>
+            }
+            {
+            UserType === 'Plantation Partner' && 
+            <Button size="small" color="primary" onClick={()=>navigate('/planationform')}>Add Plantation</Button>
+            }
+            {
+            UserType === 'Verification and Validation Body' && 
+            <Button size="small" color="primary" onClick={()=>navigate('/vvbform')}>VVB Form</Button>
+            }
+            {
+            UserType === 'Carbon Registry of India' && 
+            <Button size="small" color="primary" onClick={()=>navigate('/cricarbonform')}>CRI Form</Button>
+            }
+            {
+            UserType === 'Government Agencies' && 
+            <Button size="small" color="primary" onClick={()=>navigate('/govtagencyform')}>Govt Agency Form</Button>
+            }
+            {
+            UserType === 'Admin' &&
+            <Button size="small" color="primary" onClick={()=>navigate('/adminprofileform')}>Admin Form</Button>
+            }
+            {
+            UserType === 'Buyers' &&
+            <Button size="small" color="primary" onClick={()=>navigate('/buyersform')}>Buy Land</Button>
+            }
               
             <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
              View
@@ -581,30 +522,6 @@ const handleSearchChange = (event, newValue) => {
         </Box>
         </Box>
     );
+
 };
-                {
-                  UserType === 'Investor' ?
-                    <Button size="small" color="primary">
-                      Invest on this Land
-                    </Button>
-                    :
-                    <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                      <Button size="small" color="primary">
-                        View
-                      </Button>
-                      <Button size="small" color="primary">
-                        Update
-                      </Button>
-                    </Box>
-
-                }
-              </CardActions>
-            </Card>
-          )}
-        </Box>
-      </Box>
-    </Box>
-  );
-}
-
 export default ListedLands;

@@ -1,49 +1,226 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
-import Header from "./Header";
-import { useState } from "react";
-import { appendData } from "../Variables/ProcessVariable";
-import {add_investor } from "../API_Service/API_Service";
+import Header from "../../../Header";
+import { useEffect, useState } from "react";
+import { appendData } from "../../../Variables/ProcessVariable";
+import {add_investor, get_investor } from "../../../API_Service/API_Service";
 import axios from "axios";
+import { get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
+import { useLocation, useNavigate } from "react-router-dom";
+import SnackBar from "../../SnackBar/SnackBar";
+
+
+interface InvestorData {
+            UserId: string;
+            InvestorName: string;
+            Email: string;
+            MobileNum: string;
+            AlternateMobile:string;
+            InvestorAddress1: string;
+            InvestorAddress2:string;
+            InvestorCity: any;
+            InvestorState:any;
+            InvestorPostalCode: string;
+            InvestorCountry: string;
+            Latitude: string;
+            Longitude: string;
+            CreationDate: string;
+            ProjectCommenceDate: string;
+            InvestorStatus: string;
+            InvestmentPortfolio:string;
+            ProgressTracking:string;
+            ProgressTrackingFile: File | null;
+            InvestmentPortfolioFile:  File | null;
+            VirtualVideo:  File | null;
+            TermsAndConditionsFile:  File | null;
+            Remarks: string;
+            TermsAndConditions:string;
+            LandSize:string;
+            LandId:string;
+            InvestorId:string;
+}
+
+interface State {
+  StateId: string;
+  StateName: string;
+}
+
+interface District {
+  DistrictId: string;
+  DistrictName: string;
+}
 
 
 export default function UpdateInvestLands() {
 
+   const [name, setName] =  useState<string>('');
+    const [email, setEmail] =  useState<string>('');
+    const [mobileNum, setMobileNum] =  useState<string>('');
+    const [alternateMobile, setAlternateMobile] =  useState<string>('');
+    const [InvestorAddress1, setInvestorAddress1] =  useState<string>('');
+    const [InvestorAddress2, setInvestorAddress2] =  useState<string>('');
+    const [InvestorCity, setInvestorCity] = useState<District | null>(null);
+    const [InvestorState, setInvestorState] =  useState<State | null>(null);
+    const [InvestorPostalCode, setInvestorPostalCode] =  useState<string>('');
+    const [InvestorCountry, setInvestorCountry] =  useState<string>('');
+    const [latitude, setLatitude] =  useState<string>('');
+    const [longitude, setLongitude] =  useState<string>('');
+    const [creationDate, setCreationDate] =  useState<string>('');
+    const [projectCommenceDate, setProjectCommenceDate] =  useState<string>('');
+    const [InvestorStatus, setInvestorStatus] =  useState<string>('');
+    const [InvestmentPortfolio, setInvestmentPortfolio] =  useState<string>('');
+    const [ProgressTracking, setProgressTracking] =  useState<string>('');
+    const [ProgressTrackingFile, setProgressTrackingFile] = useState<File | null>(null);
+    const [InvestmentPortfolioFile, setInvestmentPortfolioFile] =  useState<File | null>(null);
+    const [VirtualVideo, setVirtualVideo] = useState<File | null>(null);
+    const [termsAndConditions, setTermsAndConditions] =  useState<string>('');
+    const [termsAndConditionsFile, setTermsAndConditionsFile] = useState<File | null>(null);
+    const [landSize, setLandSize] =  useState<string>('');
+    const [LandId, setLandId] =  useState<string>('');
+    const [Remarks, setRemarks] =  useState<string>('');
+    const [state, setState] = useState<State[]>([]);
+    const [districtList, setDistrictList] = useState<District[]>([]);
+    const navigate = useNavigate();
+    const [open, setOpen] = useState<boolean>(false);
+    const [status, setStatus] = useState<boolean>(false);
+    const [color, setColor] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>('');
+    const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
+    const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [mobileNum, setMobileNum] = useState('');
-    const [alternateMobile, setAlternateMobile] = useState('');
-    const [InvestorAddress1, setInvestorAddress1] = useState('');
-    const [InvestorAddress2, setInvestorAddress2] = useState('');
-    const [InvestorCity, setInvestorCity] = useState('');
-    const [InvestorState, setInvestorState] = useState('');
-    const [InvestorPostalCode, setInvestorPostalCode] = useState('');
-    const [InvestorCountry, setInvestorCountry] = useState('');
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
-    const [creationDate, setCreationDate] = useState('');
-    const [projectCommenceDate, setProjectCommenceDate] = useState('');
-    const [InvestorStatus, setInvestorStatus] = useState('');
-    const [InvestmentPortfolio, setInvestmentPortfolio] = useState('');
-    const [ProgressTracking, setProgressTracking] = useState('');
-    const [ProgressTrackingFile, setProgressTrackingFile] = useState('');
-    const [InvestmentPortfolioFile, setInvestmentPortfolioFile] = useState('');
-    const [VirtualVideo, setVirtualVideo] = useState('');
-    const [termsAndConditions, setTermsAndConditions] = useState('');
-    const [termsAndConditionsFile, setTermsAndConditionsFile] = useState('');
-    const [landSize, setLandSize] = useState('');
-    const [Remarks, setRemarks] = useState('');
-    const [open, setOpen] = useState(false);
-    const [status, setStatus] = useState(false);
-    const [color, setColor] = useState(false);
-    const [message, setMessage] = useState("");
+    const location = useLocation();
+    const {id} = location.state;
 
-    const UserToken = localStorage.getItem('UserToken');
-    const UserId = localStorage.getItem('UserProfileTypeId');
+
+
+ useEffect(() => {
+            axios({
+                method: methodGet,
+                url: get_state,
+                headers: {
+                'Authorization': `Bearer ${UserToken}`,
+            }
+            }).then(res => {
+                if (res.data.error) {
+                    setMessage(res.data.message)
+                    setOpen(true)
+                    setStatus(false)
+                    setColor(false)
+                } else {
+                    setMessage(res.data.message)
+                    setState(res.data.data)
+                    setOpen(true)
+                    setStatus(true)
+                    setColor(true)
+
+                }
+            }).catch(err => {
+                alert('Oops something went wrong ' + err)
+            });
+    }, [])
+
+ // POST FETCH
+    useEffect(() => {
+        if(InvestorState !== null ){
+            const lData = new FormData()
+            lData.append('StateId', InvestorState.StateId.toString());
+            axios({
+                method: methodPost,
+                url: get_district,
+                data: lData,
+                headers: {
+                'Authorization': `Bearer ${UserToken}`,
+            }
+            }).then(res => {
+                if (res.data.error) {
+                    setMessage(res.data.message)
+                    setOpen(true)
+                    setStatus(false)
+                    setColor(false)
+                    setDistrictList([])
+                } else {
+                    setMessage(res.data.message)
+                    setDistrictList(res.data.data)
+                    setOpen(true)
+                    setStatus(true)
+                    setColor(true)
+
+                }
+            }).catch(err => {
+                alert('Oops something went wrong ' + err)
+            });
+        }
+        else{
+            setMessage('Select a State First');
+        }
+
+    }, [InvestorState])
+
+
+  useEffect(() => {
+        if(id !== ''){
+            const lData = new FormData()
+            lData.append('InvestorId', id);
+            axios({
+                method: methodPost,
+                url: get_investor,
+                data: lData,
+                headers: {
+                'Authorization': `Bearer ${UserToken}`,
+            }
+            }).then(res => {
+                if (res.data.error) {
+                    setMessage(res.data.message)
+                    setOpen(true)
+                    setStatus(false)
+                    setColor(false)
+                } else {
+                    setMessage(res.data.message)
+                    setName(res.data.data[0].LandOwnerName);
+                    setEmail(res.data.data[0].Email);
+                    setMobileNum(res.data.data[0].MobileNum);
+                    setAlternateMobile(res.data.data[0].AlternateMobile);
+                    setCreationDate(res.data.data[0].CreationDate);
+                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
+                    setInvestorAddress1(res.data.data[0].InvestorAddress1);
+                    setInvestorAddress2(res.data.data[0].InvestorAddress2);
+                    setInvestorCity(res.data.data[0].InvestorCity);
+                    setInvestorState(res.data.data[0].InvestorState);
+                    setInvestorPostalCode(res.data.data[0].InvestorPostalCode);
+                    setInvestorCountry(res.data.data[0].InvestorCountry);
+                    setLatitude(res.data.data[0].Latitude);
+                    setLongitude(res.data.data[0].Longitude);
+                    setInvestorStatus(res.data.data[0].InvestorStatus);
+                    setInvestmentPortfolio(res.data.data[0].InvestmentPortfolio);
+                    setProgressTracking(res.data.data[0].ProgressTracking);
+                    setRemarks(res.data.data[0].Remarks);
+                    setTermsAndConditions(res.data.data[0].TermsAndConditions);
+                    setLandSize(res.data.data[0].LandSize);
+                    setLandId(res.data.data[0].LandSize);
+                    setOpen(true)
+                    setStatus(true)
+                    setColor(true)
+                
+                }
+            }).catch(err => {
+                alert('Oops something went wrong ' + err)
+            });
+        }
+        else{
+            setMessage('Select a State First');
+        }
+
+    }, [id])
+
+
+
+
+// SUBMIT FORM DATA
 
     const handleSubmit = () => {
-        const obj = {
-            UserId: 2,
+        const obj : InvestorData =  {
+            UserId: UserId,
+            InvestorId:id,
             InvestorName: name,
             Email: email,
             MobileNum: mobileNum,
@@ -68,6 +245,7 @@ export default function UpdateInvestLands() {
             Remarks: Remarks,
             TermsAndConditions: termsAndConditions,
             LandSize: landSize,
+            LandId:LandId,
         }
 
         const sendData = appendData(obj);
@@ -90,6 +268,7 @@ export default function UpdateInvestLands() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
+                    navigate('/investedlands');
                 }
             })
             .catch((err) => {
@@ -97,10 +276,14 @@ export default function UpdateInvestLands() {
             });
     };
 
+       const Cancel = () =>{
+        navigate(-1);
+    }
 
     return (
         <Box>
-        <Header />
+        <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
+            <Header isConnectedWallet={isConnectedWallet} />
         
             <Box sx={{ height: '90%' }} display="flex" alignItems="center">
 
@@ -123,6 +306,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={name}
                                                 onChange={(e) => setName(e.target.value)}
                                             />
                                         </Grid>
@@ -136,6 +320,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={mobileNum}
                                                 onChange={(e) => setMobileNum(e.target.value)}
                                             />
                                         </Grid>
@@ -149,6 +334,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={alternateMobile}
                                                 onChange={(e) => setAlternateMobile(e.target.value)}
                                             />
                                         </Grid>
@@ -162,6 +348,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
                                             />
                                         </Grid>
@@ -176,6 +363,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={InvestorAddress1}
                                                 onChange={(e) => setInvestorAddress1(e.target.value)}
                                             />
                                         </Grid>
@@ -190,35 +378,46 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={InvestorAddress2}
                                             onChange={(e) => setInvestorAddress2(e.target.value)}
                                             />
                                         </Grid>
 
-                                        <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
-                                            <TextField
-                                                fullWidth
-                                                id="Address"
-                                                label="City"
-                                                type="text"
-                                                variant="outlined"
-                                                size='small'
-                                                color='secondary'
-                                                onChange={(e) => setInvestorCity(e.target.value)}
-                                            />
-                                        </Grid>
+                                             <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Autocomplete
+                                        id="combo-box-demo"
+                                        size="small"
+                                        freeSolo
+                                          onChange={(event, value: string | State | null) => setInvestorState(prevState => {
+                                                if (typeof value === 'string') {
+                                                return null;
+                                                } else {
+                                                return value ?? prevState;
+                                                }
+                                            })}
+                                        options={state}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        renderInput={(params) => <TextField {...params} label="State" />}
+                                    />
+                                    </Grid>
 
-                                       <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }} >
-                                            <TextField
-                                                fullWidth
-                                                id="Address"
-                                                label="State"
-                                                type="text"
-                                                variant="outlined"
-                                                size='small'
-                                                color='secondary'
-                                                onChange={(e) => setInvestorState(e.target.value)}
-                                            />
-                                        </Grid>
+                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Autocomplete
+                                        id="combo-box-demo"
+                                        size="small"
+                                        freeSolo
+                                         onChange={(event, value: string | District | null) => setInvestorCity(prevCity => {
+                                            if (typeof value === 'string') {
+                                            return null;
+                                            } else {
+                                            return value ?? prevCity;
+                                            }
+                                        })}
+                                        options={districtList}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        renderInput={(params) => <TextField {...params} label="City" />}
+                                    />
+                                    </Grid>
 
                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                             <TextField
@@ -229,6 +428,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={InvestorCountry}
                                                 onChange={(e) => setInvestorCountry(e.target.value)}
                                             />
                                         </Grid>
@@ -242,6 +442,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={InvestorPostalCode}
                                                 onChange={(e) => setInvestorPostalCode(e.target.value)}
                                             />
                                         </Grid>
@@ -256,6 +457,7 @@ export default function UpdateInvestLands() {
                                             variant="outlined"
                                             size='small'
                                             color='secondary'
+                                            value={InvestmentPortfolio}
                                             onChange={(e) => setInvestmentPortfolio(e.target.value)}
                                         />
                                     </Grid>
@@ -269,7 +471,10 @@ export default function UpdateInvestLands() {
                                             size="small"
                                             color="secondary"
                                             type="file"
-                                            onChange={(e) => setInvestmentPortfolioFile(e.target.files[0])}
+                                            onChange={(e) => {
+                                                const file = (e.target as HTMLInputElement).files?.[0];
+                                               setInvestmentPortfolioFile(file || null);
+                                            }}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
@@ -285,6 +490,7 @@ export default function UpdateInvestLands() {
                                             variant="outlined"
                                             size='small'
                                             color='secondary'
+                                            value={ProgressTracking}
                                             onChange={(e) => setProgressTracking(e.target.value)}
                                         />
                                     </Grid>
@@ -298,7 +504,10 @@ export default function UpdateInvestLands() {
                                             size="small"
                                             color="secondary"
                                             type="file"
-                                            onChange={(e) => setProgressTrackingFile(e.target.files[0])}
+                                            onChange={(e) => {
+                                                const file = (e.target as HTMLInputElement).files?.[0];
+                                                setProgressTrackingFile(file || null);
+                                            }}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
@@ -320,7 +529,7 @@ export default function UpdateInvestLands() {
                                             variant="outlined"
                                             size='small'
                                             color='secondary'
-                                            value='L1D2'
+                                            value={LandId}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
@@ -337,6 +546,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={landSize}
                                                 onChange={(e) => setLandSize(e.target.value)}
                                             />
                                         </Grid>
@@ -349,6 +559,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={longitude}
                                                 onChange={(e) => setLongitude(e.target.value)}
                                             />
                                         </Grid>
@@ -361,6 +572,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={latitude}
                                                 onChange={(e) => setLatitude(e.target.value)}
                                             />
                                         </Grid>
@@ -373,6 +585,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={termsAndConditions}
                                                 onChange={(e) => setTermsAndConditions(e.target.value)}
                                             />
                                         </Grid>
@@ -386,7 +599,10 @@ export default function UpdateInvestLands() {
                                                 size="small"
                                                 color="secondary"
                                                 type="file"
-                                                onChange={(e) => setTermsAndConditionsFile(e.target.files[0])}
+                                                onChange={(e) => {
+                                                const file = (e.target as HTMLInputElement).files?.[0];
+                                                setTermsAndConditionsFile(file || null);
+                                            }}
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
@@ -402,7 +618,10 @@ export default function UpdateInvestLands() {
                                                 size="small"
                                                 color="secondary"
                                                 type="file"
-                                                onChange={(e) => setVirtualVideo(e.target.files[0])}
+                                                onChange={(e) => {
+                                                const file = (e.target as HTMLInputElement).files?.[0];
+                                                setVirtualVideo(file || null);
+                                            }}
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
@@ -417,6 +636,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 type='date'
                                                 size='small'
+                                                value={creationDate}
                                                 onChange={(e) => setCreationDate(e.target.value)}
                                                 color='secondary'
                                                 InputLabelProps={{
@@ -434,6 +654,7 @@ export default function UpdateInvestLands() {
                                                 type='date'
                                                 size='small'
                                                 color='secondary'
+                                                value={projectCommenceDate}
                                                 onChange={(e) => setProjectCommenceDate(e.target.value)}
                                                 InputLabelProps={{
                                                     shrink: true,
@@ -449,6 +670,7 @@ export default function UpdateInvestLands() {
                                                 variant="outlined"
                                                 size='small'
                                                 color='secondary'
+                                                value={Remarks}
                                                 onChange={(e) => setRemarks(e.target.value)}
                                             />
                                         </Grid>
@@ -457,7 +679,8 @@ export default function UpdateInvestLands() {
                                             <Autocomplete
                                                 id="combo-box-demo"
                                                 size="small"
-                                                onChange={(event, value) => setInvestorStatus(value)}
+                                                value={InvestorStatus}
+                                                onChange={(event, value) => setInvestorStatus(value || '')}
                                                 options={['Active', 'In Review', 'Expired', 'On Hold', 'Sold']}
                                                 renderInput={(params) => <TextField {...params} label="Status" />}
                                             />
@@ -487,8 +710,8 @@ export default function UpdateInvestLands() {
                                 <Grid item lg={3} sm={3} xl={3} xs={3} md={3} sx={{ py: 2 }}>
                                     <Stack spacing={2} direction="row">
 
-                                        <Button fullWidth variant="outlined"
-                                            type='cancel' sx={{ color: 'white', backgroundColor: '#c62828', borderColor: '#c62828', ':hover': { borderColor: '#c62828', color: '#000000' } }}>Cancel</Button>
+                                        <Button fullWidth variant="outlined" onClick={Cancel}
+                                         sx={{ color: 'white', backgroundColor: '#c62828', borderColor: '#c62828', ':hover': { borderColor: '#c62828', color: '#000000' } }}>Cancel</Button>
 
 
                                     </Stack>

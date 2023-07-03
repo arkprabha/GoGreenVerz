@@ -57,6 +57,8 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
 };
 
 
+    const  UserProfileType: string | null = localStorage.getItem('UserProfileType') ?? '';
+
   return (
     <div className="desktop-1-42aa">
     <Grid container spacing={2}>
@@ -88,7 +90,33 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
                 </Menu>
               </Box>
               <Typography className="home-VSe" onClick={() => handleOpenPage('listedlands')}>Listed Lands</Typography>
-              <Typography className="home-VSe" onClick={() => handleOpenPage('addyourlands')}>Add Lands</Typography>
+              {
+              UserProfileType === 'Land owner' && <Typography className="home-VSe" onClick={() => handleOpenPage('addyourlands')}>Add Lands</Typography>
+              }
+              {
+              UserProfileType === 'Investor' &&  <Typography className="home-VSe" onClick={() => handleOpenPage('investedlands')}>Invested Lands</Typography>
+              }
+              {
+              UserProfileType === 'GoGreenverz or Project Developer' && <Typography className="home-VSe" onClick={() => handleOpenPage('devsubmittedlands')}>Submitted Lands</Typography>
+              }
+              {
+              UserProfileType === 'Plantation Partner' && <Typography className="home-VSe" onClick={() => handleOpenPage('myfilledlands')}>My Filled Lands</Typography>
+              }
+              {
+              UserProfileType === 'Verification and Validation Body' && <Typography className="home-VSe" onClick={() => handleOpenPage('vvblandsubmissions')}>My Land Submissions</Typography>
+              }
+              {
+              UserProfileType === 'Carbon Registry of India' && <Typography className="home-VSe" onClick={() => handleOpenPage('crisubmissions')}>My Land Submissions</Typography>
+              }
+              {
+              UserProfileType === 'Government Agencies' && <Typography className="home-VSe" onClick={() => handleOpenPage('govtsubmissions')}>My Land Submissions</Typography>
+              }
+              {
+              UserProfileType === 'Admin' && <Typography className="home-VSe" onClick={() => handleOpenPage('adminsubmittedlands')}>Submitted Lands</Typography>
+              }
+              {
+              UserProfileType === 'Buyers' && <Typography className="home-VSe" onClick={() => handleOpenPage('yourlands')}>Your Lands</Typography>
+              }
               <Typography className="home-VSe" onClick={() => handleOpenPage('profile')}>Profile</Typography>
               <Typography className="home-VSe" onClick={() => navigate('/')}>Logout<LogoutIcon  sx={{verticalAlign:'middle'}}/></Typography>
               </Box>

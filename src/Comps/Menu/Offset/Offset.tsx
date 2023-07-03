@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import './Offset.css';
-import pngwing4 from '../../assets/pngwing-4.png';
-import pngwing2 from '../../assets/pngwing-2.png';
+import pngwing4 from '../../../assets/pngwing-4.png';
+import pngwing2 from '../../../assets/pngwing-2.png';
 import Header from '../../../Header';
 
 const Offset : React.FC = () => {

@@ -6,7 +6,7 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 // PAGE COMPONENTS
 import Contribution from './Comps/Menu/Contribution/Contribution';
-import ProjectTracking from './Comps/ProjectTracking/ProjectTracking';
+import ProjectTracking from './Comps/Menu/ProjectTracking/ProjectTracking';
 import Footprint from './Comps/Menu/Footprint/Footprint';
 import Offset from './Comps/Menu/Offset/Offset';
 import MRV from './Comps/Menu/MRV/MRV';
@@ -25,12 +25,26 @@ import GoProjectDeveloperForm from './Comps/NineProfilePageComps/GOGreenProjectD
 import InvesterProfileForm from './Comps/NineProfilePageComps/InvestorComponents/InvestForm';
 import PlantationForm from './Comps/NineProfilePageComps/Planatation/PlantationForm';
 import VVBForm from './Comps/NineProfilePageComps/VVB/VVBForm';
-import ProjectionTable from './Comps/ProjectionTable/ProjectionTable';
-import UserProfile from './Comps/ProfilePageSection/UserProfile';
+import ProjectionTable from './Comps/RevenueAndExpenseTable/ProjectionTable';
+import UserProfile from './Comps/ProfilePageSection/UserProfilePage/UserProfile';
 import UpdateInvestLands from './Comps/NineProfilePageComps/InvestorComponents/UpdateInvestLands';
 import GovtAgencyForm from './Comps/NineProfilePageComps/GovtAgency/GovtAgencyForm';
 import InvestedLands from './Comps/NineProfilePageComps/InvestorComponents/InvestedLands';
 import UpdateAddedLands from './Comps/NineProfilePageComps/LandComponents/UpdateAddedLands';
+import PlantationUpdatedLands from './Comps/NineProfilePageComps/Planatation/PlantationUpdatedLands';
+import GoProjectUpdatedLands from './Comps/NineProfilePageComps/GOGreenProjectDeveloper/GoProjectUpdatedLands';
+import VVBUpdatedLands from './Comps/NineProfilePageComps/VVB/VVBUpdatedLands';
+import CRIUpdatedLands from './Comps/NineProfilePageComps/CRI Carbon/CRIUpdatedLands';
+import GovtAgencyUpdatedLands from './Comps/NineProfilePageComps/GovtAgency/GovtAgencyUpdatedLands';
+import AdminUpdatedLands from './Comps/NineProfilePageComps/Admin/AdminUpdatedLands';
+import BoughtLands from './Comps/NineProfilePageComps/Buyer/BoughtLands';
+import UpdateAdminForm from './Comps/NineProfilePageComps/Admin/UpdateAdminForm';
+import UpdateBuyerForm from './Comps/NineProfilePageComps/Buyer/UpdateBuyerForm';
+import UpdateCRICarbonForm from './Comps/NineProfilePageComps/CRI Carbon/UpdateCRICarbonForm';
+import UpdateGoProjectForm from './Comps/NineProfilePageComps/GOGreenProjectDeveloper/UpdateGoProjectForm';
+import UpdatePlantationForm from './Comps/NineProfilePageComps/Planatation/UpdatePlantationForm';
+import UpdateVVBForm from './Comps/NineProfilePageComps/VVB/UpdateVVBForm';
+import UpdateGovtAgencyForm from './Comps/NineProfilePageComps/GovtAgency/UpdateGovtAgencyForm';
 
 
 
@@ -96,6 +110,14 @@ function Routes() {
             ),
         },
         {
+            path: 'signup',
+            element: <SignUpForm />
+        },
+        {
+            path: 'resetpassword',
+            element: <ForgotPassword />
+        },
+        {
             path: 'contribution',
             element: <Contribution />,
         },
@@ -117,77 +139,136 @@ function Routes() {
         },
 
         {
+            path: 'addyourlands',
+            element: <AddLands />,
+        },
+        {
             path: 'listedlands',
             element: <ListedLands />,
         },
         {
-        path: 'addyourlands',
-            element: <AddLands />,
+            path: 'updateaddedlands',
+            element: <UpdateAddedLands />,
+        },
+
+        {
+            path: 'investerprofileform',
+            element: <InvesterProfileForm />
         },
         {
-            path: 'signup',
-            element: <SignUpForm />
+            path: 'investedlands',
+            element: <InvestedLands />
         },
         {
-            path: 'resetpassword',
-            element: <ForgotPassword />
+            path: 'updateinvestedlands',
+            element: <UpdateInvestLands />,
         },
+
+
         {
             path: 'adminprofileform',
             element: <AdminProfileForm />
+        },
+        {
+            path: 'adminsubmittedlands',
+            element: <AdminUpdatedLands />,
+        },
+        {
+            path: 'updateaddedadmin',
+            element: <UpdateAdminForm />,
+        },
+
+        {
+            path: 'buyersform',
+            element: <BuyersProfileForm />
+        },
+        {
+            path: 'yourlands',
+            element: <BoughtLands />,
+        },
+        {
+            path: 'updateaddedbuyer',
+            element: <UpdateBuyerForm />,
+        },
+
+        {
+            path: 'cricarbonform',
+            element: <CRICarbonForm />
+        },
+        {
+            path: 'crisubmissions',
+            element: <CRIUpdatedLands />,
+        },
+        {
+            path: 'updateaddedcri',
+            element: <UpdateCRICarbonForm />,
+        },
+
+        {
+            path: 'goprojectdeveloperform',
+            element: <GoProjectDeveloperForm />
+        },
+        {
+            path: 'devsubmittedlands',
+            element: <GoProjectUpdatedLands />,
+        },
+        {
+            path: 'updateaddeddevelopers',
+            element: <UpdateGoProjectForm />,
+        },
+
+        {
+            path: 'planationform',
+            element: <PlantationForm />
+        },
+        {
+            path: 'myfilledlands',
+            element: <PlantationUpdatedLands />,
+        },
+        {
+            path: 'updateaddedplantationpartners',
+            element: <UpdatePlantationForm />,
+        },
+
+        {
+            path: 'vvbform',
+            element: <VVBForm />
+        },
+        {
+            path: 'vvblandsubmissions',
+            element: <VVBUpdatedLands />,
+        },
+        {
+            path: 'updateaddedvvb',
+            element: <UpdateVVBForm />,
+        },
+
+        {
+            path: 'govtagencyform',
+            element: <GovtAgencyForm />
+        },
+        {
+            path: 'govtsubmissions',
+            element: <GovtAgencyUpdatedLands />,
+        },
+        {
+            path: 'updateaddedgovagency',
+            element: <UpdateGovtAgencyForm />,
         },
         {
             path: 'afforestationform',
             element: <AfforestationForm />
         },
         {
-            path: 'buyersform',
-            element: <BuyersProfileForm />
-        },
-        {
-            path: 'cricarbonform',
-            element: <CRICarbonForm />
-        },
-        {
-            path: 'goprojectdeveloperform',
-            element: <GoProjectDeveloperForm />
-        },
-        {
-            path: 'investerprofileform',
-            element: <InvesterProfileForm />
-        },
-        {
-            path: 'planationform',
-            element: <PlantationForm />
-        },
-        {
-            path: 'vvbform',
-            element: <VVBForm />
-        },
-        {
             path: 'projectiontable',
             element: <ProjectionTable />
         },
-        {
-            path: 'updateaddedlands',
-            element: <UpdateAddedLands />,
-        },
+
         {
             path: 'profile',
             element: <UserProfile />,
         },
-         {
-            path: 'investedlands',
-            element: <InvestedLands />
-        },
-        {
-            path: 'govtagencyform',
-            element: <GovtAgencyForm />
-        },
-        {
-            path:'updateinvestedlands',
-            element:<UpdateInvestLands />,
-        }
+
     ]);
 }
 

@@ -5,6 +5,7 @@ import { add_land_owner, get_district, get_state, methodGet, methodPost } from "
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SnackBar from "../../SnackBar/SnackBar";
+import { useNavigate } from "react-router-dom";
 
 interface LandOwnerData {
     UserId: string;
@@ -65,7 +66,7 @@ export default function AddLands() {
     const [Remarks, setRemarks] = useState<string>('');
     const [state, setState] = useState<State[]>([]);
     const [districtList, setDistrictList] = useState<District[]>([]);
-
+    const navigate = useNavigate();
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
     const [color, setColor] = useState<boolean>(false);
@@ -149,7 +150,7 @@ export default function AddLands() {
             LandAddress1: landAddress1,
             LandAddress2: landAddress2,
             LandCity: landCity,
-            LandState: landState,
+            LandState: landState?.StateName,
             LandPostalCode: landPostalCode,
             LandCountry: landCountry,
             LandSize: landSize,
@@ -185,12 +186,18 @@ export default function AddLands() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
+                    navigate('/listedlands');
                 }
             })
             .catch((err) => {
                 alert('Oops something went wrong ' + err);
             });
     };
+
+
+        const Cancel = () =>{
+        navigate(-1);
+    }
 
 
     return (
@@ -517,7 +524,7 @@ export default function AddLands() {
                                 <Grid item lg={3} sm={3} xl={3} xs={3} md={3} sx={{ py: 2 }}>
                                     <Stack spacing={2} direction="row">
 
-                                        <Button fullWidth variant="outlined"
+                                        <Button fullWidth variant="outlined" onClick={Cancel}
                                          sx={{ color: 'white', backgroundColor: '#c62828', borderColor: '#c62828', ':hover': { borderColor: '#c62828', color: '#000000' } }}>Cancel</Button>
                                     </Stack>
 

@@ -1,50 +1,87 @@
-import { Box, Button,  Grid, TextField, Autocomplete,Stack } from "@mui/material";
-import Header from "./Header";
+import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import Header from '../../../Header';
+import { add_cri, get_cri, get_district, get_state, methodGet, methodPost} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
-import { appendData } from "../Variables/ProcessVariable";
-import { add_land_owner, get_district, get_land_owner, get_state, methodGet, methodPost } from "../API_Service/API_Service";
+import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
+import SnackBar from "../../SnackBar/SnackBar";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
+interface CRIFormData {
+            UserId:string;
+            CRIName: string;
+            Email: string;
+            MobileNum: string;
+            AlternateMobile: string;
+            CreationDate: string;
+            ProjectCommenceDate: string;
+            CRIAddress1:string;
+            CRIAddress2:string;
+            CRICity:any;
+            CRIState:any;
+            CRIPostalCode:string;
+            CRICountry:string;
+            CCRegistry:string;
+            CCReport:string;
+            CCTradingHistory:string;
+            CRIStatus:string;
+            CCRegistryFile:File | null;
+            CCReportFile:File | null;
+            CCTradingHistoryFile:File | null;
+            Remarks: string;
+            CRIId: string;
+}
 
-export default function UpdateAddedLands() {
+interface State {
+  StateId: string;
+  StateName: string;
+}
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [mobileNum, setMobileNum] = useState('');
-    const [alternateMobile, setAlternateMobile] = useState('');
-    const [landAddress1, setLandAddress1] = useState('');
-    const [landAddress2, setLandAddress2] = useState('');
-    const [landCity, setLandCity] = useState('');
-    const [landState, setLandState] = useState('');
-    const [FetchedState, setFetchedState] = useState('');
-    const [landPostalCode, setLandPostalCode] = useState('');
-    const [landCountry, setLandCountry] = useState('');
-    const [landSize, setLandSize] = useState('');
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
-    const [termsAndConditions, setTermsAndConditions] = useState('');
-    const [termsAndConditionsFile, setTermsAndConditionsFile] = useState('');
-    const [creationDate, setCreationDate] = useState('');
-    const [projectCommenceDate, setProjectCommenceDate] = useState('');
-    const [landStatus, setLandStatus] = useState('');
-    const [VirtualVideo, setVirtualVideo] = useState('');
-    const [Remarks , setRemarks] = useState('');
-    const [state, setState] = useState([]);
-    const [districtList, setDistrictList]= useState([]);
+interface District {
+  DistrictId: string;
+  DistrictName: string;
+}
+
+
+export default function UpdateCRICarbonForm() {
+
+    const [name, setName] = useState<string>('');
+    const [email, setEmail] =useState<string>('');
+    const [mobileNum, setMobileNum] =useState<string>('');
+    const [alternateMobile, setAlternateMobile] =useState<string>('');
+    const [CRIAddress1, setCRIAddress1] =useState<string>('');
+    const [CRIAddress2, setCRIAddress2] =useState<string>('');
+    const [CRICity, setCRICity] = useState<District | null>(null);
+    const [CRIState, setCRIState] = useState<State | null>(null);
+    const [CRIPostalCode, setCRIPostalCode] =useState<string>('');
+    const [CRICountry, setCRICountry] =useState<string>('');
+    const [CCRegistry, setCCRegistry] =useState<string>('');
+    const [CCReport, setCCReport] =useState<string>('');
+    const [CCTradingHistory, setCCTradingHistory] =useState<string>('');
+    const [creationDate, setCreationDate] =useState<string>('');
+    const [projectCommenceDate, setProjectCommenceDate] =useState<string>('');
+    const [CRIStatus, setCRIStatus] =useState<string>('');
+    const [CCRegistryFile, setCCRegistryFile] = useState<File | null>(null);
+    const [CCReportFile, setCCReportFile] =  useState<File | null>(null);
+    const [CCTradingHistoryFile, setCCTradingHistoryFile] =  useState<File | null>(null);
+    const [Remarks, setRemarks] = useState<string>('');
+    const [state, setState] = useState<State[]>([]);
+    const [districtList, setDistrictList] = useState<District[]>([]);
+
+    const [open, setOpen] = useState<boolean>(false);
+    const [status, setStatus] = useState<boolean>(false);
+    const [color, setColor] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>('');
+    const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
+    const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
+    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+
     const navigate = useNavigate();
-    const [open, setOpen] = useState(false);
-    const [status, setStatus] = useState(false);
-    const [color, setColor] = useState(false);
-    const [message, setMessage] = useState("");
-    const [landData , setLandData] = useState({});
-    const UserToken = localStorage.getItem('UserToken');
-    const UserId = localStorage.getItem('UserProfileTypeId');
     const location = useLocation();
     const {id} = location.state;
-
-            useEffect(() => {
+           
+ useEffect(() => {
             axios({
                 method: methodGet,
                 url: get_state,
@@ -70,13 +107,11 @@ export default function UpdateAddedLands() {
             });
     }, [])
 
-    console.log(districtList);
-
  // POST FETCH
     useEffect(() => {
-        if(landState !== ''){
+        if(CRIState !== null ){
             const lData = new FormData()
-            lData.append('StateId', landState.StateId);
+            lData.append('StateId', CRIState.StateId.toString());
             axios({
                 method: methodPost,
                 url: get_district,
@@ -97,7 +132,7 @@ export default function UpdateAddedLands() {
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
-                
+
                 }
             }).catch(err => {
                 alert('Oops something went wrong ' + err)
@@ -107,16 +142,18 @@ export default function UpdateAddedLands() {
             setMessage('Select a State First');
         }
 
-    }, [landState])
+    }, [CRIState])
 
+
+// FETCH ALL DATA
 
     useEffect(() => {
         if(id !== ''){
             const lData = new FormData()
-            lData.append('LandOwnerId', id);
+            lData.append('CRIId', id);
             axios({
                 method: methodPost,
-                url: get_land_owner,
+                url: get_cri,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -127,27 +164,24 @@ export default function UpdateAddedLands() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
                 } else {
                     setMessage(res.data.message)
-                    setLandData(res.data.data[0]);
-                    setName(res.data.data[0].LandOwnerName);
+                    setName(res.data.data[0].VVBName);
                     setEmail(res.data.data[0].Email);
                     setMobileNum(res.data.data[0].MobileNum);
                     setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setLandAddress1(res.data.data[0].LandAddress1);
-                    setLandAddress2(res.data.data[0].LandAddress2);
-                    setLandCity(res.data.data[0].LandCity);
-                    setFetchedState(res.data.data[0].LandState);
-                    setLandPostalCode(res.data.data[0].LandPostalCode);
-                    setLandCountry(res.data.data[0].LandCountry);
-                    setLandSize(res.data.data[0].LandSize);
-                    setLatitude(res.data.data[0].Latitude);
-                    setLongitude(res.data.data[0].Longitude);
-                    setTermsAndConditions(res.data.data[0].TermsAndConditions);
                     setCreationDate(res.data.data[0].CreationDate);
                     setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setLandStatus(res.data.data[0].LandStatus);
+                    setCRIAddress1(res.data.data[0].CRIAddress1);
+                    setCRIAddress2(res.data.data[0].CRIAddress2);
+                    setCRICity(res.data.data[0].CRICity);
+                    setCRIState(res.data.data[0].CRIState);
+                    setCRIPostalCode(res.data.data[0].CRIPostalCode);
+                    setCRICountry(res.data.data[0].CRICountry);
+                    setCCRegistry(res.data.data[0].CCRegistry);
+                    setCCReport(res.data.data[0].CCReport);
+                    setCCTradingHistory(res.data.data[0].CCTradingHistory);
+                    setCRIStatus(res.data.data[0].CRIStatus);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -161,36 +195,39 @@ export default function UpdateAddedLands() {
             setMessage('Select a State First');
         }
 
-    }, [landState])
+    }, [id])
+
 
     const handleSubmit = () => {
-        const obj = {
-        UserId: 24,
-        LandOwnerName: name,
-        Email: email,
-        MobileNum: mobileNum,
-        AlternateMobile:alternateMobile,
-        LandAddress1:landAddress1,
-        LandAddress2:landAddress2,
-        LandCity: landCity,
-        LandState:landState.StateName,
-        LandPostalCode: landPostalCode,
-        LandCountry: landCountry,
-        LandSize: landSize,
-        Latitude: latitude,
-        Longitude: longitude,
-        TermsAndConditions: termsAndConditions,
-        CreationDate: creationDate,
-        ProjectCommenceDate: projectCommenceDate,
-        LandStatus: landStatus,
-        VirtualVideo:VirtualVideo,
-        TermsAndConditionsFile: termsAndConditionsFile,
-        Remarks: Remarks
+        const obj : CRIFormData = {
+            UserId: UserId,
+            CRIName: name,
+            CRIId:id,
+            Email: email,
+            MobileNum: mobileNum,
+            AlternateMobile: alternateMobile,
+            CreationDate: creationDate,
+            ProjectCommenceDate: projectCommenceDate,
+            CRIAddress1:CRIAddress1,
+            CRIAddress2:CRIAddress2,
+            CRICity:CRICity,
+            CRIState:CRIState,
+            CRIPostalCode:CRIPostalCode,
+            CRICountry:CRICountry,
+            CCRegistry:CCRegistry,
+            CCReport:CCReport,
+            CCTradingHistory:CCTradingHistory,
+            CRIStatus:CRIStatus,
+            CCRegistryFile:CCRegistryFile,
+            CCReportFile:CCReportFile,
+            CCTradingHistoryFile:CCTradingHistoryFile,
+            Remarks: Remarks,
         }
+
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_land_owner,
+            url: add_cri,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -207,7 +244,7 @@ export default function UpdateAddedLands() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
-                    navigate('/listedlands')
+                    navigate('/crisubmissions');
                 }
             })
             .catch((err) => {
@@ -215,45 +252,43 @@ export default function UpdateAddedLands() {
             });
     };
 
- 
+
     const Cancel = () =>{
         navigate(-1);
-    }
+      }
+
 
 
     return (
         <Box>
-           <Header />
-            <Box display="flex" alignItems="center">
+             <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
+             <Header isConnectedWallet={isConnectedWallet} />
+            <Box display="flex" alignItems="center" fontSize={15}>
+                <Box sx={{ px: 3, my: 2, mx: 3 }}>
 
-                <Box sx={{ px: 4, backgroundColor: '#EDF4F4', borderRadius: '10px', mx: 4, my: 2, boxShadow: 11 }}>
-
-                    <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={2} >
+                    <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ px: 4 , py:1 , mt:2}}>
-                                <Box sx={{ pb: 3, pt:1,  textAlign: 'left' }}>
-                                    <h5>EDIT LANDS INFORMATION</h5>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7 }}>
+                                <Box sx={{ pb: 2, textAlign: 'left' }}>
+                                    <h5>UPDATE CRI CARBON DETAILS</h5>
                                 </Box>
 
                                 <Grid container justifyContent='start' spacing={2}>
-                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Name"
                                             label="Name"
                                             variant="outlined"
-                                            size='small'
-                                            color='secondary'
+                                            size="small"
+                                            color="primary"
                                             value={name}
-                                            onChange={(e)=>setName(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
+                                            onChange={(e) => setName(e.target.value)}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Ph No"
@@ -264,13 +299,10 @@ export default function UpdateAddedLands() {
                                             color='secondary'
                                             value={mobileNum}
                                             onChange={(e) => setMobileNum(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Ph No"
@@ -281,13 +313,11 @@ export default function UpdateAddedLands() {
                                             color='secondary'
                                             value={alternateMobile}
                                             onChange={(e) => setAlternateMobile(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Email"
@@ -298,14 +328,11 @@ export default function UpdateAddedLands() {
                                             color='secondary'
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
                                         />
                                     </Grid>
 
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Address"
@@ -314,16 +341,13 @@ export default function UpdateAddedLands() {
                                             variant="outlined"
                                             size='small'
                                             color='secondary'
-                                            value={landAddress1}
-                                            onChange={(e) => setLandAddress1(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
+                                            value={CRIAddress1}
+                                            onChange={(e) => setCRIAddress1(e.target.value)}
                                         />
                                     </Grid>
 
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Address"
@@ -332,39 +356,48 @@ export default function UpdateAddedLands() {
                                             variant="outlined"
                                             size='small'
                                             color='secondary'
-                                            value={landAddress2}
-                                            onChange={(e) => setLandAddress2(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
+                                            value={CRIAddress2}
+                                            onChange={(e) => setCRIAddress2(e.target.value)}
                                         />
                                     </Grid>
 
-                                       <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
-                                         <Autocomplete
-                                            id="combo-box-demo"
-                                            size="small"
-                                            freeSolo
-                                            onChange={(event, value)=>setLandState(value ?? '')}
-                                            options={state}
-                                            getOptionLabel={(option) => option ? option.StateName : ""}
-                                            renderInput={(params) => <TextField {...params} label="State" />}
-                                        />
+                                        <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Autocomplete
+                                        id="combo-box-demo"
+                                        size="small"
+                                        freeSolo
+                                          onChange={(event, value: string | State | null) => setCRIState(prevState => {
+                                                if (typeof value === 'string') {
+                                                return null;
+                                                } else {
+                                                return value ?? prevState;
+                                                }
+                                            })}
+                                        options={state}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        renderInput={(params) => <TextField {...params} label="State" />}
+                                    />
                                     </Grid>
 
-                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
-                                         <Autocomplete
-                                            id="combo-box-demo"
-                                            size="small"
-                                            freeSolo
-                                            defaultValue=''
-                                            onChange={(event, value)=>setLandCity(value ?? '')}
-                                            options={districtList}
-                                            getOptionLabel={(option) => option ? option.DistrictName : ""}
-                                            renderInput={(params) => <TextField {...params} label="City" />}
-                                        />
+                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Autocomplete
+                                        id="combo-box-demo"
+                                        size="small"
+                                        freeSolo
+                                         onChange={(event, value: string | District | null) => setCRICity(prevCity => {
+                                            if (typeof value === 'string') {
+                                            return null;
+                                            } else {
+                                            return value ?? prevCity;
+                                            }
+                                        })}
+                                        options={districtList}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        renderInput={(params) => <TextField {...params} label="City" />}
+                                    />
                                     </Grid>
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Address"
@@ -373,15 +406,12 @@ export default function UpdateAddedLands() {
                                             variant="outlined"
                                             size='small'
                                             color='secondary'
-                                            value={landCountry}
-                                            onChange={(e) => setLandCountry(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
+                                            value={CRICountry}
+                                            onChange={(e) => setCRICountry(e.target.value)}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Address"
@@ -390,112 +420,108 @@ export default function UpdateAddedLands() {
                                             variant="outlined"
                                             size='small'
                                             color='secondary'
-                                            value={landPostalCode}
-                                            onChange={(e) => setLandPostalCode(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
+                                            value={CRIPostalCode}
+                                            onChange={(e) => setCRIPostalCode(e.target.value)}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
-                                            id="Land Size"
-                                            label="Land Size"
-                                            type="tel"
+                                            id="Carbon Credit Registry "
+                                            label="Carbon Credit Registry "
                                             variant="outlined"
                                             size='small'
                                             color='secondary'
-                                            value={landSize}
-                                            onChange={(e) => setLandSize(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
+                                            value={CCRegistry}
+                                            onChange={(e) => setCCRegistry(e.target.value)}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
-                                            id="Longtitude"
-                                            label="Longtitude"
-                                            variant="outlined"
-                                            size='small'
-                                            color='secondary'
-                                            value={longitude}
-                                            onChange={(e) => setLongitude(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                        />
-                                    </Grid>
-
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
-                                        <TextField
-                                            fullWidth
-                                            id="Lattitude"
-                                            label="Lattitude"
-                                            variant="outlined"
-                                            size='small'
-                                            color='secondary'
-                                            value={latitude}
-                                            onChange={(e) => setLatitude(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                        />
-                                    </Grid>
-
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
-                                        <TextField
-                                            fullWidth
-                                            id="Lease T&C"
-                                            label="Lease Terms & Conditions"
-                                            variant="outlined"
-                                            size='small'
-                                            color='secondary'
-                                            value={termsAndConditions}
-                                            onChange={(e) => setTermsAndConditions(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                        />
-                                    </Grid>
-
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
-                                        <TextField
-                                            fullWidth
-                                            id="Lease Terms & Conditions"
-                                            label="Lease Terms & Conditions"
+                                            id="Carbon Credit Registry "
+                                            label="Carbon Credit Registry "
                                             variant="outlined"
                                             size="small"
                                             color="secondary"
                                             type="file"
-                                            onChange={(e) => setTermsAndConditionsFile(e.target.files[0])}
+                                             onChange={(e) => {
+                                                const file = (e.target as HTMLInputElement).files?.[0];
+                                                setCCRegistryFile(file || null);
+                                            }}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
-                                            id="Video"
-                                            label="Virtual Tour/Video "
+                                            id="Carbon Credit Generation Reports"
+                                            label="Carbon Credit Generation Reports"
+                                            variant="outlined"
+                                            size='small'
+                                            color='secondary'
+                                            value={CCReport}
+                                            onChange={(e) => setCCReport(e.target.value)}
+                                        />
+                                    </Grid>
+
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                        <TextField
+                                            fullWidth
+                                            id="Carbon Credit Generation Reports"
+                                            label="Carbon Credit Generation Reports"
                                             variant="outlined"
                                             size="small"
                                             color="secondary"
                                             type="file"
-                                            onChange={(e) => setVirtualVideo(e.target.files[0])}
+                                             onChange={(e) => {
+                                                const file = (e.target as HTMLInputElement).files?.[0];
+                                                setCCReportFile(file || null);
+                                            }}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                        <TextField
+                                            fullWidth
+                                            id="Carbon Credit Trading History"
+                                            label="Carbon Credit Trading History"
+                                            variant="outlined"
+                                            size='small'
+                                            color='secondary'
+                                            value={CCTradingHistory}
+                                            onChange={(e) => setCCTradingHistory(e.target.value)}
+                                        />
+                                    </Grid>
+
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                        <TextField
+                                            fullWidth
+                                            id="Carbon Credit Trading History"
+                                            label="Carbon Credit Trading History"
+                                            variant="outlined"
+                                            size="small"
+                                            color="secondary"
+                                            type="file"
+                                             onChange={(e) => {
+                                                const file = (e.target as HTMLInputElement).files?.[0];
+                                                setCCTradingHistoryFile(file || null);
+                                            }}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
+                                    </Grid>
+ 
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Creation Date"
@@ -503,16 +529,16 @@ export default function UpdateAddedLands() {
                                             variant="outlined"
                                             type='date'
                                             size='small'
+                                            color='secondary'
                                             value={creationDate}
                                             onChange={(e) => setCreationDate(e.target.value)}
-                                            color='secondary'
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Project Commence Date"
@@ -529,7 +555,7 @@ export default function UpdateAddedLands() {
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <TextField
                                             fullWidth
                                             id="Remarks"
@@ -538,20 +564,17 @@ export default function UpdateAddedLands() {
                                             size='small'
                                             color='secondary'
                                             value={Remarks}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
                                             onChange={(e) => setRemarks(e.target.value)}
                                         />
                                     </Grid>
 
-                                      <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <Autocomplete
                                             id="combo-box-demo"
                                             size="small"
-                                            value={landStatus}
-                                            onChange={(event, value) => setLandStatus(value)}
-                                            options={['Active', 'In Review', 'Expired', 'On Hold', 'Sold']}
+                                            value={CRIStatus}
+                                            onChange={(event, value) => setCRIStatus(value || '')}
+                                            options={['Active', 'Inactive', 'Expired']}
                                             renderInput={(params) => <TextField {...params} label="Status" />}
                                         />
                                     </Grid>
@@ -571,7 +594,11 @@ export default function UpdateAddedLands() {
                                 <Grid item lg={3} sm={3} xl={3} xs={3} md={3} sx={{ py: 2 }} >
                                     <Stack spacing={2} direction="row" >
                                         <Button fullWidth variant="outlined" onClick={handleSubmit}
-                                       sx={{ color: 'white', backgroundColor: '#7bc54c', borderColor: '#7bc54c', ':hover': { borderColor: '#7bc54c', color: '#000000' } }}>Submit</Button>
+                                            sx={{
+                                                color: 'white', backgroundColor: '#7bc54c', borderColor: '#7bc54c',
+                                                ':hover': { borderColor: '#7bc54c', color: '#000000' }
+                                            }}
+                                        >Submit</Button>
                                     </Stack>
 
                                 </Grid>
@@ -579,10 +606,12 @@ export default function UpdateAddedLands() {
                                 <Grid item lg={3} sm={3} xl={3} xs={3} md={3} sx={{ py: 2 }}>
                                     <Stack spacing={2} direction="row">
 
-                                        <Button fullWidth variant="outlined"
-                                            onClick={Cancel} sx={{ color: 'white', backgroundColor: '#c62828', borderColor: '#c62828', ':hover': { borderColor: '#c62828', color: '#000000' } }}>Cancel</Button>
-
-
+                                        <Button fullWidth variant="outlined" onClick={Cancel}
+                                            sx={{
+                                                color: 'white', backgroundColor: '#c62828', borderColor: '#c62828',
+                                                ':hover': { borderColor: '#c62828', color: '#000000' }
+                                            }}
+                                        >Cancel</Button>
                                     </Stack>
 
                                 </Grid>
@@ -594,9 +623,8 @@ export default function UpdateAddedLands() {
 
                     </Grid>
 
+                </Box>
 
-
-            </Box >
 
             </Box>
         </Box>

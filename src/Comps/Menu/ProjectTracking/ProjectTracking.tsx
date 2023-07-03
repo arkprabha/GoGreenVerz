@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import './ProjectTracking.css';
-import flag1 from '../../assets/icon-flag-iDt.png';
-import flag2 from '../../assets/icon-flag-NbY.png';
-import flag3 from '../../assets/icon-flag.png';
-import flag4 from '../../assets/icon-flag-Pca.png';
-import flag5 from '../../assets/icon-flag-sC2.png';
-import flag6 from '../../assets/icon-flag-gSA.png';
-import Header from '../../Header';
+import flag1 from '../../../assets/icon-flag-iDt.png';
+import flag2 from '../../../assets/icon-flag-NbY.png';
+import flag3 from '../../../assets/icon-flag.png';
+import flag4 from '../../../assets/icon-flag-Pca.png';
+import flag5 from '../../../assets/icon-flag-sC2.png';
+import flag6 from '../../../assets/icon-flag-gSA.png';
+import Header from '../../../Header';
 
 const ProjectTracking: React.FC = () => {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';

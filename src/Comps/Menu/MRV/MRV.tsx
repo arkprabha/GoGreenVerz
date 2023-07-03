@@ -2,7 +2,7 @@ import React from 'react';
 import { Box,Card,Typography, TextField } from '@mui/material';
 import './MRV.css';
 import Header from '../../../Header';
-import BottomImage from '../../assets/page6.png';
+import BottomImage from '../../../assets/page6.png';
 
 const MRV: React.FC = () => {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';

@@ -85,10 +85,10 @@ export default function NewLoginPage() {
             <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Container component="main" maxWidth="xs">
                 <Grid container>
-                    <Grid item xs={12} sm={12} md={12} lg={12} className='glassCard' mt={3}>
+                    <Grid item xs={12} sm={12} md={12} lg={12} className='glassCard' mt={2}>
                     <Box
                         sx={{
-                            py:2,
+                            py:1,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
@@ -161,7 +161,7 @@ export default function NewLoginPage() {
 
                             </Box>
                     </Box>
-                    <Copyright sx={{ mt: 3 , mb:1}} />
+                    <Copyright sx={{ mt: 3 , mb:2}} />
                     </Grid>
                 </Grid>
                 </Container>

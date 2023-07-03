@@ -42,6 +42,7 @@ const App = () => {
     []
   );
 
+
   return (
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>

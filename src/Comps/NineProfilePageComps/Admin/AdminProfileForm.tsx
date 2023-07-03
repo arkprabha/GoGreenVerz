@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
 import SnackBar from "../../SnackBar/SnackBar";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface AdminProfileData {
         UserId:string;
@@ -30,6 +31,7 @@ interface AdminProfileData {
         AccessControlsFile: File | null;
         DataAnalyticsFile: File | null;
         Remarks: string;
+        LandId:string;
 }
 
 interface State {
@@ -78,6 +80,10 @@ export default function AdminProfileForm() {
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserId') ?? '';
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { id } = location.state;
+
         useEffect(() => {
             axios({
                 method: methodGet,
@@ -103,8 +109,6 @@ export default function AdminProfileForm() {
                 alert('Oops something went wrong ' + err)
             });
     }, [])
-
-    console.log(districtList);
 
  // POST FETCH
     useEffect(() => {
@@ -147,6 +151,7 @@ export default function AdminProfileForm() {
         const obj: AdminProfileData = {
         UserId:UserId,
         AdminName:adminname, 
+        LandId:id,
         Email:email,
         MobileNum:mobileNum,
         AlternateMobile:alternateMobile,
@@ -190,12 +195,19 @@ export default function AdminProfileForm() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
+                    navigate('/adminsubmittedlands');
                 }
             })
             .catch((err) => {
                 alert("Oops something went wrong " + err);
             });
     };
+
+
+    const Cancel = () => {
+        navigate(-1);
+    }
+
 
     return (
         <Box>
@@ -561,7 +573,7 @@ export default function AdminProfileForm() {
                                 <Grid item lg={3} sm={3} xl={3} xs={3} md={3} sx={{ py: 2 }}>
                                     <Stack spacing={2} direction="row">
 
-                                        <Button fullWidth variant="outlined"
+                                        <Button fullWidth variant="outlined" onClick={Cancel}
                                             sx={{
                                                 color: 'white', backgroundColor: '#c62828', borderColor: '#c62828',
                                                 ':hover': { borderColor: '#c62828', color: '#000000' }

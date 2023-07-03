@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
 import SnackBar from "../../SnackBar/SnackBar";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface PlantationFormData {
             UserId: string;
@@ -32,6 +33,7 @@ interface PlantationFormData {
             WaterManagementFile:File | null;
             FertilizerManagementFile:File | null;
             RecommendationFile:File | null;
+            LandId:string;
 }
 
 interface State {
@@ -82,8 +84,9 @@ export default function PlantationForm() {
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
 
-
-
+    const navigate = useNavigate();
+    const location = useLocation();
+    const {id} = location.state;
     
  useEffect(() => {
             axios({
@@ -152,6 +155,7 @@ export default function PlantationForm() {
     const handleSubmit = () => {
         const obj : PlantationFormData = {
             UserId: UserId,
+            LandId:id,
             PlantationPartnerName: name,
             Email: email,
             MobileNum: mobileNum,
@@ -198,12 +202,19 @@ export default function PlantationForm() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
+                    navigate('/myfilledlands');
                 }
             })
             .catch((err) => {
                 alert("Oops something went wrong " + err);
             });
-    };
+                };
+
+
+    const Cancel = () =>{
+        navigate(-1);
+    }
+
 
     return (
         <Box>
@@ -585,7 +596,7 @@ export default function PlantationForm() {
                                 <Grid item lg={3} sm={3} xl={3} xs={3} md={3} sx={{ py: 2 }}>
                                     <Stack spacing={2} direction="row">
 
-                                        <Button fullWidth variant="outlined"
+                                        <Button fullWidth variant="outlined" onClick={Cancel}
                                             sx={{
                                                 color: 'white', backgroundColor: '#c62828', borderColor: '#c62828',
                                                 ':hover': { borderColor: '#c62828', color: '#000000' }

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
 import SnackBar from "../../SnackBar/SnackBar";
-
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface BuyerFormData {
         UserId:string;
@@ -30,7 +30,8 @@ interface BuyerFormData {
         PaymentHistoryFile: File | null;
         CreationDate:string;
         ProjectCommenceDate:string;
-         Remarks: string;
+        Remarks: string;
+        LandId:string;
 }
 
 interface State {
@@ -78,6 +79,11 @@ export default function BuyersForm() {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { id } = location.state;
 
 
         
@@ -149,6 +155,7 @@ export default function BuyersForm() {
         const obj :BuyerFormData = {
         UserId:UserId,
         BuyerName:buyerName,
+        LandId:id,
         Email:email,
         MobileNum:mobileNum,
         AlternateMobile:alternateMobile,
@@ -192,12 +199,18 @@ export default function BuyersForm() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
+                    navigate('/yourlands');
                 }
             })
             .catch((err) => {
                 alert("Oops something went wrong " + err);
             });
     };
+
+
+    const Cancel = () => {
+        navigate(-1);
+    }
 
     return (
         <Box>
@@ -563,7 +576,7 @@ export default function BuyersForm() {
                                 <Grid item lg={3} sm={3} xl={3} xs={3} md={3} sx={{ py: 2 }}>
                                     <Stack spacing={2} direction="row">
 
-                                        <Button fullWidth variant="outlined"
+                                        <Button fullWidth variant="outlined" onClick={Cancel}
                                             sx={{
                                                 color: 'white', backgroundColor: '#c62828', borderColor: '#c62828',
                                                 ':hover': { borderColor: '#c62828', color: '#000000' }

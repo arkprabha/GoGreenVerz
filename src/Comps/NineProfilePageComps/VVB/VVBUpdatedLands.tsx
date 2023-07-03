@@ -1,95 +1,87 @@
-import React, {useEffect} from 'react';
-import Tabs, { tabsClasses } from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import React, {ChangeEvent, useEffect} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, Checkbox, FormControlLabel, Grid, Stack,  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead, TextField,
-  TableRow,  TablePagination, Table, Dialog, DialogTitle, DialogContent, Autocomplete } from '@mui/material';
+import { Button, CardActionArea, CardActions, Grid, Stack, TextField,
+TablePagination, Autocomplete } from '@mui/material';
 import { useState } from 'react';
 import { Box} from '@mui/material';
 import axios from 'axios';
-import { InvestorFiles, LandOwnerFiles, get_all_land_owner, get_investor, get_state, methodGet } from '../API_Service/API_Service';
-import Header from './Header';
+import { VVBFiles, get_state, get_vvb, methodGet } from '../../../API_Service/API_Service';
+import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import styled from '@emotion/styled';
 import Skeleton from '@mui/material/Skeleton';
 import CloseIcon from '@mui/icons-material/Close';
-import LandDataDialog from './LandDataDialog';
-import InvestorDataDialog from './InvestorLandDialog';
+import SnackBar from '../../SnackBar/SnackBar';
+import VVBLandDialog from './VVBLandDialog';
 
-export default function InvestedLands() {
-    const [value, setValue] = useState(0);
-    const [state, setState] = useState([]);
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [data , setData] = useState([]);
-    const [open, setOpen] = useState(false);
-    const [status, setStatus] = useState(false);
-    const [color, setColor] = useState(false);
-    const [message, setMessage] = useState("");
-    const UserToken = localStorage.getItem('UserToken');
-    const UserType = localStorage.getItem('UserProfileType');
-    const UserId = localStorage.getItem('UserId');
-    const [selectedStates, setSelectedStates] = useState([]);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [selectedItem, setSelectedItem] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    const [ShowFilterList, setShowFilterList] = useState(false);
-    const [Loading , setLoading] = useState(true);
-    const[recentSearch , setRecentSearch] = useState([]);
-    const [input , setInput] = useState(false);
-     
+
+interface VVBData {
+  VVBId: string;
+  VVBName: string;
+  VVBAddress1:string;
+  VVBAddress2:string;
+  VVBCity:string;
+  VVBState:string;
+  VVBPostalCode:string;
+  VVBCountry:string;
+  MobileNum: string;
+  Longitude: string;
+  Latitude: string;
+  LandSize: string;
+  VirtualVideo: string;
+  Remarks: string;
+  CreationDate: string;
+  ProjectCommenceDate: string;
+  VVBStatus:String;
+}
+
+
+
+interface State {
+  StateId: string;
+  StateName: string;
+}
+
+
+
+const VVBUpdatedLands: React.FC = () => {
+
+  const [state, setState] = useState<any[]>([]);
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const [data, setData] = useState<any[]>([]);
+  const [open, setOpen] = useState<boolean>(false);
+  const [status, setStatus] = useState<boolean>(false);
+  const [color, setColor] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>('');
+  const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
+  const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
+  const UserId: string | null = localStorage.getItem('UserId') ?? '';
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<VVBData | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [ShowFilterList, setShowFilterList] = useState<boolean>(false);
+  const [Loading, setLoading] = useState<boolean>(true);
+  const [recentSearch, setRecentSearch] = useState<any[]>([]);
+  const [inputKey, setInputKey] = useState<number>(0);
+  const navigate = useNavigate();
     
-    useEffect(() => {
-      const storedRecentSearch = JSON.parse(localStorage.getItem('RecentSearch'));
-      if (storedRecentSearch) {
-      setRecentSearch(storedRecentSearch);
-      }
+      useEffect(() => {
+        const storedRecentSearch = localStorage.getItem('RecentSearch');
+        if (storedRecentSearch !== null) {
+          const parsedRecentSearch = JSON.parse(storedRecentSearch);
+          setRecentSearch(parsedRecentSearch);
+        }
       }, []);
 
-  const handleOpenDialog = (item) => {
-    setSelectedItem(item);
-    setOpenDialog(true);
-  };
 
-
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-      const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleStateChange = (event) => {
-    const stateName = event.target.name;
-    setSelectedStates((prevSelectedStates) => {
-      if (prevSelectedStates.includes(stateName)) {
-        return prevSelectedStates.filter((state) => state !== stateName);
-      } else {
-        return [...prevSelectedStates, stateName];
-      }
-    });
-  };
-
-    const navigate = useNavigate();
-
-            useEffect(() => {
+           useEffect(() => {
             axios({
                 method: methodGet,
                 url: get_state,
@@ -118,10 +110,10 @@ export default function InvestedLands() {
 
    useEffect(()=>{
         const lData = new FormData()
-        lData.append('UserId', '2');
+        lData.append('UserId', UserId);
        axios({
            method: 'POST',
-           url: get_investor,
+           url: get_vvb,
            data:lData,
            headers: {
                'Authorization': `Bearer ${UserToken}`,
@@ -142,12 +134,31 @@ export default function InvestedLands() {
    }, [UserToken])
 
 
+  const handleOpenDialog = (item : VVBData) => {
+    setSelectedItem(item);
+    setOpenDialog(true);
+  };
 
- const movedtoEditPage  = (id) =>{
-    navigate('/updateinvestedlands', {state:{id:id}})
+
+
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number,) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+       
+
+
+
+ const movedtoEditPage  = (id : string) =>{
+    navigate('/updateaddedvvb', {state:{id:id}})
  }
 
-const handleSearchChange = (event, newValue) => {
+const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null) => {
   const selectedValue = newValue ? newValue.StateName : event.target.value;
   setSearchQuery(selectedValue);
 };
@@ -158,15 +169,15 @@ const handleSearchChange = (event, newValue) => {
     if(searchQuery !== '' || searchQuery !== null){
     setShowFilterList(true);
     const filteredProducts = data && data.filter((i) => {
-    const {LandAddress1, LandAddress2 ,LandOwnerId, LandCity, LandState, LandCountry, Latitude, Longitude } = i;
+    const {VVBAddress1, VVBAddress2 ,VVBOwnerId, VVBCity, VVBState, VVBCountry, Latitude, Longitude } = i;
       // Apply the search logic based on your requirements
-      const matchesCity = LandCity.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesState = LandState.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesAddress1 = LandAddress1.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesAddress2 = LandAddress2.toString().includes(searchQuery.toLowerCase());
-      const matchesLandCountry = LandCountry.toString().includes(searchQuery.toLowerCase());
+      const matchesCity = VVBCity.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesState = VVBState.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesAddress1 = VVBAddress1.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesAddress2 = VVBAddress2.toString().includes(searchQuery.toLowerCase());
+      const matchesVVBCountry = VVBCountry.toString().includes(searchQuery.toLowerCase());
       const matchesLongitude = Longitude.toString().includes(searchQuery);
-      const matchesLandOwnerId = LandOwnerId.toString().includes(searchQuery);
+      const matchesVVBOwnerId = VVBOwnerId.toString().includes(searchQuery);
       const matchesLatitude = Latitude.toString().includes(searchQuery);
 
       return (
@@ -174,8 +185,8 @@ const handleSearchChange = (event, newValue) => {
         matchesState ||
         matchesAddress1 ||
         matchesAddress2 ||
-        matchesLandCountry ||
-        matchesLandOwnerId ||
+        matchesVVBCountry ||
+        matchesVVBOwnerId ||
         matchesLatitude ||
         matchesLongitude
       );
@@ -191,10 +202,10 @@ const handleSearchChange = (event, newValue) => {
     }
 
      const slicedData = data && data.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
-     const LandList = searchResults && searchResults.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+     const VVBList = searchResults && searchResults.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
 
-    const removeSearchText = (index) => {
+    const removeSearchText = (index : number) => {
       if (index >= 0 && index < recentSearch.length) {
         const updatedRecentSearch = [...recentSearch];
         updatedRecentSearch.splice(index, 1);
@@ -205,14 +216,18 @@ const handleSearchChange = (event, newValue) => {
 
   const resetFilter = () =>{
     setShowFilterList(false);
-    setInput(true);
+     setInputKey((prevKey) => prevKey + 1);
   }
+
+
 
     return (
         <Box>
-            <Header />
+
+           <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
+             <Header isConnectedWallet={isConnectedWallet} />
             <Box p={1}>
-            <InvestorDataDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
+            <VVBLandDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
            <Grid container spacing={2}  display='flex' justifyContent='space-between'>
        
           <Grid item xs={12} sm={12} md={3} lg={3} height='auto' borderRight={{xs:'none' , sm:'none', md:'1px solid silver'}}>
@@ -223,18 +238,17 @@ const handleSearchChange = (event, newValue) => {
           id="combo-box-demo"
           size="small"
           freeSolo
-          key={input}
+          key={inputKey}
           onChange={handleSearchChange}
           options={state}
           getOptionLabel={(option) => (option ? option.StateName : '')}
           renderInput={(params) => (
           <TextField
           {...params}
-          placeholder="Search Lands By Address, ID, Lat"
+          placeholder="Search VVBs By Address, ID, Lat"
           variant="standard"
           sx={{ width: '25ch' }}
-          value={searchQuery}
-          onChange={handleSearchChange}
+           onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
           />
           )}
           />
@@ -245,10 +259,10 @@ const handleSearchChange = (event, newValue) => {
             </Box>
             <Box py={3}>
             <Stack spacing={2}>
-            <Typography variant='Subtitle1' color='primary' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
+            <Typography color='primary' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
            {
             recentSearch && recentSearch.map((i , index)=>
-            <Typography sx={{marginBottom:1}}>{i}<CloseIcon sx={{verticalAlign:'middle'}} fontSize='small'  onClick={()=>removeSearchText(index)}/> </Typography>
+            <Typography sx={{marginBottom:1}} key={index}>{i}<CloseIcon sx={{verticalAlign:'middle'}} fontSize='small'  onClick={()=>removeSearchText(index)}/> </Typography>
            )}
            </Stack>
             </Box>
@@ -262,18 +276,18 @@ const handleSearchChange = (event, newValue) => {
         <Box p={1}>
           <Box display='flex' justifyContent='space-between'>
           <Typography variant='h6' color='text.secondary'>Best Results</Typography>
-           <Typography color='#3285a8' onClick={resetFilter} sx={{textDecoration:'underline'}}>See All Lands</Typography>
+           <Typography color='#3285a8' onClick={resetFilter} sx={{textDecoration:'underline'}}>See All VVBs</Typography>
           </Box>
-          <Typography variant='caption'>({LandList && LandList.length})</Typography>
+          <Typography variant='caption'>({VVBList && VVBList.length})</Typography>
         </Box>
         {
-          LandList.length === 0 && 
+          VVBList.length === 0 && 
           <Box py={1}>
-          <Typography variant='h6' color='text.secondary'>Nothing Mathces Your Search Results. <Typography color='#3285a8' onClick={()=> setShowFilterList(false)} sx={{textDecoration:'underline'}}>See All Lands</Typography></Typography>
+          <Typography variant='h6' color='text.secondary'>Nothing Mathces Your Search Results. <Typography color='#3285a8' onClick={()=> setShowFilterList(false)} sx={{textDecoration:'underline'}}>See All VVBs</Typography></Typography>
         </Box>
         }
         <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
-          {LandList.map((i) => (
+          {VVBList.map((i) => (
           <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
            <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' }}>
             <CardActionArea>
@@ -284,7 +298,7 @@ const handleSearchChange = (event, newValue) => {
             component="video"
             height="170"
             width='100%'
-            src={`${InvestorFiles}${i.VirtualVideo}`}
+            src={`${VVBFiles}${i.VirtualVideo}`}
             controls
             />
       )}
@@ -297,16 +311,16 @@ const handleSearchChange = (event, newValue) => {
         ) : (
           <>
             <Typography gutterBottom variant="h5" component="div" textAlign='left'>
-            {i.InvestorId}
+            {i.VVBId}
             </Typography>
             <Stack spacing={1}>
             <Box display='flex' gap={1} flexDirection='row'>
             <Typography variant="body2" color="text.secondary" fontWeight={600}>Located:</Typography>
-            <Typography variant="body2">{i.InvestorCity}, {i.InvestorState}, {i.InvestorCountry}</Typography>
+            <Typography variant="body2">{i.VVBCity}, {i.VVBState}, {i.VVBCountry}</Typography>
             </Box>
             <Box display='flex' gap={1} flexDirection='row'>
             <Typography variant="body2" color="text.secondary" fontWeight={600}>Status:</Typography>
-            <Typography variant="body2"> {i.InvestorStatus}</Typography>
+            <Typography variant="body2"> {i.VVBStatus}</Typography>
             </Box>
             </Stack>
             </>
@@ -319,17 +333,16 @@ const handleSearchChange = (event, newValue) => {
             <Skeleton animation="wave" height={10} width="80%" />
           </React.Fragment>
         ) : (
-          <>
-            <Box display='flex' justifyContent='space-between' flexDirection='row'>
+           <Box display='flex' justifyContent='space-between' flexDirection='row'>
             <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
             View
             </Button>
          
-            <Button size="small" color="primary" onClick={()=>movedtoEditPage(i.InvestorId)}>
+
+            <Button size="small" color="primary" onClick={()=>movedtoEditPage(i.VVBId)}>
              Update
             </Button>
             </Box>
-            </>
 )}            
             </CardActions>
             </Card>
@@ -361,7 +374,7 @@ const handleSearchChange = (event, newValue) => {
             component="video"
             height="170"
             width='100%'
-            src={`${LandOwnerFiles}${i.VirtualVideo}`}
+            src={`${VVBFiles}${i.VirtualVideo}`}
             controls
             />
       )}
@@ -374,16 +387,16 @@ const handleSearchChange = (event, newValue) => {
         ) : (
           <>
             <Typography gutterBottom variant="h5" component="div" textAlign='left'>
-            {i.LandOwnerId}
+            {i.VVBId}
             </Typography>
             <Stack spacing={1}>
             <Box display='flex' gap={1} flexDirection='row'>
             <Typography variant="body2" color="text.secondary" fontWeight={600}>Located:</Typography>
-            <Typography variant="body2">{i.InvestorCity}, {i.InvestorState}, {i.InvestorCountry}</Typography>
+            <Typography variant="body2">{i.VVBCity}, {i.VVBState}, {i.VVBCountry}</Typography>
             </Box>
             <Box display='flex' gap={1} flexDirection='row'>
             <Typography variant="body2" color="text.secondary" fontWeight={600}>Status:</Typography>
-            <Typography variant="body2"> {i.InvestorStatus}</Typography>
+            <Typography variant="body2"> {i.VVBStatus}</Typography>
             </Box>
             </Stack>
             </>
@@ -396,17 +409,16 @@ const handleSearchChange = (event, newValue) => {
             <Skeleton animation="wave" height={10} width="80%" />
           </React.Fragment>
         ) : (
-          <>
             <Box display='flex' justifyContent='space-between' flexDirection='row'>
             <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
             View
             </Button>
-         
-            <Button size="small" color="primary" onClick={()=>movedtoEditPage(i.InvestorId)}>
+
+
+            <Button size="small" color="primary" onClick={()=>movedtoEditPage(i.VVBId)}>
              Update
             </Button>
             </Box>
-            </>
               )}
             </CardActions>
             </Card>
@@ -431,4 +443,6 @@ const handleSearchChange = (event, newValue) => {
         </Box>
         </Box>
     );
+
 };
+export default VVBUpdatedLands;

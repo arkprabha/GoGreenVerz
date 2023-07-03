@@ -87,4 +87,21 @@ const get_land_owner: string  = `${baseApiurl}get_land_owner`;
 
 const get_investor: string  = `${baseApiurl}get_investor`;
 
-export { get_all_user_profile_type,add_admin,get_state,get_investor, get_district,get_user,get_land_owner, add_afforestation, add_buyer , add_cri, add_plantation_partner, BuyerFiles, AdminFiles, GOVTFiles, CRIFiles, VVBFiles, PlantationFiles, ProjectDeveloperFiles, ProfilePic, methodGet, add_project_developer, add_vvb, methodPost,  user_sign_in, add_investor, user_sign_up, add_land_owner, get_all_land_owner, LandOwnerFiles, InvestorFiles };
+const get_plantation_partner: string  = `${baseApiurl}get_plantation_partner`; 
+
+const get_admin: string  = `${baseApiurl}get_admin`; 
+
+const get_buyer: string  = `${baseApiurl}get_buyer`; 
+
+const get_project_developer: string  = `${baseApiurl}get_project_developer`; 
+
+const get_vvb: string  = `${baseApiurl}get_vvb`;
+
+const get_cri: string  = `${baseApiurl}get_cri`;
+
+const get_government_agency: string  = `${baseApiurl}get_government_agency`;
+
+export { get_all_user_profile_type,add_admin,get_state,get_investor,get_cri,get_government_agency,  get_vvb,get_project_developer, get_plantation_partner ,get_buyer , get_admin , get_district,get_user,get_land_owner, add_afforestation, add_buyer , add_cri, add_plantation_partner, BuyerFiles, AdminFiles, GOVTFiles, CRIFiles, VVBFiles, PlantationFiles, ProjectDeveloperFiles, ProfilePic, methodGet, add_project_developer, add_vvb, methodPost,  user_sign_in, add_investor, user_sign_up, add_land_owner, get_all_land_owner, LandOwnerFiles, InvestorFiles };
+
+
+
