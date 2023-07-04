@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import {
   Button, CardActionArea, CardActions, Grid, Stack, TextField,
-  TablePagination, Autocomplete
+  TablePagination, Autocomplete , Container
 } from '@mui/material';
 import { useState } from 'react';
 import { Box } from '@mui/material';
@@ -229,6 +229,17 @@ const GovtAgencyUpdatedLands: React.FC = () => {
       <Header isConnectedWallet={isConnectedWallet} />
       <Box p={1}>
         <GovtAgencyLandDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
+
+        <Container>
+          <Box mb={1}>
+            <Grid container mt={2}>
+              <Grid item xs={12} md={12} lg={12} xl={12}>
+                <Box width='100%' textAlign='center' py={2}>
+                  <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Submitted Lands</Typography>                  </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
         <Grid container spacing={2} display='flex' justifyContent='space-between'>
 
           <Grid item xs={12} sm={12} md={3} lg={3} height='auto' >
