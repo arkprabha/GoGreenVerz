@@ -175,8 +175,8 @@ export default function UpdateAdminForm() {
                     setAdminName(res.data.data.AdminName);
                     setAdminAddress1(res.data.data.AdminAddress1);
                     setAdminAddress2(res.data.data.AdminAddress2);
-                    setAdminCity(res.data.data.AdminCity);
-                    setAdminState(res.data.data.AdminState);
+                    // setAdminCity(res.data.data.AdminCity);
+                    // setAdminState(res.data.data.AdminState);
                     setAdminPostalCode(res.data.data.AdminPostalCode);
                     setAdminCountry(res.data.data.AdminCountry);
                     setUserManagement(res.data.data.UserManagement);

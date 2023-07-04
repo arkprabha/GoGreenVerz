@@ -180,8 +180,8 @@ export default function UpdatePlantationForm() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setPlantationPartnerAddress1(res.data.data.PlantationPartnerAddress1);
                     setPlantationPartnerAddress2(res.data.data.PlantationPartnerAddress2);
-                    setPlantationPartnerCity(res.data.data.PlantationPartnerCity);
-                    setPlantationPartnerState(res.data.data.PlantationPartnerState);
+                    // setPlantationPartnerCity(res.data.data.PlantationPartnerCity);
+                    // setPlantationPartnerState(res.data.data.PlantationPartnerState);
                     setPlantationPartnerPostalCode(res.data.data.PlantationPartnerPostalCode);
                     setPlantationPartnerCountry(res.data.data.PlantationPartnerCountry);
                     setPlantTypes(res.data.data.PlantTypes);

@@ -170,7 +170,6 @@ export default function UpdateAddedLands() {
                     setAlternateMobile(res.data.data.AlternateMobile);
                     setLandAddress1(res.data.data.LandAddress1);
                     setLandAddress2(res.data.data.LandAddress2);
-                    setLandCity(res.data.data.LandCity);
                     setLandPostalCode(res.data.data.LandPostalCode);
                     setLandCountry(res.data.data.LandCountry);
                     setLandSize(res.data.data.LandSize);

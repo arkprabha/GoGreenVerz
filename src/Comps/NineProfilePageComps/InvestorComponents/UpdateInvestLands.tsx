@@ -184,8 +184,8 @@ export default function UpdateInvestLands() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setInvestorAddress1(res.data.data.InvestorAddress1);
                     setInvestorAddress2(res.data.data.InvestorAddress2);
-                    setInvestorCity(res.data.data.InvestorCity);
-                    setInvestorState(res.data.data.InvestorState);
+                    // setInvestorCity(res.data.data.InvestorCity.DistrictName);
+                    // setInvestorState(res.data.data.InvestorState.StateName);
                     setInvestorPostalCode(res.data.data.InvestorPostalCode);
                     setInvestorCountry(res.data.data.InvestorCountry);
                     setLatitude(res.data.data.Latitude);

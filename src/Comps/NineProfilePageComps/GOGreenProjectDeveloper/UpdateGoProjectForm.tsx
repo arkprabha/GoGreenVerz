@@ -174,8 +174,8 @@ export default function UpdateGoProjectForm() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setDeveloperAddress1(res.data.data.DeveloperAddress1);
                     setDeveloperAddress2(res.data.data.DeveloperAddress2);
-                    setDeveloperCity(res.data.data.DeveloperCity);
-                    setDeveloperState(res.data.data.DeveloperState);
+                    // setDeveloperCity(res.data.data.DeveloperCity);
+                    // setDeveloperState(res.data.data.DeveloperState);
                     setDeveloperPostalCode(res.data.data.DeveloperPostalCode);
                     setDeveloperCountry(res.data.data.DeveloperCountry);
                     setMetaversePlatform(res.data.data.MetaversePlatform);

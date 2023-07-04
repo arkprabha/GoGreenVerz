@@ -176,8 +176,8 @@ export default function UpdateVVBForm() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setVVBAddress1(res.data.data.VVBAddress1);
                     setVVBAddress2(res.data.data.VVBAddress2);
-                    setVVBCity(res.data.data.VVBCity);
-                    setVVBState(res.data.data.VVBState);
+                    // setVVBCity(res.data.data.VVBCity);
+                    // setVVBState(res.data.data.VVBState);
                     setVVBPostalCode(res.data.data.VVBPostalCode);
                     setVVBCountry(res.data.data.VVBCountry);
                     setAccreditationInformation(res.data.data.AccreditationInformation);

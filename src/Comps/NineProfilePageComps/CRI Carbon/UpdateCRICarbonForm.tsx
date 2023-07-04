@@ -174,8 +174,8 @@ export default function UpdateCRICarbonForm() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setCRIAddress1(res.data.data.CRIAddress1);
                     setCRIAddress2(res.data.data.CRIAddress2);
-                    setCRICity(res.data.data.CRICity);
-                    setCRIState(res.data.data.CRIState);
+                    // setCRICity(res.data.data.CRICity);
+                    // setCRIState(res.data.data.CRIState);
                     setCRIPostalCode(res.data.data.CRIPostalCode);
                     setCRICountry(res.data.data.CRICountry);
                     setCCRegistry(res.data.data.CCRegistry);

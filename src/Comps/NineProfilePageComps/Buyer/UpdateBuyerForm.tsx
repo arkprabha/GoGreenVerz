@@ -177,8 +177,8 @@ export default function UpdateBuyerForm() {
                     setBuyerName(res.data.data.BuyerName);
                     setBuyerAddress1(res.data.data.BuyerAddress1);
                     setBuyerAddress2(res.data.data.BuyerAddress2);
-                    setBuyerCity(res.data.data.BuyerCity);
-                    setBuyerState(res.data.data.BuyerState);
+                    // setBuyerCity(res.data.data.BuyerCity);
+                    // setBuyerState(res.data.data.BuyerState);
                     setBuyerPostalCode(res.data.data.BuyerPostalCode);
                     setBuyerCountry(res.data.data.BuyerCountry);
                     setCCTrading(res.data.data.CCTrading);

@@ -176,8 +176,8 @@ export default function UpdateGovtAgencyForm() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setGovAgencyAddress1(res.data.data.GovAgencyAddress1);
                     setGovAgencyAddress2(res.data.data.GovAgencyAddress2);
-                    setGovAgencyCity(res.data.data.GovAgencyCity);
-                    setGovAgencyState(res.data.data.GovAgencyState);
+                    // setGovAgencyCity(res.data.data.GovAgencyCity);
+                    // setGovAgencyState(res.data.data.GovAgencyState);
                     setGovAgencyPostalCode(res.data.data.GovAgencyPostalCode);
                     setGovAgencyCountry(res.data.data.GovAgencyCountry);
                     setRegulatoryGuidelines(res.data.data.RegulatoryGuidelines);
