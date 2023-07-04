@@ -1,6 +1,6 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import { add_plantation_partner, get_district, get_state, methodGet, methodPost} from "../../../API_Service/API_Service";
+import { add_government_agency, get_district,  get_state, methodGet, methodPost} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -41,7 +41,9 @@ interface District {
   DistrictId: string;
   DistrictName: string;
 }
-
+interface LocationState {
+    id: string;
+}
 
 
 
@@ -77,12 +79,13 @@ export default function GovtAgencyForm() {
     const [message, setMessage] = useState<string>('');
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
 
         
     const navigate = useNavigate();
-    const location = useLocation()
-    const { id } = location.state;
+    const location = useLocation();
+    const locationState = location.state as LocationState;
+    const { id } = locationState;
 
 
   useEffect(() => {
@@ -179,7 +182,7 @@ export default function GovtAgencyForm() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_plantation_partner,
+            url: add_government_agency,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -213,14 +216,25 @@ export default function GovtAgencyForm() {
         <Box>
         <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center" fontSize={15}>
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Govt Agency Form</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
 
                 <Box sx={{ px: 3, my: 2, mx: 3 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7 }}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7 }}>
                                 <Box sx={{ pb: 4, textAlign: 'left' }}>
                                     <h5>GOVERNMENT AGENCY ANALYSIS</h5>
                                 </Box>

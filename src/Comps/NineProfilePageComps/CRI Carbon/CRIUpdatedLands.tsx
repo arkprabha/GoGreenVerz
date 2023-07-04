@@ -11,13 +11,13 @@ import {
   Stack,
   TextField,
   TablePagination,
-  Autocomplete,
+  Autocomplete,Container,
 } from "@mui/material";
 import { useState } from "react";
 import { Box } from "@mui/material";
 import axios from "axios";
 import {
-  CRIFiles,
+  LandOwnerFiles,
   get_cri,
   get_state,
   methodGet,
@@ -263,6 +263,17 @@ const CRIUpdatedLands: React.FC = () => {
           setOpenDialog={setOpenDialog}
           i={selectedItem}
         />
+        <Container>
+          <Box mb={1}>
+            <Grid container mb={2} mt={2}>
+              <Grid item xs={12} md={12} lg={12} xl={12}>
+                <Box width='100%' textAlign='center' py={2}>
+                  <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >My Work Submissions</Typography>                  </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+
         <Grid
           container
           spacing={2}
@@ -276,7 +287,7 @@ const CRIUpdatedLands: React.FC = () => {
             md={3}
             lg={3}
             height="auto"
-            borderRight={{ xs: "none", sm: "none", md: "1px solid silver" }}
+           
           >
             <Box p={1}>
               <Box py={3}>
@@ -411,7 +422,7 @@ const CRIUpdatedLands: React.FC = () => {
                               component="video"
                               height="170"
                               width="100%"
-                              src={`${CRIFiles}${i.VirtualVideo}`}
+                              src={`${LandOwnerFiles}${i.VirtualVideo}`}
                               controls
                             />
                           )}
@@ -558,7 +569,7 @@ const CRIUpdatedLands: React.FC = () => {
                             component="video"
                             height="170"
                             width="100%"
-                            src={`${CRIFiles}${i.VirtualVideo}`}
+                            src={`${LandOwnerFiles}${i.VirtualVideo}`}
                             controls
                           />
                         )}

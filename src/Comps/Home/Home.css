@@ -1,9 +1,8 @@
 
 .desktop-1-42a{
-  width: 100%;
+    width: 100%;
     height: auto;
     position: relative;
-    background-color: #ffffee;
 }
 .desktop-1-42a .auto-group-zlsh-nEi {
   width: 100%;
@@ -13,16 +12,16 @@
   flex-shrink: 0;
 }
 .desktop-1-42a .auto-group-zlsh-nEi .auto-group-gjdw-qin {
-  margin: 0.4rem 11.8rem 0rem 3rem;
+  margin: 6.4rem 11.8rem 0rem 3rem;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
 }
 .desktop-1-42a .auto-group-zlsh-nEi .auto-group-gjdw-qin .gotlogouncut-removebg-preview-1-j3U {
-  margin: 0rem 0rem 6rem 0.1rem;
-  width: 38.3rem;
-  height: 12.4rem;
-  object-fit: cover;
+  margin: 0rem 0rem 4rem 0.1rem;
+  width: 19.3rem;
+  height: 7.4rem;
+  object-fit: conatin;
   vertical-align: top;
   flex-shrink: 0;
 }
@@ -37,20 +36,20 @@
 }
 
 .desktop-1-42a .auto-group-zlsh-nEi .auto-group-gjdw-qin .pngwing-2-PNv {
-  margin-bottom: 3.5774rem;
-  width: 31.6656rem;
-  height: 7.1226rem;
-  object-fit: cover;
+margin-bottom: 3.5774rem;
+  width: 21.6656rem;
+  height: 5.1226rem;
+  object-fit: contain;
   vertical-align: top;
   flex-shrink: 0;
 }
 .desktop-1-42a .auto-group-zlsh-nEi .auto-group-gjdw-qin .full-solana-logo-1-3iN {
-  margin-left: 2rem;
-  width: 27.3rem;
-  height: 3.5rem;
-  object-fit: cover;
-  vertical-align: top;
-  flex-shrink: 0;
+    margin-left: 1rem;
+    width: 19.3rem;
+    height: 2.5rem;
+    object-fit: contain;
+    vertical-align: top;
+    flex-shrink: 0;
 }
 .desktop-1-42a .auto-group-zlsh-nEi .auto-group-4bx3-w34 {
   width: 74.9rem;
@@ -151,13 +150,13 @@
   line-height: 1.2125;
 }
 .desktop-1-42a .auto-group-zlsh-nEi .auto-group-4bx3-w34 .pngwing-3-EXG {
-  width: 65.5rem;
-  height: 29.2rem;
+  width: 35.5rem;
+  height: 19.2rem;
   position: absolute;
   z-index: 1;
   left: 0rem;
   top: 8.9rem;
-  object-fit: cover;
+  object-fit: contain;
   vertical-align: top;
 }
 

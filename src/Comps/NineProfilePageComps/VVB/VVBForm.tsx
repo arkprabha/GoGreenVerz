@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
 import { add_vvb, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
@@ -42,7 +42,9 @@ interface District {
   DistrictId: string;
   DistrictName: string;
 }
-
+interface LocationState {
+    id: string;
+}
 
 
 export default function VVB() {
@@ -76,11 +78,12 @@ export default function VVB() {
     const [message, setMessage] = useState<string>('');
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
     
     const navigate = useNavigate();
     const location = useLocation();
-    const {id} = location.state;
+    const locationState = location.state as LocationState;
+    const { id } = locationState;
 
 
     
@@ -212,14 +215,25 @@ export default function VVB() {
         <Box>
                  <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
              <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center" fontSize={15}>
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Update VVB Information</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
 
                 <Box sx={{ px: 3, my: 2, mx: 3 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7}}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7}}>
                                 <Box sx={{ pb: 4, textAlign: 'left' }}>
                                     <h5>UPDATE VVB INFORMATION</h5>
                                 </Box>

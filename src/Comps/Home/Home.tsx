@@ -31,9 +31,7 @@ import { GatewayProvider } from "@civic/solana-gateway-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { SolanaMobileWalletAdapterWalletName } from "@solana-mobile/wallet-adapter-mobile";
 import Header from '../../Header';
-import pngwing from '../../assets/pngwing-2-tqL.png'
 import gotlogouncut from '../../assets/gotlogouncut-removebg-preview-1.png'
-import solana from '../../assets/full-solana-logo-1.png'
 import pngwing3 from '../../assets/pngwing-3.png'
 import './Home.css';
 const ConnectButton = styled(WalletDialogButton)`
@@ -507,17 +505,16 @@ const Home = (props: HomeProps) => {
             <Box className="auto-group-zlsh-nEi">
                 <Box className="auto-group-gjdw-qin">
                     <img className="gotlogouncut-removebg-preview-1-j3U" src={gotlogouncut} alt='removebg' />
-                    <img className="pngwing-2-PNv" src={pngwing} alt='pngwing' />
-                    <img className="full-solana-logo-1-3iN" src={solana} alt='solana' />
                 </Box>
                 <Box className="auto-group-4bx3-w34">
-            <Container maxWidth="xs" style={{ position: "relative" , zIndex:10 }}>
+            <Container style={{ position: "relative" , zIndex:10 }}>
               <Paper
                 style={{
                   padding: 24,
                   paddingBottom: 10,
                   backgroundColor: "#013220",
                   borderRadius: 6,
+                  maxWidth:'450px',
                 }}
               >
                 {!connected ? (

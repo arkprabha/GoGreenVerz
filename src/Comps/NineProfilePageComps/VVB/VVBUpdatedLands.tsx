@@ -4,11 +4,11 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions, Grid, Stack, TextField,
-TablePagination, Autocomplete } from '@mui/material';
+TablePagination, Autocomplete , Container } from '@mui/material';
 import { useState } from 'react';
 import { Box} from '@mui/material';
 import axios from 'axios';
-import { VVBFiles, get_state, get_vvb, methodGet } from '../../../API_Service/API_Service';
+import { LandOwnerFiles, get_state, get_vvb, methodGet } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -228,9 +228,21 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
              <Header isConnectedWallet={isConnectedWallet} />
             <Box p={1}>
             <VVBLandDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
+
+          <Container>
+            <Box mb={1}>
+              <Grid container mt={2}>
+                <Grid item xs={12} md={12} lg={12} xl={12}>
+                  <Box width='100%' textAlign='center' py={2}>
+                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Your Work Submissions</Typography>                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </Container>
+
            <Grid container spacing={2}  display='flex' justifyContent='space-between'>
        
-          <Grid item xs={12} sm={12} md={3} lg={3} height='auto' borderRight={{xs:'none' , sm:'none', md:'1px solid silver'}}>
+          <Grid item xs={12} sm={12} md={3} lg={3} height='auto'>
           <Box p={1}>
           <Box py={3}>
           <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center', }}>
@@ -298,7 +310,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             component="video"
             height="170"
             width='100%'
-            src={`${VVBFiles}${i.VirtualVideo}`}
+            src={`${LandOwnerFiles}${i.VirtualVideo}`}
             controls
             />
       )}
@@ -374,7 +386,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             component="video"
             height="170"
             width='100%'
-            src={`${VVBFiles}${i.VirtualVideo}`}
+            src={`${LandOwnerFiles}${i.VirtualVideo}`}
             controls
             />
       )}

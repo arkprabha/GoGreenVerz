@@ -1,8 +1,8 @@
-import { Box, Button,  Grid, TextField, Autocomplete,Stack } from "@mui/material";
+import { Box, Button, Grid, TextField, Autocomplete, Stack, Typography, Container } from "@mui/material";
 import Header from "../../../Header";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
-import { add_land_owner, get_district, get_land_owner, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
+import {get_district, get_land_owner, get_state, methodGet, methodPost, update_land_owner } from "../../../API_Service/API_Service";
 import axios from "axios";
 import { useLocation, useNavigate} from "react-router-dom";
 import SnackBar from "../../SnackBar/SnackBar";
@@ -164,23 +164,23 @@ export default function UpdateAddedLands() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message)
-                    setName(res.data.data[0].LandOwnerName);
-                    setEmail(res.data.data[0].Email);
-                    setMobileNum(res.data.data[0].MobileNum);
-                    setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setLandAddress1(res.data.data[0].LandAddress1);
-                    setLandAddress2(res.data.data[0].LandAddress2);
-                    setLandCity(res.data.data[0].LandCity);
-                    setLandPostalCode(res.data.data[0].LandPostalCode);
-                    setLandCountry(res.data.data[0].LandCountry);
-                    setLandSize(res.data.data[0].LandSize);
-                    setLatitude(res.data.data[0].Latitude);
-                    setLongitude(res.data.data[0].Longitude);
-                    setTermsAndConditions(res.data.data[0].TermsAndConditions);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setLandStatus(res.data.data[0].LandStatus);
-                    setRemarks(res.data.data[0].Remarks);
+                    setName(res.data.data.LandOwnerName);
+                    setEmail(res.data.data.Email);
+                    setMobileNum(res.data.data.MobileNum);
+                    setAlternateMobile(res.data.data.AlternateMobile);
+                    setLandAddress1(res.data.data.LandAddress1);
+                    setLandAddress2(res.data.data.LandAddress2);
+                    setLandCity(res.data.data.LandCity);
+                    setLandPostalCode(res.data.data.LandPostalCode);
+                    setLandCountry(res.data.data.LandCountry);
+                    setLandSize(res.data.data.LandSize);
+                    setLatitude(res.data.data.Latitude);
+                    setLongitude(res.data.data.Longitude);
+                    setTermsAndConditions(res.data.data.TermsAndConditions);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setLandStatus(res.data.data.LandStatus);
+                    setRemarks(res.data.data.Remarks);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -224,7 +224,7 @@ export default function UpdateAddedLands() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_land_owner,
+            url: update_land_owner,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -259,9 +259,20 @@ export default function UpdateAddedLands() {
         <Box>
              <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
            <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center">
+            <Box display="flex" flexDirection='column' alignItems="center">
 
-                <Box sx={{ px: 4, backgroundColor: '#EDF4F4', borderRadius: '10px', mx: 4, my: 2, boxShadow: 11 }}>
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Edit Added Lands Information</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
+
+                <Box sx={{ px: 4, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 4, my: 2, boxShadow: 11 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={2} >
                         <Grid item lg={12} xl={12} >

@@ -193,7 +193,7 @@ export default function BuyerProfilePage() {
                   </Typography>
                   <Typography color="#84cb25">
                     <UpgradeIcon
-                      onClick={() => navigate('/updateaddedbuyer')}
+                      onClick={() => navigate('/yourlands')}
                     />
                   </Typography>
                 </Box>

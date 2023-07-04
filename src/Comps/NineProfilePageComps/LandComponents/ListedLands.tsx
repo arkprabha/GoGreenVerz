@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions, Grid, Stack, TextField,
 TablePagination, Autocomplete } from '@mui/material';
 import { useState } from 'react';
-import { Box} from '@mui/material';
+import { Box , Container} from '@mui/material';
 import axios from 'axios';
 import { LandOwnerFiles, get_all_land_owner, get_state, methodGet } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
@@ -213,15 +213,56 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
      setInputKey((prevKey) => prevKey + 1);
   }
 
+  const handleClickOpenInvestor = (id: string) =>{
+    navigate('/investerprofileform', {state: { id : id}})
+  }
+
+  const handleClickOpenProjectDev = (id: string) => {
+    navigate('/goprojectdeveloperform', { state: { id: id } })
+  }
+
+  const handleClickOpenAdmin = (id: string) => {
+    navigate('/adminprofileform', { state: { id: id } })
+  }
+  const handleClickOpenBuyer = (id: string) => {
+    navigate('/buyersform', { state: { id: id } })
+  }
+  const handleClickOpenPlantation = (id: string) => {
+    navigate('/planationform', { state: { id: id } })
+  }
+  const handleClickOpenCRI = (id: string) => {
+    navigate('/cricarbonform', { state: { id: id } })
+  }
+  const handleClickOpenVVB = (id: string) => {
+    navigate('/vvbform', { state: { id: id } })
+  }
+  const handleClickOpenGovt = (id: string) => {
+    navigate('/govtagencyform', { state: { id: id } })
+  }
+
+
+
     return (
         <Box>
            <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
              <Header isConnectedWallet={isConnectedWallet} />
             <Box p={1}>
             <LandDataDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
+
+          <Container>
+            <Box mb={1}>
+              <Grid container mb={2} mt={2}>
+                <Grid item xs={12} md={12} lg={12} xl={12}>
+                  <Box width='100%' textAlign='center' py={2}>
+                    <Typography variant="h5" color='#262626' sx={{textDecoration:'underline', lineHeight:1}} fontWeight={600} > Listed Lands</Typography>                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </Container>
+
            <Grid container spacing={2}  display='flex' justifyContent='space-between'>
        
-          <Grid item xs={12} sm={12} md={3} lg={3} height='auto' borderRight={{xs:'none' , sm:'none', md:'1px solid silver'}}>
+          <Grid item xs={12} sm={12} md={3} lg={3} height='auto' >
           <Box p={1}>
           <Box py={3}>
           <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center', }}>
@@ -330,35 +371,35 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
            <Box display='flex' justifyContent='space-between' flexDirection='row'>
             {
             UserType === 'Investor' &&  
-            <Button size="small" color="primary" onClick={()=>navigate('/investorprofileform', {state:{id:i.LandOwnerId}})}>Invest</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenInvestor(i.LandOwnerId)}>Invest</Button>
             }
             {
             UserType === 'GoGreenverz or Project Developer' &&
-            <Button size="small" color="primary" onClick={()=>navigate('/goprojectdeveloperform', {state:{id:i.LandOwnerId}})}> GoProject Dev Form</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenProjectDev(i.LandOwnerId)}> GoProject Dev Form</Button>
             }
             {
             UserType === 'Plantation Partner' && 
-            <Button size="small" color="primary" onClick={()=>navigate('/planationform', {state:{id:i.LandOwnerId}})}>Add Plantation</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenPlantation(i.LandOwnerId)}>Add Plantation</Button>
             }
             {
             UserType === 'Verification and Validation Body' && 
-            <Button size="small" color="primary" onClick={()=>navigate('/vvbform', {state:{id:i.LandOwnerId}})}>VVB Form</Button>
+           <Button size="small" color="primary" onClick={() => handleClickOpenVVB(i.LandOwnerId)}>VVB Form</Button>
             }
             {
             UserType === 'Carbon Registry of India' && 
-            <Button size="small" color="primary" onClick={()=>navigate('/cricarbonform', {state:{id:i.LandOwnerId}})}>CRI Form</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenCRI(i.LandOwnerId)}>CRI Form</Button>
             }
             {
             UserType === 'Government Agencies' && 
-            <Button size="small" color="primary" onClick={()=>navigate('/govtagencyform', {state:{id:i.LandOwnerId}})}>Govt Agency Form</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenGovt(i.LandOwnerId)}>Govt Agency Form</Button>
             }
             {
             UserType === 'Admin' &&
-            <Button size="small" color="primary" onClick={()=>navigate('/adminprofileform', {state:{id:i.LandOwnerId}})}>Admin Form</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenAdmin(i.LandOwnerId)}>Admin Form</Button>
             }
             {
             UserType === 'Buyers' &&
-            <Button size="small" color="primary" onClick={()=>navigate('/buyersform', {state:{id:i.LandOwnerId}})}>Buy Land</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenBuyer(i.LandOwnerId)}>Buy Land</Button>
             }
               
             <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
@@ -445,42 +486,42 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
           </React.Fragment>
         ) : (
           <>
-            {
+          {
             UserType !== 'Land owner' ?
-           <Box display='flex' justifyContent='space-between' flexDirection='row'>
-            {
-            UserType === 'Investor' &&  
-            <Button size="small" color="primary" onClick={()=>navigate('/investorprofileform')}>Invest</Button>
-            }
-            {
-            UserType === 'GoGreenverz or Project Developer' &&
-            <Button size="small" color="primary" onClick={()=>navigate('/goprojectdeveloperform')}> GoProject Dev Form</Button>
-            }
-            {
-            UserType === 'Plantation Partner' && 
-            <Button size="small" color="primary" onClick={()=>navigate('/planationform')}>Add Plantation</Button>
-            }
-            {
-            UserType === 'Verification and Validation Body' && 
-            <Button size="small" color="primary" onClick={()=>navigate('/vvbform')}>VVB Form</Button>
-            }
-            {
-            UserType === 'Carbon Registry of India' && 
-            <Button size="small" color="primary" onClick={()=>navigate('/cricarbonform')}>CRI Form</Button>
-            }
-            {
-            UserType === 'Government Agencies' && 
-            <Button size="small" color="primary" onClick={()=>navigate('/govtagencyform')}>Govt Agency Form</Button>
-            }
-            {
-            UserType === 'Admin' &&
-            <Button size="small" color="primary" onClick={()=>navigate('/adminprofileform')}>Admin Form</Button>
-            }
-            {
-            UserType === 'Buyers' &&
-            <Button size="small" color="primary" onClick={()=>navigate('/buyersform')}>Buy Land</Button>
-            }
-              
+              <Box display='flex' justifyContent='space-between' flexDirection='row'>
+                {
+                  UserType === 'Investor' &&
+                  <Button size="small" color="primary" onClick={() => handleClickOpenInvestor(i.LandOwnerId)}>Invest</Button>
+                }
+                {
+                  UserType === 'GoGreenverz or Project Developer' &&
+                  <Button size="small" color="primary" onClick={() => handleClickOpenProjectDev(i.LandOwnerId)}> GoProject Dev Form</Button>
+                }
+                {
+                  UserType === 'Plantation Partner' &&
+                  <Button size="small" color="primary" onClick={() => handleClickOpenPlantation(i.LandOwnerId)}>Add Plantation</Button>
+                }
+                {
+                  UserType === 'Verification and Validation Body' &&
+                  <Button size="small" color="primary" onClick={() => handleClickOpenVVB(i.LandOwnerId)}>VVB Form</Button>
+                }
+                {
+                  UserType === 'Carbon Registry of India' &&
+                  <Button size="small" color="primary" onClick={() => handleClickOpenCRI(i.LandOwnerId)}>CRI Form</Button>
+                }
+                {
+                  UserType === 'Government Agencies' &&
+                  <Button size="small" color="primary" onClick={() => handleClickOpenGovt(i.LandOwnerId)}>Govt Agency Form</Button>
+                }
+                {
+                  UserType === 'Admin' &&
+                  <Button size="small" color="primary" onClick={() => handleClickOpenAdmin(i.LandOwnerId)}>Admin Form</Button>
+                }
+                {
+                  UserType === 'Buyers' &&
+                  <Button size="small" color="primary" onClick={() => handleClickOpenBuyer(i.LandOwnerId)}>Buy Land</Button>
+                }
+
             <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
              View
             </Button>

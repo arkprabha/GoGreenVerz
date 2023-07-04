@@ -1,6 +1,6 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import { add_plantation_partner, get_district, get_government_agency, get_state, methodGet, methodPost} from "../../../API_Service/API_Service";
+import {get_district, get_government_agency, get_state, methodGet, methodPost, update_government_agency} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -77,7 +77,7 @@ export default function UpdateGovtAgencyForm() {
     const [message, setMessage] = useState<string>('');
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
 
     const location = useLocation();
     const { id } = location.state;
@@ -168,22 +168,22 @@ export default function UpdateGovtAgencyForm() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message)
-                    setName(res.data.data[0].VVBName);
-                    setEmail(res.data.data[0].Email);
-                    setMobileNum(res.data.data[0].MobileNum);
-                    setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setGovAgencyAddress1(res.data.data[0].GovAgencyAddress1);
-                    setGovAgencyAddress2(res.data.data[0].GovAgencyAddress2);
-                    setGovAgencyCity(res.data.data[0].GovAgencyCity);
-                    setGovAgencyState(res.data.data[0].GovAgencyState);
-                    setGovAgencyPostalCode(res.data.data[0].GovAgencyPostalCode);
-                    setGovAgencyCountry(res.data.data[0].GovAgencyCountry);
-                    setRegulatoryGuidelines(res.data.data[0].RegulatoryGuidelines);
-                    setAuditReport(res.data.data[0].AuditReport);
-                    setComplianceRecord(res.data.data[0].ComplianceRecord);
-                    setGovAgencyStatus(res.data.data[0].GovAgencyStatus);
+                    setName(res.data.data.VVBName);
+                    setEmail(res.data.data.Email);
+                    setMobileNum(res.data.data.MobileNum);
+                    setAlternateMobile(res.data.data.AlternateMobile);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setGovAgencyAddress1(res.data.data.GovAgencyAddress1);
+                    setGovAgencyAddress2(res.data.data.GovAgencyAddress2);
+                    setGovAgencyCity(res.data.data.GovAgencyCity);
+                    setGovAgencyState(res.data.data.GovAgencyState);
+                    setGovAgencyPostalCode(res.data.data.GovAgencyPostalCode);
+                    setGovAgencyCountry(res.data.data.GovAgencyCountry);
+                    setRegulatoryGuidelines(res.data.data.RegulatoryGuidelines);
+                    setAuditReport(res.data.data.AuditReport);
+                    setComplianceRecord(res.data.data.ComplianceRecord);
+                    setGovAgencyStatus(res.data.data.GovAgencyStatus);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -230,7 +230,7 @@ export default function UpdateGovtAgencyForm() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_plantation_partner,
+            url: update_government_agency,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -264,14 +264,25 @@ export default function UpdateGovtAgencyForm() {
         <Box>
         <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center" fontSize={15}>
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Edit Submitted Form</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
 
                 <Box sx={{ px: 3, my: 2, mx: 3 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7 }}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7 }}>
                                 <Box sx={{ pb: 4, textAlign: 'left' }}>
                                     <h5>GOVERNMENT AGENCY ANALYSIS</h5>
                                 </Box>

@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField, Stack , Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
 import { appendData } from "../../../Variables/ProcessVariable";
 import { add_land_owner, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
@@ -206,9 +206,20 @@ export default function AddLands() {
             <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
 
             <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center">
+            <Box display="flex" flexDirection='column' alignItems="center">
 
-                <Box sx={{ px: 4, backgroundColor: '#EDF4F4', borderRadius: '10px', mx: 4, my: 2, boxShadow: 11 }}>
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Add Your Lands</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
+
+                <Box sx={{ px: 4, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 4, my: 2, boxShadow: 11 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={2} >
                         <Grid item lg={12} xl={12} >

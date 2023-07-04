@@ -1,8 +1,8 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from "../../../Header";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
-import {add_investor, get_investor } from "../../../API_Service/API_Service";
+import {get_investor, update_investor } from "../../../API_Service/API_Service";
 import axios from "axios";
 import { get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -176,27 +176,27 @@ export default function UpdateInvestLands() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message)
-                    setName(res.data.data[0].LandOwnerName);
-                    setEmail(res.data.data[0].Email);
-                    setMobileNum(res.data.data[0].MobileNum);
-                    setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setInvestorAddress1(res.data.data[0].InvestorAddress1);
-                    setInvestorAddress2(res.data.data[0].InvestorAddress2);
-                    setInvestorCity(res.data.data[0].InvestorCity);
-                    setInvestorState(res.data.data[0].InvestorState);
-                    setInvestorPostalCode(res.data.data[0].InvestorPostalCode);
-                    setInvestorCountry(res.data.data[0].InvestorCountry);
-                    setLatitude(res.data.data[0].Latitude);
-                    setLongitude(res.data.data[0].Longitude);
-                    setInvestorStatus(res.data.data[0].InvestorStatus);
-                    setInvestmentPortfolio(res.data.data[0].InvestmentPortfolio);
-                    setProgressTracking(res.data.data[0].ProgressTracking);
-                    setRemarks(res.data.data[0].Remarks);
-                    setTermsAndConditions(res.data.data[0].TermsAndConditions);
-                    setLandSize(res.data.data[0].LandSize);
-                    setLandId(res.data.data[0].LandSize);
+                    setName(res.data.data.LandOwnerName);
+                    setEmail(res.data.data.Email);
+                    setMobileNum(res.data.data.MobileNum);
+                    setAlternateMobile(res.data.data.AlternateMobile);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setInvestorAddress1(res.data.data.InvestorAddress1);
+                    setInvestorAddress2(res.data.data.InvestorAddress2);
+                    setInvestorCity(res.data.data.InvestorCity);
+                    setInvestorState(res.data.data.InvestorState);
+                    setInvestorPostalCode(res.data.data.InvestorPostalCode);
+                    setInvestorCountry(res.data.data.InvestorCountry);
+                    setLatitude(res.data.data.Latitude);
+                    setLongitude(res.data.data.Longitude);
+                    setInvestorStatus(res.data.data.InvestorStatus);
+                    setInvestmentPortfolio(res.data.data.InvestmentPortfolio);
+                    setProgressTracking(res.data.data.ProgressTracking);
+                    setRemarks(res.data.data.Remarks);
+                    setTermsAndConditions(res.data.data.TermsAndConditions);
+                    setLandSize(res.data.data.LandSize);
+                    setLandId(res.data.data.LandSize);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -251,7 +251,7 @@ export default function UpdateInvestLands() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_investor,
+            url: update_investor,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -285,7 +285,18 @@ export default function UpdateInvestLands() {
         <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Header isConnectedWallet={isConnectedWallet} />
         
-            <Box sx={{ height: '90%' }} display="flex" alignItems="center">
+            <Box sx={{ height: '90%' }} display="flex" flexDirection='column' alignItems="center">
+
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Edit Investment Form</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
 
                 <Box py={4} sx={{ px: 5, backgroundColor: '#e5f4eb', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
 

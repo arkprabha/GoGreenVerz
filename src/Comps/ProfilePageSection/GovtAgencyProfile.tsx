@@ -193,7 +193,7 @@ export default function GovtAgencyProfile() {
                   </Typography>
                   <Typography color="#84cb25">
                     <UpgradeIcon
-                      onClick={() => navigate('/updateaddedgovagency')}
+                      onClick={() => navigate('/govtsubmissions')}
                     />
                   </Typography>
                 </Box>

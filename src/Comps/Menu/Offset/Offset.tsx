@@ -14,7 +14,7 @@ const Offset : React.FC = () => {
             <Box className="auto-group-ynay-crJ">
                 <img className="pngegg-3-1-jA" src={pngwing4} alt="image" />
                 <Box className="auto-group-lxus-RHx">
-                    <Typography variant="body1" className="co2-footprint-metrics--Lvi">Offset metrics:</Typography>
+                    {/* <Typography variant="body1" className="co2-footprint-metrics--Lvi">Offset metrics:</Typography> */}
                     <Box className="auto-group-98hs-F26">
                         <img className="pngwing-1-mFL" src={pngwing2} alt="icon1" />
                         <Box className="rectangle-14-f5p"></Box>

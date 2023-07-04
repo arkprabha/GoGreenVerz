@@ -1,6 +1,6 @@
-import { Box, Button, Grid, TextField, Stack , Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack , Autocomplete , Container , Typography } from "@mui/material";
 import Header from '../../../Header';
-import { add_admin, get_admin, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
+import { get_admin, get_district, get_state, methodGet, methodPost, update_admin } from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -167,24 +167,24 @@ export default function UpdateAdminForm() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message);
-                    setEmail(res.data.data[0].Email);
-                    setMobileNum(res.data.data[0].MobileNum);
-                    setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setAdminName(res.data.data[0].AdminName);
-                    setAdminAddress1(res.data.data[0].AdminAddress1);
-                    setAdminAddress2(res.data.data[0].AdminAddress2);
-                    setAdminCity(res.data.data[0].AdminCity);
-                    setAdminState(res.data.data[0].AdminState);
-                    setAdminPostalCode(res.data.data[0].AdminPostalCode);
-                    setAdminCountry(res.data.data[0].AdminCountry);
-                    setUserManagement(res.data.data[0].UserManagement);
-                    setPlatformSettings(res.data.data[0].PlatformSettings);
-                    setAccessControls(res.data.data[0].AccessControls);
-                    setDataAnalytics(res.data.data[0].DataAnalytics);
-                    setAdminStatus(res.data.data[0].AdminStatus);
-                    setRemarks(res.data.data[0].Remarks);
+                    setEmail(res.data.data.Email);
+                    setMobileNum(res.data.data.MobileNum);
+                    setAlternateMobile(res.data.data.AlternateMobile);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setAdminName(res.data.data.AdminName);
+                    setAdminAddress1(res.data.data.AdminAddress1);
+                    setAdminAddress2(res.data.data.AdminAddress2);
+                    setAdminCity(res.data.data.AdminCity);
+                    setAdminState(res.data.data.AdminState);
+                    setAdminPostalCode(res.data.data.AdminPostalCode);
+                    setAdminCountry(res.data.data.AdminCountry);
+                    setUserManagement(res.data.data.UserManagement);
+                    setPlatformSettings(res.data.data.PlatformSettings);
+                    setAccessControls(res.data.data.AccessControls);
+                    setDataAnalytics(res.data.data.DataAnalytics);
+                    setAdminStatus(res.data.data.AdminStatus);
+                    setRemarks(res.data.data.Remarks);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -234,7 +234,7 @@ export default function UpdateAdminForm() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_admin,
+            url: update_admin,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -269,14 +269,25 @@ export default function UpdateAdminForm() {
         <Box>
              <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center" fontSize={15}>
-
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+                
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Edit Submitted Form</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
+                
                 <Box sx={{ px: 3, my: 2, mx: 3 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 3 }}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 3 }}>
                                 <Box sx={{ pb: 2, textAlign: 'left' }}>
                                     <h5>ADMINSTRATION DEPARTMENT</h5>
                                 </Box>

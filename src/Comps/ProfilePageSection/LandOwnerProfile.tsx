@@ -201,7 +201,7 @@ export default function LandOwnerProfile() {
                   </Typography>
                   <Typography color="#84cb25">
                     <UpgradeIcon
-                      onClick={() => navigate('/updateaddedlands')}
+                      onClick={() => navigate('/listedlands')}
                     />
                   </Typography>
                 </Box>

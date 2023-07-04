@@ -1,6 +1,6 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete , Container , Typography } from "@mui/material";
 import Header from '../../../Header';
-import { add_buyer, get_buyer, get_district, get_state, methodGet, methodPost} from "../../../API_Service/API_Service";
+import { get_buyer, get_district, get_state, methodGet, methodPost, update_buyer} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -79,7 +79,7 @@ export default function UpdateBuyerForm() {
     const [message, setMessage] = useState<string>('');
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -169,24 +169,24 @@ export default function UpdateBuyerForm() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message);
-                    setEmail(res.data.data[0].Email);
-                    setMobileNum(res.data.data[0].MobileNum);
-                    setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setBuyerName(res.data.data[0].BuyerName);
-                    setBuyerAddress1(res.data.data[0].BuyerAddress1);
-                    setBuyerAddress2(res.data.data[0].BuyerAddress2);
-                    setBuyerCity(res.data.data[0].BuyerCity);
-                    setBuyerState(res.data.data[0].BuyerState);
-                    setBuyerPostalCode(res.data.data[0].BuyerPostalCode);
-                    setBuyerCountry(res.data.data[0].BuyerCountry);
-                    setCCTrading(res.data.data[0].CCTrading);
-                    setContracts(res.data.data[0].Contracts);
-                    setPurchase(res.data.data[0].Purchase);
-                    setPaymentHistory(res.data.data[0].PaymentHistory);
-                    setBuyerStatus(res.data.data[0].BuyerStatus);
-                    setRemarks(res.data.data[0].Remarks);
+                    setEmail(res.data.data.Email);
+                    setMobileNum(res.data.data.MobileNum);
+                    setAlternateMobile(res.data.data.AlternateMobile);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setBuyerName(res.data.data.BuyerName);
+                    setBuyerAddress1(res.data.data.BuyerAddress1);
+                    setBuyerAddress2(res.data.data.BuyerAddress2);
+                    setBuyerCity(res.data.data.BuyerCity);
+                    setBuyerState(res.data.data.BuyerState);
+                    setBuyerPostalCode(res.data.data.BuyerPostalCode);
+                    setBuyerCountry(res.data.data.BuyerCountry);
+                    setCCTrading(res.data.data.CCTrading);
+                    setContracts(res.data.data.Contracts);
+                    setPurchase(res.data.data.Purchase);
+                    setPaymentHistory(res.data.data.PaymentHistory);
+                    setBuyerStatus(res.data.data.BuyerStatus);
+                    setRemarks(res.data.data.Remarks);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -235,7 +235,7 @@ export default function UpdateBuyerForm() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_buyer,
+            url: update_buyer,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -269,16 +269,26 @@ export default function UpdateBuyerForm() {
         <Box>
              <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center" fontSize={15}>
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Edit Purchase Information</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
 
                 <Box sx={{ px: 3, my: 2, mx: 3 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 3 }}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 3 }}>
                                 <Box sx={{ pb: 2, textAlign: 'left' }}>
-                                    <h5>UPDATE PURCHASE/CONTRACT INFORMATION</h5>
+                                    <h5>EDIT PURCHASE/CONTRACT INFORMATION</h5>
                                 </Box>
 
                                 <Grid container justifyContent='space-evenly' spacing={2}>

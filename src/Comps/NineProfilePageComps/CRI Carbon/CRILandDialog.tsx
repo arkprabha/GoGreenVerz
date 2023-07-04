@@ -9,7 +9,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Box } from "@mui/material";
-import { CRIFiles } from "../../../API_Service/API_Service";
+import { LandOwnerFiles } from "../../../API_Service/API_Service";
 
 interface CRIDialogProps {
   openDialog: boolean;
@@ -57,7 +57,7 @@ const CRILandDialog = ({ openDialog, setOpenDialog, i }: CRIDialogProps) => {
               <CardMedia
                 component="video"
                 height="400"
-                src={`${CRIFiles}${i?.VirtualVideo}`}
+                src={`${LandOwnerFiles}${i?.VirtualVideo}`}
                 controls
               />
               <CardContent>

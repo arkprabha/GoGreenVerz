@@ -57,10 +57,10 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
 };
 
 
-    const  UserProfileType: string | null = localStorage.getItem('UserProfileType') ?? '';
+  const  UserProfileType: string | null = localStorage.getItem('UserProfileType') ?? '';
 
   return (
-    <div className="desktop-1-42aa">
+    <div className="desktop-1-42aa" style={{boxShadow:'10px'}}>
     <Grid container spacing={2}>
     <Grid item xs={12} sm={12} md={12} lg={12}>
               <Box className="auto-group-wh57-8wY">
@@ -103,13 +103,13 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
               UserProfileType === 'Plantation Partner' && <Typography className="home-VSe" onClick={() => handleOpenPage('myfilledlands')}>My Filled Lands</Typography>
               }
               {
-              UserProfileType === 'Verification and Validation Body' && <Typography className="home-VSe" onClick={() => handleOpenPage('vvblandsubmissions')}>My Land Submissions</Typography>
+              UserProfileType === 'Verification and Validation Body' && <Typography className="home-VSe" onClick={() => handleOpenPage('vvblandsubmissions')}>My Work Submissions</Typography>
               }
               {
-              UserProfileType === 'Carbon Registry of India' && <Typography className="home-VSe" onClick={() => handleOpenPage('crisubmissions')}>My Land Submissions</Typography>
+                UserProfileType === 'Carbon Registry of India' && <Typography className="home-VSe" onClick={() => handleOpenPage('crisubmissions')}> My Work Submissions</Typography>
               }
               {
-              UserProfileType === 'Government Agencies' && <Typography className="home-VSe" onClick={() => handleOpenPage('govtsubmissions')}>My Land Submissions</Typography>
+                UserProfileType === 'Government Agencies' && <Typography className="home-VSe" onClick={() => handleOpenPage('govtsubmissions')}> My Work Submissions</Typography>
               }
               {
               UserProfileType === 'Admin' && <Typography className="home-VSe" onClick={() => handleOpenPage('adminsubmittedlands')}>Submitted Lands</Typography>

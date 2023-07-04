@@ -189,7 +189,7 @@ export default function VVBProfilePage() {
                 </Box>
                 <Box textAlign="center">
                   <Typography color="#3860b5">
-                    Edit Update VVB Form
+                    Edit VVB Form
                   </Typography>
                   <Typography color="#84cb25">
                     <UpgradeIcon

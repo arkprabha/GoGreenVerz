@@ -1,8 +1,8 @@
-import { Box, Button, Grid, TextField, Stack , Autocomplete} from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from "../../../Header";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
-import { add_project_developer, get_district, get_project_developer, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
+import { get_district, get_project_developer, get_state, methodGet, methodPost, update_project_developer } from "../../../API_Service/API_Service";
 import axios from "axios";
 import SnackBar from "../../SnackBar/SnackBar";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -73,7 +73,7 @@ export default function UpdateGoProjectForm() {
     const [message, setMessage] = useState<string>('');
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -166,23 +166,23 @@ export default function UpdateGoProjectForm() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message)
-                    setName(res.data.data[0].VVBName);
-                    setEmail(res.data.data[0].Email);
-                    setMobileNum(res.data.data[0].MobileNum);
-                    setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setDeveloperAddress1(res.data.data[0].DeveloperAddress1);
-                    setDeveloperAddress2(res.data.data[0].DeveloperAddress2);
-                    setDeveloperCity(res.data.data[0].DeveloperCity);
-                    setDeveloperState(res.data.data[0].DeveloperState);
-                    setDeveloperPostalCode(res.data.data[0].DeveloperPostalCode);
-                    setDeveloperCountry(res.data.data[0].DeveloperCountry);
-                    setMetaversePlatform(res.data.data[0].MetaversePlatform);
-                    setCommunicationHistory(res.data.data[0].CommunicationHistory);
-                    setDevelopmentReport(res.data.data[0].DevelopmentReport);
-                    setDeveloperStatus(res.data.data[0].DeveloperStatus);
-                    setRemarks(res.data.data[0].Remarks);
+                    setName(res.data.data.VVBName);
+                    setEmail(res.data.data.Email);
+                    setMobileNum(res.data.data.MobileNum);
+                    setAlternateMobile(res.data.data.AlternateMobile);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setDeveloperAddress1(res.data.data.DeveloperAddress1);
+                    setDeveloperAddress2(res.data.data.DeveloperAddress2);
+                    setDeveloperCity(res.data.data.DeveloperCity);
+                    setDeveloperState(res.data.data.DeveloperState);
+                    setDeveloperPostalCode(res.data.data.DeveloperPostalCode);
+                    setDeveloperCountry(res.data.data.DeveloperCountry);
+                    setMetaversePlatform(res.data.data.MetaversePlatform);
+                    setCommunicationHistory(res.data.data.CommunicationHistory);
+                    setDevelopmentReport(res.data.data.DevelopmentReport);
+                    setDeveloperStatus(res.data.data.DeveloperStatus);
+                    setRemarks(res.data.data.Remarks);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -228,7 +228,7 @@ export default function UpdateGoProjectForm() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_project_developer,
+            url: update_project_developer,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -261,14 +261,26 @@ export default function UpdateGoProjectForm() {
         <Box>
              <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center" fontSize={15}>
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Edit Go_Project Developer Form</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
+
 
                 <Box sx={{ px: 3, my: 2, mx: 3 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 3 }}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 3 }}>
                                 <Box sx={{ pb: 2, textAlign: 'left' }}>
                                     <h5>GO GREEN PROJECT DEVELOPER</h5>
                                 </Box>

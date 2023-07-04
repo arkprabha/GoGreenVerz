@@ -13,6 +13,7 @@ import axios from 'axios';
 import { Autocomplete } from '@mui/material';
 import { appendData } from "../../Variables/ProcessVariable";
 import SnackBar from "../SnackBar/SnackBar";
+import pngwing3 from '../../assets/pngwing-3.png'
 
 interface UserProfile {
     UserProfileTypeId: string;
@@ -75,7 +76,6 @@ export default function SignUpForm() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
-                    navigate('/');
                 }
             })
             .catch((err) => {
@@ -119,6 +119,7 @@ export default function SignUpForm() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
+                    navigate('/');
                 }
             })
             .catch((err) => {
@@ -271,7 +272,7 @@ export default function SignUpForm() {
                                 <TextField
                                     fullWidth
                                     id="postal"
-                                    label="UserPostalCode"
+                                    label="PostalCode"
                                     name="Postal"
                                     type='tel'
                                     size='small'
@@ -310,6 +311,8 @@ export default function SignUpForm() {
                     </Box>
                 </Box>
                     </Grid>
+                    <img className="treeImage" src={pngwing3} alt='pngwing' />
+                    <img className="treeImage2" src={pngwing3} alt='pngwing' />
                 </Grid>
             </Container>
         </div>

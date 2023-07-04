@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import axios from 'axios';
-import { GOVTFiles, get_government_agency, get_state, methodGet } from '../../../API_Service/API_Service';
+import { LandOwnerFiles, get_government_agency, get_state, methodGet } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -231,7 +231,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
         <GovtAgencyLandDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
         <Grid container spacing={2} display='flex' justifyContent='space-between'>
 
-          <Grid item xs={12} sm={12} md={3} lg={3} height='auto' borderRight={{ xs: 'none', sm: 'none', md: '1px solid silver' }}>
+          <Grid item xs={12} sm={12} md={3} lg={3} height='auto' >
             <Box p={1}>
               <Box py={3}>
                 <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center', }}>
@@ -299,7 +299,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
                                 component="video"
                                 height="170"
                                 width='100%'
-                                src={`${GOVTFiles}${i.VirtualVideo}`}
+                                src={`${LandOwnerFiles}${i.VirtualVideo}`}
                                 controls
                               />
                             )}
@@ -375,7 +375,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
                               component="video"
                               height="170"
                               width='100%'
-                              src={`${GOVTFiles}${i.VirtualVideo}`}
+                              src={`${LandOwnerFiles}${i.VirtualVideo}`}
                               controls
                             />
                           )}

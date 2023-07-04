@@ -1,6 +1,6 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import { add_vvb, get_district, get_state, get_vvb, methodGet, methodPost } from "../../../API_Service/API_Service";
+import {get_district, get_state, get_vvb, methodGet, methodPost, update_vvb } from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -76,7 +76,7 @@ export default function UpdateVVBForm() {
     const [message, setMessage] = useState<string>('');
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
     const location = useLocation();
     const {id} = location.state;
     const navigate = useNavigate();
@@ -168,23 +168,23 @@ export default function UpdateVVBForm() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message)
-                    setName(res.data.data[0].VVBName);
-                    setEmail(res.data.data[0].Email);
-                    setMobileNum(res.data.data[0].MobileNum);
-                    setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setVVBAddress1(res.data.data[0].VVBAddress1);
-                    setVVBAddress2(res.data.data[0].VVBAddress2);
-                    setVVBCity(res.data.data[0].VVBCity);
-                    setVVBState(res.data.data[0].VVBState);
-                    setVVBPostalCode(res.data.data[0].VVBPostalCode);
-                    setVVBCountry(res.data.data[0].VVBCountry);
-                    setAccreditationInformation(res.data.data[0].AccreditationInformation);
-                    setProjectVerify(res.data.data[0].ProjectVerify);
-                    setInspectionFindings(res.data.data[0].InspectionFindings);
-                    setCarbonCredit(res.data.data[0].CarbonCredit);
-                    setVVBStatus(res.data.data[0].VVBStatus);
+                    setName(res.data.data.VVBName);
+                    setEmail(res.data.data.Email);
+                    setMobileNum(res.data.data.MobileNum);
+                    setAlternateMobile(res.data.data.AlternateMobile);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setVVBAddress1(res.data.data.VVBAddress1);
+                    setVVBAddress2(res.data.data.VVBAddress2);
+                    setVVBCity(res.data.data.VVBCity);
+                    setVVBState(res.data.data.VVBState);
+                    setVVBPostalCode(res.data.data.VVBPostalCode);
+                    setVVBCountry(res.data.data.VVBCountry);
+                    setAccreditationInformation(res.data.data.AccreditationInformation);
+                    setProjectVerify(res.data.data.ProjectVerify);
+                    setInspectionFindings(res.data.data.InspectionFindings);
+                    setCarbonCredit(res.data.data.CarbonCredit);
+                    setVVBStatus(res.data.data.VVBStatus);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -230,7 +230,7 @@ export default function UpdateVVBForm() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_vvb,
+            url: update_vvb,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -262,16 +262,27 @@ export default function UpdateVVBForm() {
 
     return (
         <Box>
-                 <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
+        <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
              <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center" fontSize={15}>
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+                
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Edit Submitted Form</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
 
                 <Box sx={{ px: 3, my: 2, mx: 3 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7}}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7}}>
                                 <Box sx={{ pb: 4, textAlign: 'left' }}>
                                     <h5>UPDATE VVB INFORMATION</h5>
                                 </Box>

@@ -183,7 +183,7 @@ export default function InvestorProfilePage() {
                 mt={3}
                 justifyContent="space-around"
               >
-                <Box textAlign="center" onClick={() => navigate('/listedlands')}>
+                <Box textAlign="center" onClick={() => navigate('/investedlands')}>
                   <Typography color="#3860b5">Invested Lands</Typography>
                   <Typography color="#84cb25">4</Typography>
                 </Box>

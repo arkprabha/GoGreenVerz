@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Box} from '@mui/material';
-import { PlantationFiles} from '../../../API_Service/API_Service';
+import { LandOwnerFiles} from '../../../API_Service/API_Service';
 
 interface PlanatationDialogProps {
   openDialog: boolean;
@@ -43,7 +43,7 @@ const PlantationLandDialog = ({ openDialog, setOpenDialog, i } : PlanatationDial
             <DialogContent>
             <Box display="flex" justifyContent="center">
             <Card sx={{ maxWidth: 600 }}>
-            <CardMedia component="video" height="400" src={`${PlantationFiles}${i?.VirtualVideo}`} controls />
+            <CardMedia component="video" height="400" src={`${LandOwnerFiles}${i?.VirtualVideo}`} controls />
             <CardContent>
             <Stack spacing={1}>
             <Typography variant="h6" color="#84cb25" fontWeight={600} sx={{marginTop:2}}>PlantationPartner Information</Typography>

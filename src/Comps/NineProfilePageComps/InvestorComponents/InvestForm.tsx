@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from "../../../Header";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
@@ -46,7 +46,9 @@ interface District {
   DistrictId: string;
   DistrictName: string;
 }
-
+interface LocationState {
+    id: string;
+}
 export default function InvestForm() {
 
 
@@ -86,7 +88,8 @@ export default function InvestForm() {
     const [Remarks, setRemarks] = useState<string>('');
     const [landStatus, setLandStatus] = useState<string>('');
     const location = useLocation();
-    const {id} = location.state;
+    const locationState = location.state as LocationState;
+    const { id } = locationState;
 
 
  useEffect(() => {
@@ -265,9 +268,20 @@ export default function InvestForm() {
             <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
 
             <Header isConnectedWallet={isConnectedWallet} />
-            <Box sx={{ height: '90%' }} display="flex" alignItems="center">
+            <Box sx={{ height: '90%' }} display="flex" flexDirection='column' alignItems="center">
 
-                <Box py={4} sx={{ px: 5, backgroundColor: '#e5f4eb', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Land Investment Form</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
+
+                <Box py={4} sx={{ px: 5, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
                         <Grid item lg={12} xl={12} >

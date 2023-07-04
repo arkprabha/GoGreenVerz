@@ -8,7 +8,7 @@ TablePagination, Autocomplete } from '@mui/material';
 import { useState } from 'react';
 import { Box} from '@mui/material';
 import axios from 'axios';
-import { PlantationFiles, get_plantation_partner, get_state, methodGet } from '../../../API_Service/API_Service';
+import { LandOwnerFiles, get_plantation_partner, get_state, methodGet } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -297,7 +297,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             component="video"
             height="170"
             width='100%'
-            src={`${PlantationFiles}${i.VirtualVideo}`}
+            src={`${LandOwnerFiles}${i.VirtualVideo}`}
             controls
             />
       )}
@@ -373,7 +373,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             component="video"
             height="170"
             width='100%'
-            src={`${PlantationFiles}${i.VirtualVideo}`}
+            src={`${LandOwnerFiles}${i.VirtualVideo}`}
             controls
             />
       )}

@@ -193,7 +193,7 @@ export default function AdminProfilePage() {
                   </Typography>
                   <Typography color="#84cb25">
                     <UpgradeIcon
-                      onClick={() => navigate('/updateaddedadmin')}
+                      onClick={() => navigate('/adminsubmittedlands')}
                     />
                   </Typography>
                 </Box>

@@ -17,7 +17,7 @@ import { user_sign_in } from '../../API_Service/API_Service';
 import axios from 'axios';
 import SnackBar from "../SnackBar/SnackBar";
 import './NewLogin.styles.css';
-
+import pngwing3 from '../../assets/pngwing-3.png'
 
 export default function NewLoginPage() {
 
@@ -163,6 +163,8 @@ export default function NewLoginPage() {
                     </Box>
                     <Copyright sx={{ mt: 3 , mb:2}} />
                     </Grid>
+                    <img className="treeImage" src={pngwing3} alt='pngwing' />
+                    <img className="treeImage2" src={pngwing3} alt='pngwing' />
                 </Grid>
                 </Container>
         </div >

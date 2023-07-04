@@ -1,6 +1,6 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import {add_plantation_partner, get_district, get_plantation_partner, get_state, methodGet, methodPost} from "../../../API_Service/API_Service";
+import {get_district, get_plantation_partner, get_state, methodGet, methodPost, update_plantation_partner} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -81,7 +81,7 @@ export default function UpdatePlantationForm() {
     const [message, setMessage] = useState<string>('');
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
     const location = useLocation();
     const {id} = location.state;
     const navigate = useNavigate();
@@ -172,27 +172,27 @@ export default function UpdatePlantationForm() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message)
-                    setName(res.data.data[0].PlantationPartnerName);
-                    setEmail(res.data.data[0].Email);
-                    setMobileNum(res.data.data[0].MobileNum);
-                    setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setPlantationPartnerAddress1(res.data.data[0].PlantationPartnerAddress1);
-                    setPlantationPartnerAddress2(res.data.data[0].PlantationPartnerAddress2);
-                    setPlantationPartnerCity(res.data.data[0].PlantationPartnerCity);
-                    setPlantationPartnerState(res.data.data[0].PlantationPartnerState);
-                    setPlantationPartnerPostalCode(res.data.data[0].PlantationPartnerPostalCode);
-                    setPlantationPartnerCountry(res.data.data[0].PlantationPartnerCountry);
-                    setPlantTypes(res.data.data[0].PlantTypes);
-                    setSpecies(res.data.data[0].Species);
-                    setDistanceOfPlanting(res.data.data[0].DistanceOfPlanting);
-                    setMaintenancePeriod(res.data.data[0].MaintenancePeriod);
-                    setWaterManagement(res.data.data[0].WaterManagement);
-                    setFertilizerManagement(res.data.data[0].FertilizerManagement);
-                    setTotalLand(res.data.data[0].TotalLand);
-                    setRecommendation(res.data.data[0].Recommendation);
-                    setPlantationPartnerStatus(res.data.data[0].PlantationPartnerStatus);
+                    setName(res.data.data.PlantationPartnerName);
+                    setEmail(res.data.data.Email);
+                    setMobileNum(res.data.data.MobileNum);
+                    setAlternateMobile(res.data.data.AlternateMobile);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setPlantationPartnerAddress1(res.data.data.PlantationPartnerAddress1);
+                    setPlantationPartnerAddress2(res.data.data.PlantationPartnerAddress2);
+                    setPlantationPartnerCity(res.data.data.PlantationPartnerCity);
+                    setPlantationPartnerState(res.data.data.PlantationPartnerState);
+                    setPlantationPartnerPostalCode(res.data.data.PlantationPartnerPostalCode);
+                    setPlantationPartnerCountry(res.data.data.PlantationPartnerCountry);
+                    setPlantTypes(res.data.data.PlantTypes);
+                    setSpecies(res.data.data.Species);
+                    setDistanceOfPlanting(res.data.data.DistanceOfPlanting);
+                    setMaintenancePeriod(res.data.data.MaintenancePeriod);
+                    setWaterManagement(res.data.data.WaterManagement);
+                    setFertilizerManagement(res.data.data.FertilizerManagement);
+                    setTotalLand(res.data.data.TotalLand);
+                    setRecommendation(res.data.data.Recommendation);
+                    setPlantationPartnerStatus(res.data.data.PlantationPartnerStatus);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -245,7 +245,7 @@ export default function UpdatePlantationForm() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_plantation_partner,
+            url: update_plantation_partner,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -279,14 +279,25 @@ export default function UpdatePlantationForm() {
         <Box>
              <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
              <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center" fontSize={15}>
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Edit Planatation Information</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
 
                 <Box sx={{ px: 3, my:2,  mx: 3 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 2 }}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 2 }}>
                                 <Box sx={{ pb: 4, textAlign: 'left' }}>
                                     <h5>UPDATE PLANTATION DETAILS</h5>
                                 </Box>

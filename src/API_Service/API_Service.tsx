@@ -101,7 +101,74 @@ const get_cri: string  = `${baseApiurl}get_cri`;
 
 const get_government_agency: string  = `${baseApiurl}get_government_agency`;
 
-export { get_all_user_profile_type,add_admin,get_state,get_investor,get_cri,get_government_agency,  get_vvb,get_project_developer, get_plantation_partner ,get_buyer , get_admin , get_district,get_user,get_land_owner, add_afforestation, add_buyer , add_cri, add_plantation_partner, BuyerFiles, AdminFiles, GOVTFiles, CRIFiles, VVBFiles, PlantationFiles, ProjectDeveloperFiles, ProfilePic, methodGet, add_project_developer, add_vvb, methodPost,  user_sign_in, add_investor, user_sign_up, add_land_owner, get_all_land_owner, LandOwnerFiles, InvestorFiles };
+const update_admin: string = `${baseApiurl}update_admin`;
+
+const update_buyer: string = `${baseApiurl}update_buyer`;
+
+const update_land_owner: string = `${baseApiurl}update_land_owner`;
+
+const update_investor: string = `${baseApiurl}update_investor`;
+    
+const update_project_developer: string = `${baseApiurl}update_project_developer`;
+
+const update_plantation_partner: string = `${baseApiurl}update_plantation_partner`;
+
+const update_vvb: string = `${baseApiurl}update_vvb`;
+
+const update_cri: string = `${baseApiurl}update_cri`;
+
+const update_government_agency: string = `${baseApiurl}update_government_agency`;
+
+const add_government_agency: string = `${baseApiurl}add_government_agency`;
+
+export {
+    get_all_user_profile_type,
+    add_government_agency,
+    update_buyer,
+    update_land_owner,
+    update_investor,
+    update_project_developer,
+    update_plantation_partner,
+    update_vvb,
+    update_cri,
+    update_government_agency,
+    add_admin, 
+    get_state, 
+    update_admin,
+    get_investor,
+    get_cri,
+    get_government_agency,
+    get_vvb,
+    get_project_developer, 
+    get_plantation_partner ,
+    get_buyer ,
+    get_admin , 
+    get_district,
+    get_user,
+    get_land_owner, 
+    add_afforestation, 
+    add_buyer ,
+    add_cri,
+    add_plantation_partner,
+    BuyerFiles,
+    AdminFiles, 
+    GOVTFiles, 
+    CRIFiles, 
+    VVBFiles, 
+    PlantationFiles, 
+    ProjectDeveloperFiles, 
+    ProfilePic,
+    methodGet,
+    add_project_developer, 
+    add_vvb,
+    methodPost, 
+    user_sign_in, 
+    add_investor, 
+    user_sign_up,
+    add_land_owner, 
+    get_all_land_owner,
+    LandOwnerFiles,
+    InvestorFiles };
 
 
 

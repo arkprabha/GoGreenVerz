@@ -14,6 +14,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
 import SnackBar from "../SnackBar/SnackBar";
+import pngwing3 from '../../assets/pngwing-3.png'
 
 export default function ForgotPassword() {
 
@@ -27,7 +28,7 @@ export default function ForgotPassword() {
 
 
     const handleSubmit = () => {
-        setMessage('Logged In Successfully');
+        setMessage('Password Reset Successfully');
         setOpen(true);
         setStatus(false);
         setColor(false);
@@ -128,6 +129,8 @@ export default function ForgotPassword() {
                         </Box>
                     </Box>
                     </Grid>
+                    <img className="treeImage" src={pngwing3} alt='pngwing' />
+                    <img className="treeImage2" src={pngwing3} alt='pngwing' />
                 </Grid>
                 </Container>
         </div >

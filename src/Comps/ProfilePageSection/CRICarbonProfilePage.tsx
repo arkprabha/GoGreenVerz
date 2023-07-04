@@ -193,7 +193,7 @@ export default function CRICarbonProfilePage() {
                   </Typography>
                   <Typography color="#84cb25">
                     <UpgradeIcon
-                      onClick={() => navigate('/updateaddedcri')}
+                      onClick={() => navigate('/crisubmissions')}
                     />
                   </Typography>
                 </Box>

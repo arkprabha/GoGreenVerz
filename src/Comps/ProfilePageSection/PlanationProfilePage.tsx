@@ -193,7 +193,7 @@ export default function PlanationProfilePage() {
                   </Typography>
                   <Typography color="#84cb25">
                     <UpgradeIcon
-                      onClick={() => navigate('/updateaddedplantationpartners')}
+                      onClick={() => navigate('/myfilledlands')}
                     />
                   </Typography>
                 </Box>

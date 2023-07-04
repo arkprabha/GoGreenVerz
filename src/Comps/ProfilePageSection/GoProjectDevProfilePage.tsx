@@ -193,7 +193,7 @@ export default function GoProjectDevProfilePage() {
                   </Typography>
                   <Typography color="#84cb25">
                     <UpgradeIcon
-                      onClick={() => navigate('/updateaddeddevelopers')}
+                      onClick={() => navigate('/devsubmittedlands')}
                     />
                   </Typography>
                 </Box>

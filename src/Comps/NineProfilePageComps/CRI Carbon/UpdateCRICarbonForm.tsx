@@ -1,6 +1,6 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import { add_cri, get_cri, get_district, get_state, methodGet, methodPost} from "../../../API_Service/API_Service";
+import { get_cri, get_district, get_state, methodGet, methodPost, update_cri} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -75,7 +75,7 @@ export default function UpdateCRICarbonForm() {
     const [message, setMessage] = useState<string>('');
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -166,22 +166,22 @@ export default function UpdateCRICarbonForm() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message)
-                    setName(res.data.data[0].VVBName);
-                    setEmail(res.data.data[0].Email);
-                    setMobileNum(res.data.data[0].MobileNum);
-                    setAlternateMobile(res.data.data[0].AlternateMobile);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setCRIAddress1(res.data.data[0].CRIAddress1);
-                    setCRIAddress2(res.data.data[0].CRIAddress2);
-                    setCRICity(res.data.data[0].CRICity);
-                    setCRIState(res.data.data[0].CRIState);
-                    setCRIPostalCode(res.data.data[0].CRIPostalCode);
-                    setCRICountry(res.data.data[0].CRICountry);
-                    setCCRegistry(res.data.data[0].CCRegistry);
-                    setCCReport(res.data.data[0].CCReport);
-                    setCCTradingHistory(res.data.data[0].CCTradingHistory);
-                    setCRIStatus(res.data.data[0].CRIStatus);
+                    setName(res.data.data.VVBName);
+                    setEmail(res.data.data.Email);
+                    setMobileNum(res.data.data.MobileNum);
+                    setAlternateMobile(res.data.data.AlternateMobile);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setCRIAddress1(res.data.data.CRIAddress1);
+                    setCRIAddress2(res.data.data.CRIAddress2);
+                    setCRICity(res.data.data.CRICity);
+                    setCRIState(res.data.data.CRIState);
+                    setCRIPostalCode(res.data.data.CRIPostalCode);
+                    setCRICountry(res.data.data.CRICountry);
+                    setCCRegistry(res.data.data.CCRegistry);
+                    setCCReport(res.data.data.CCReport);
+                    setCCTradingHistory(res.data.data.CCTradingHistory);
+                    setCRIStatus(res.data.data.CRIStatus);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -227,7 +227,7 @@ export default function UpdateCRICarbonForm() {
         const sendData = appendData(obj);
         axios({
             method: 'POST',
-            url: add_cri,
+            url: update_cri,
             data: sendData,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -263,13 +263,25 @@ export default function UpdateCRICarbonForm() {
         <Box>
              <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
              <Header isConnectedWallet={isConnectedWallet} />
-            <Box display="flex" alignItems="center" fontSize={15}>
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2}>
+                                    <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Edit CRI Submission Form</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
+
                 <Box sx={{ px: 3, my: 2, mx: 3 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#EDF4F4', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7 }}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7 }}>
                                 <Box sx={{ pb: 2, textAlign: 'left' }}>
                                     <h5>UPDATE CRI CARBON DETAILS</h5>
                                 </Box>
