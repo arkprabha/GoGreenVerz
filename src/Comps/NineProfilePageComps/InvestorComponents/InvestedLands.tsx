@@ -231,7 +231,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
               <Grid container mt={2}>
                 <Grid item xs={12} md={12} lg={12} xl={12}>
                   <Box width='100%' textAlign='center' py={2}>
-                    <Typography className="FormheadingName" >Invested Lands</Typography>                  </Box>
+                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Invested Lands</Typography>                  </Box>
                 </Grid>
               </Grid>
             </Box>

@@ -265,7 +265,7 @@ export default function UpdateAddedLands() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2}>
-                                    <Typography className="FormheadingName" >Edit Added Lands Information</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Edit Added Lands Information</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>
