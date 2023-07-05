@@ -235,7 +235,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
             <Grid container mt={2}>
               <Grid item xs={12} md={12} lg={12} xl={12}>
                 <Box width='100%' textAlign='center' py={2}>
-                  <Typography variant="h5" color='#262626' sx={{ textDecoration: 'underline', lineHeight: 1 }} fontWeight={600} >Submitted Lands</Typography>                  </Box>
+                  <Typography className="FormheadingName" >Submitted Lands</Typography>                  </Box>
               </Grid>
             </Grid>
           </Box>
