@@ -507,7 +507,7 @@ const Home = (props: HomeProps) => {
                     <img className="gotlogouncut-removebg-preview-1-j3U" src={gotlogouncut} alt='removebg' />
                 </Box>
                 <Box className="auto-group-4bx3-w34">
-            <Container style={{ position: "relative" , zIndex:10 }}>
+            <Container style={{ position: "relative" , zIndex:10 , maxWidth:'450px' }}>
               <Paper
                 style={{
                   padding: 24,

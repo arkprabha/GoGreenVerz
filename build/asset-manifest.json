@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/static/css/main.717838fa.chunk.css",
+    "main.js": "/static/js/main.28156263.chunk.js",
+    "main.js.map": "/static/js/main.28156263.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.7cde7f66.js",
+    "runtime-main.js.map": "/static/js/runtime-main.7cde7f66.js.map",
+    "static/js/2.f1e5e256.chunk.js": "/static/js/2.f1e5e256.chunk.js",
+    "static/js/2.f1e5e256.chunk.js.map": "/static/js/2.f1e5e256.chunk.js.map",
+    "static/js/3.a24dc533.chunk.js": "/static/js/3.a24dc533.chunk.js",
+    "static/js/3.a24dc533.chunk.js.map": "/static/js/3.a24dc533.chunk.js.map",
+    "static/js/4.d0a2c71e.chunk.js": "/static/js/4.d0a2c71e.chunk.js",
+    "static/js/4.d0a2c71e.chunk.js.map": "/static/js/4.d0a2c71e.chunk.js.map",
+    "static/js/5.972d4a42.chunk.js": "/static/js/5.972d4a42.chunk.js",
+    "static/js/5.972d4a42.chunk.js.map": "/static/js/5.972d4a42.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.717838fa.chunk.css.map": "/static/css/main.717838fa.chunk.css.map",
+    "static/js/2.f1e5e256.chunk.js.LICENSE.txt": "/static/js/2.f1e5e256.chunk.js.LICENSE.txt",
+    "static/media/GGVLOGO.d2943f98.png": "/static/media/GGVLOGO.d2943f98.png",
+    "static/media/gotlogouncut-removebg-preview-1.786cae6e.png": "/static/media/gotlogouncut-removebg-preview-1.786cae6e.png",
+    "static/media/page6.5be3b35c.png": "/static/media/page6.5be3b35c.png",
+    "static/media/pagenotfound.da355087.png": "/static/media/pagenotfound.da355087.png",
+    "static/media/pngegg-3-1.4b10e8df.png": "/static/media/pngegg-3-1.4b10e8df.png",
+    "static/media/ProjectTracking.css": "/static/media/pngimg-1-bg.bcd5b54d.png",
+    "static/media/pngwing-1.9564415e.png": "/static/media/pngwing-1.9564415e.png",
+    "static/media/pngwing-2.9564415e.png": "/static/media/pngwing-2.9564415e.png",
+    "static/media/pngwing-3.51555899.png": "/static/media/pngwing-3.51555899.png",
+    "static/media/pngwing-4.c61ec9bf.png": "/static/media/pngwing-4.c61ec9bf.png",
+    "static/media/Contribution.css": "/static/media/rectangle-10-bg.9564415e.png",
+    "static/media/removebg-preview-1.aea25a56.png": "/static/media/removebg-preview-1.aea25a56.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7cde7f66.js",
+    "static/js/2.f1e5e256.chunk.js",
+    "static/css/main.717838fa.chunk.css",
+    "static/js/main.28156263.chunk.js"
+  ]
+}
