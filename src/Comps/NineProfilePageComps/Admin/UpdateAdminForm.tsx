@@ -213,8 +213,8 @@ export default function UpdateAdminForm() {
         AlternateMobile:alternateMobile,
         AdminAddress1:adminAddress1,
         AdminAddress2:adminAddress2,
-        AdminCity:adminCity,
-        AdminState:adminState,
+        AdminCity: adminCity?.DistrictName,
+        AdminState: adminState?.StateName,
         AdminPostalCode:adminPostalCode,
         AdminCountry:adminCountry,
         UserManagement:userManagement,
@@ -276,7 +276,7 @@ export default function UpdateAdminForm() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2}>
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Edit Submitted Form</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Edit Submitted Form</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>

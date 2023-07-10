@@ -171,8 +171,8 @@ export default function PlantationForm() {
             ProjectCommenceDate: projectCommenceDate,
             PlantationPartnerAddress1:PlantationPartnerAddress1,
             PlantationPartnerAddress2:PlantationPartnerAddress2,
-            PlantationPartnerCity: PlantationPartnerCity,
-            PlantationPartnerState:PlantationPartnerState,
+            PlantationPartnerCity: PlantationPartnerCity?.DistrictName,
+            PlantationPartnerState: PlantationPartnerState?.StateName,
             PlantationPartnerPostalCode:PlantationPartnerPostalCode,
             PlantationPartnerCountry:PlantationPartnerCountry,
             PlantTypes:PlantTypes,
@@ -234,7 +234,7 @@ export default function PlantationForm() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2}>
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Update Planatation Information</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Update Planatation Information</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>

@@ -161,8 +161,8 @@ export default function VVB() {
         AlternateMobile:alternateMobile,
         VVBAddress1:VVBAddress1,
         VVBAddress2:VVBAddress2,
-        VVBCity:VVBCity,
-        VVBState:VVBState,
+            VVBCity: VVBCity?.DistrictName,
+            VVBState: VVBState?.StateName,
         VVBPostalCode:VVBPostalCode,
         VVBCountry:VVBCountry,
         AccreditationInformation:AccreditationInformation,
@@ -222,7 +222,7 @@ export default function VVB() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2}>
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Update VVB Information</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Update VVB Information</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>

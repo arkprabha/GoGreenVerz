@@ -18,7 +18,6 @@ import NewLoginPage from './Comps/LoginPage/NewLogin';
 import SignUpForm from './Comps/SignUpAndForgotPass/SignupForm';
 import ForgotPassword from './Comps/SignUpAndForgotPass/ForgotPassword';
 import AdminProfileForm from './Comps/NineProfilePageComps/Admin/AdminProfileForm';
-import AfforestationForm from './Comps/NineProfilePageComps/Afforestation/AfforestationForm';
 import BuyersProfileForm from './Comps/NineProfilePageComps/Buyer/BuyersForm';
 import CRICarbonForm from './Comps/NineProfilePageComps/CRI Carbon/CRICarbonForm';
 import GoProjectDeveloperForm from './Comps/NineProfilePageComps/GOGreenProjectDeveloper/GoProjectDeveloperForm';
@@ -45,6 +44,9 @@ import UpdateGoProjectForm from './Comps/NineProfilePageComps/GOGreenProjectDeve
 import UpdatePlantationForm from './Comps/NineProfilePageComps/Planatation/UpdatePlantationForm';
 import UpdateVVBForm from './Comps/NineProfilePageComps/VVB/UpdateVVBForm';
 import UpdateGovtAgencyForm from './Comps/NineProfilePageComps/GovtAgency/UpdateGovtAgencyForm';
+import AfforestTab from './Comps/NineProfilePageComps/Afforestation/AfforestTab';
+import UpdateAfforestForm from './Comps/NineProfilePageComps/Afforestation/UpdateAfforestForm';
+import ViewAfforestion from './Comps/NineProfilePageComps/Afforestation/ViewAfforestation';
 
 
 
@@ -256,8 +258,16 @@ function Routes() {
             element: <UpdateGovtAgencyForm />,
         },
         {
-            path: 'afforestationform',
-            element: <AfforestationForm />
+            path: 'afforestation',
+            element: <AfforestTab />
+        },
+        {
+            path: 'editafforestation',
+            element: <UpdateAfforestForm />
+        },
+        {
+            path: 'viewafforestation',
+            element: <ViewAfforestion />
         },
         {
             path: 'projectiontable',

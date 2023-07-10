@@ -1,7 +1,7 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
 import { appendData } from "../../../Variables/ProcessVariable";
-import { add_land_owner, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
+import { add_land_owner, get_city, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SnackBar from "../../SnackBar/SnackBar";
@@ -139,6 +139,32 @@ export default function AddLands() {
 
     }, [landState])
 
+    //ALL CITY FETCH
+    useEffect(() => {
+        axios({
+            method: methodGet,
+            url: get_city,
+            headers: {
+                'Authorization': `Bearer ${UserToken}`,
+            }
+        }).then(res => {
+            if (res.data.error) {
+                setMessage(res.data.message)
+                setOpen(true)
+                setStatus(false)
+                setColor(false)
+            } else {
+                setMessage(res.data.message)
+                setOpen(true)
+                setStatus(true)
+                setColor(true)
+
+            }
+        }).catch(err => {
+            alert('Oops something went wrong ' + err)
+        });
+    }, [])
+
 
     const handleSubmit = () => {
         const obj: LandOwnerData = {
@@ -149,7 +175,7 @@ export default function AddLands() {
             AlternateMobile: alternateMobile,
             LandAddress1: landAddress1,
             LandAddress2: landAddress2,
-            LandCity: landCity,
+            LandCity: landCity?.DistrictName,
             LandState: landState?.StateName,
             LandPostalCode: landPostalCode,
             LandCountry: landCountry,
@@ -213,7 +239,7 @@ export default function AddLands() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2}>
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Add Your Lands</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Add Your Lands</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>
@@ -309,7 +335,7 @@ export default function AddLands() {
                                         />
                                     </Grid>
 
-                               <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Grid item lg={3} sm={4} xl={3} xs={12} md={3} sx={{ py: 1 }}  >
                                     <Autocomplete
                                         id="combo-box-demo"
                                         size="small"
@@ -327,7 +353,7 @@ export default function AddLands() {
                                     />
                                     </Grid>
 
-                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Grid item lg={3} sm={4} xl={3} xs={12} md={3} sx={{ py: 1 }}  >
                                     <Autocomplete
                                         id="combo-box-demo"
                                         size="small"

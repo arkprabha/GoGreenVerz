@@ -135,7 +135,7 @@ export default function NewLoginPage() {
                                                 endAdornment: (
                                                     <InputAdornment position="end">
                                                         <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" sx={{ color: 'black' }}>
-                                                            {showPassword ? <VisibilityOff sx={{ color: 'black' }} /> : <Visibility sx={{ color: 'black' }} />}
+                                                            {!showPassword ? <VisibilityOff sx={{ color: 'black' }} /> : <Visibility sx={{ color: 'black' }} />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 ),

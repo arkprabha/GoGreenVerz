@@ -16,4 +16,4 @@ export { appendData };
     // const [message, setMessage] = useState<string>('');
     // const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     // const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    // const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    // const UserId: string | null = localStorage.getItem('UserId') ?? '';

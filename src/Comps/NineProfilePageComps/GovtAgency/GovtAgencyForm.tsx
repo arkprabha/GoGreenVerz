@@ -165,8 +165,8 @@ export default function GovtAgencyForm() {
             ProjectCommenceDate: projectCommenceDate,
             GovAgencyAddress1:GovAgencyAddress1,
             GovAgencyAddress2:GovAgencyAddress2,
-            GovAgencyCity:GovAgencyCity,
-            GovAgencyState:GovAgencyState,
+            GovAgencyCity: GovAgencyCity?.DistrictName,
+            GovAgencyState: GovAgencyState?.StateName,
             GovAgencyPostalCode:GovAgencyPostalCode,
             GovAgencyCountry:GovAgencyCountry,
             RegulatoryGuidelines:RegulatoryGuidelines,
@@ -223,7 +223,7 @@ export default function GovtAgencyForm() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2}>
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Govt Agency Form</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Govt Agency Form</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>

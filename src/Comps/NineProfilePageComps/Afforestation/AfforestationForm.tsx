@@ -1,6 +1,5 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
-import Header from '../../../Header';
-import { add_afforestation, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
+import { add_afforestation, get_city, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -13,7 +12,7 @@ interface AfforestData {
         CoordinationPerson:string;
         MobileNum:string;
         Email:string;
-        Village:string;
+        Village: any;
         District:any;
         StateName:any;
         GISMapping:string;
@@ -46,45 +45,53 @@ interface District {
   DistrictName: string;
 }
 
+interface Village {
+    CityId: string;
+    CityName: string;
+}
 
+interface SetValueProps {
+    setValue: React.Dispatch<React.SetStateAction<number>>;
+}
 
-export default function AfforestationForm() {
+export default function AfforestationForm({setValue}:SetValueProps) {
 
-  const [companyName, setCompanyName] = useState<string>('');
-  const [coordinationPerson, setCoordinationPerson] =useState<string>('');
-  const [mobileNum, setMobileNum] =useState<string>('');
-  const [email, setEmail] =useState<string>('');
-  const [village, setVillage] = useState<string>('');
-  const [district, setDistrict] = useState<District | null>(null);
-  const [stateName, setStateName] = useState<State | null>(null);
-  const [gisMapping, setGISMapping] =useState<string>('');
-  const [landOwnership, setLandOwnership] =useState<string>('');
-  const [landType, setLandType] =useState<string>('');
-  const [landActivity, setLandActivity] =useState<string>('');
-  const [isForestLand, setIsForestLand] =useState<string>('');
-  const [temperatureClimate, setTemperatureClimate] =useState<string>('');
-  const [soil, setSoil] =useState<string>('');
-  const [water, setWater] =useState<string>('');
-  const [biodiversity, setBiodiversity] =useState<string>('');
-  const [plannedPlantation, setPlannedPlantation] =useState<string>('');
-  const [speciesQty, setSpeciesQty] =useState<string>('');
-  const [plantationDensity, setPlantationDensity] =useState<string>('');
-  const [plannedSpecies, setPlannedSpecies] =useState<string>('');
-  const [treeSpacing, setTreeSpacing] =useState<string>('');
-  const [treeHarvestingPeriod, setTreeHarvestingPeriod] =useState<string>('');
-  const [treeHarvestCriteria, setTreeHarvestCriteria] =useState<string>('');
-  const [harvestedTreesUsage, setHarvestedTreesUsage] =useState<string>('');
-  const [socialBenefits, setSocialBenefits] =useState<string>('');
+    const [companyName, setCompanyName] = useState<string>('');
+    const [coordinationPerson, setCoordinationPerson] =useState<string>('');
+    const [mobileNum, setMobileNum] =useState<string>('');
+    const [email, setEmail] =useState<string>('');
+    const [village, setVillage] = useState<Village | null>(null);
+    const [district, setDistrict] = useState<District | null>(null);
+    const [stateName, setStateName] = useState<State | null>(null);
+    const [gisMapping, setGISMapping] =useState<string>('');
+    const [landOwnership, setLandOwnership] =useState<string>('');
+    const [landType, setLandType] =useState<string>('');
+    const [landActivity, setLandActivity] =useState<string>('');
+    const [isForestLand, setIsForestLand] =useState<string>('');
+    const [temperatureClimate, setTemperatureClimate] =useState<string>('');
+    const [soil, setSoil] =useState<string>('');
+    const [water, setWater] =useState<string>('');
+    const [biodiversity, setBiodiversity] =useState<string>('');
+    const [plannedPlantation, setPlannedPlantation] =useState<string>('');
+    const [speciesQty, setSpeciesQty] =useState<string>('');
+    const [plantationDensity, setPlantationDensity] =useState<string>('');
+    const [plannedSpecies, setPlannedSpecies] =useState<string>('');
+    const [treeSpacing, setTreeSpacing] =useState<string>('');
+    const [treeHarvestingPeriod, setTreeHarvestingPeriod] =useState<string>('');
+    const [treeHarvestCriteria, setTreeHarvestCriteria] =useState<string>('');
+    const [harvestedTreesUsage, setHarvestedTreesUsage] =useState<string>('');
+    const [socialBenefits, setSocialBenefits] =useState<string>('');
     const [state, setState] = useState<State[]>([]);
     const [districtList, setDistrictList] = useState<District[]>([]);
+    const [villageList, setVillageList] = useState<Village[]>([]);
 
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
     const [color, setColor] = useState<boolean>(false);
     const [message, setMessage] = useState<string>('');
-    const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
+
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
-    const UserId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+    const UserId: string | null = localStorage.getItem('UserId') ?? '';
 
  
 
@@ -114,6 +121,7 @@ export default function AfforestationForm() {
                 alert('Oops something went wrong ' + err)
             });
     }, [])
+
 
  // POST FETCH
     useEffect(() => {
@@ -153,6 +161,31 @@ export default function AfforestationForm() {
     }, [stateName])
 
 
+//ALL CITY FETCH
+    useEffect(() => {
+        axios({
+            method: methodGet,
+            url: get_city,
+            headers: {
+                'Authorization': `Bearer ${UserToken}`,
+            }
+        }).then(res => {
+            if (res.data.error) {
+                setMessage(res.data.message)
+                setOpen(true)
+                setStatus(false)
+                setColor(false)
+            } else {
+                setMessage(res.data.message)
+                setOpen(true)
+                setStatus(true)
+                setColor(true)
+                setVillageList(res.data.data)
+            }
+        }).catch(err => {
+            alert('Oops something went wrong ' + err)
+        });
+    }, [])
 
 
     const handleSubmit = () => {
@@ -162,9 +195,9 @@ export default function AfforestationForm() {
         CoordinationPerson:coordinationPerson,
         MobileNum:mobileNum,
         Email:email,
-        Village:village,
-        District:district,
-        StateName:stateName,
+        Village:village?.CityName,
+        District:district?.DistrictName,
+        StateName:stateName?.StateName,
         GISMapping:gisMapping,
         LandOwnership:landOwnership,
         LandType:landType,
@@ -205,6 +238,7 @@ export default function AfforestationForm() {
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
+                    setValue(0);
                 }
             })
             .catch((err) => {
@@ -215,11 +249,10 @@ export default function AfforestationForm() {
 
     return (
         <Box>
-    <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
-      <Header isConnectedWallet={isConnectedWallet} />
-            <Box sx={{ height: '90%' }} display="flex" alignItems="center">
+        <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
+            <Box display="flex" alignItems="center">
 
-                <Box py={4} sx={{ px: 5, backgroundColor: '#e5f4eb', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
+                <Box py={2} sx={{ px: 5, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
                         <Grid item lg={12} xl={12}>
@@ -230,7 +263,7 @@ export default function AfforestationForm() {
                                 </Box>
 
                                 <Grid container spacing={2} display='flex' justifyContent='start'>
-                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 2 }}>
                                     <Autocomplete
                                         id="combo-box-demo"
                                         size="small"
@@ -248,7 +281,7 @@ export default function AfforestationForm() {
                                     />
                                     </Grid>
 
-                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}>
+                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 2 }}>
                                     <Autocomplete
                                         id="combo-box-demo"
                                         size="small"
@@ -262,22 +295,26 @@ export default function AfforestationForm() {
                                         })}
                                         options={districtList}
                                         getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
-                                        renderInput={(params) => <TextField {...params} label="City" />}
+                                        renderInput={(params) => <TextField {...params} label="District" />}
                                     />
                                     </Grid>
 
-                                      <Grid item lg={4} sm={4} xl={4} xs={14} md={4} sx={{ py: 2 }}  >
-                                        <TextField
-                                            fullWidth
-                                            id="Village/City"
-                                            label="Village/City"
-                                            variant="outlined"
-                                            size='small'
-                                            color='secondary'
-                                            onChange={(e)=>setVillage(e.target.value)}
-                                             InputLabelProps={{
-                                                shrink: true,
-                                            }}
+
+                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 2 }}>
+                                        <Autocomplete
+                                            id="combo-box-demo"
+                                            size="small"
+                                            freeSolo
+                                            onChange={(event, value: string | Village | null) => setVillage(prevVillage => {
+                                                if (typeof value === 'string') {
+                                                    return null;
+                                                } else {
+                                                    return value ?? prevVillage;
+                                                }
+                                            })}
+                                            options={villageList}
+                                            getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : '')}
+                                            renderInput={(params) => <TextField {...params} label="Village/City" />}
                                         />
                                     </Grid>
 
@@ -613,7 +650,7 @@ export default function AfforestationForm() {
                                     </Grid>
 
 
-                                    <Grid item lg={12} sm={12} xl={12} xs={12} md={12} sx={{ py: 2 }}  >
+                                    <Grid item lg={12} sm={12} xl={12} xs={12} md={12} sx={{ py: 2 }} borderTop='1px solid silver' >
                                         <Box sx={{ pb: 3, textAlign: 'left' }}>
                                             <h5>Contact Details</h5>
                                         </Box>

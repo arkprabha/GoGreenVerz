@@ -80,7 +80,7 @@ export default function UpdateAddedLands() {
     const location = useLocation();
     const {id} = location.state;
 
-            useEffect(() => {
+    useEffect(() => {
             axios({
                 method: methodGet,
                 url: get_state,
@@ -172,6 +172,8 @@ export default function UpdateAddedLands() {
                     setLandAddress2(res.data.data.LandAddress2);
                     setLandPostalCode(res.data.data.LandPostalCode);
                     setLandCountry(res.data.data.LandCountry);
+                    setLandState(res.data.data.LandState || null); 
+                    setLandCity(res.data.data.LandCity || null); 
                     setLandSize(res.data.data.LandSize);
                     setLatitude(res.data.data.Latitude);
                     setLongitude(res.data.data.Longitude);
@@ -189,11 +191,9 @@ export default function UpdateAddedLands() {
                 alert('Oops something went wrong ' + err)
             });
         }
-        else{
-            setMessage('Select a State First');
-        }
-
     }, [id])
+
+    
 
     const handleSubmit = () => {
         const obj : LandOwnerData = {
@@ -205,7 +205,7 @@ export default function UpdateAddedLands() {
         AlternateMobile:alternateMobile,
         LandAddress1:landAddress1,
         LandAddress2:landAddress2,
-        LandCity: landCity,
+        LandCity: landCity?.DistrictName, 
         LandState:landState?.StateName,
         LandPostalCode: landPostalCode,
         LandCountry: landCountry,
@@ -265,7 +265,7 @@ export default function UpdateAddedLands() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2}>
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Edit Added Lands Information</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Edit Added Lands Information</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>
@@ -399,7 +399,8 @@ export default function UpdateAddedLands() {
                                                 }
                                             })}
                                         options={state}
-                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        value={landState}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.StateName : option)}
                                         renderInput={(params) => <TextField {...params} label="State" />}
                                     />
                                     </Grid>
@@ -417,7 +418,8 @@ export default function UpdateAddedLands() {
                                             }
                                         })}
                                         options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        value={landCity}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

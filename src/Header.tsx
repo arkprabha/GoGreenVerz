@@ -57,6 +57,11 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
 };
 
 
+  const Logout = () =>{
+    localStorage.clear();
+    navigate('/');
+  }
+
   const  UserProfileType: string | null = localStorage.getItem('UserProfileType') ?? '';
 
   return (
@@ -118,7 +123,7 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
               UserProfileType === 'Buyers' && <Typography className="home-VSe" onClick={() => handleOpenPage('yourlands')}>Your Lands</Typography>
               }
               <Typography className="home-VSe" onClick={() => handleOpenPage('profile')}>Profile</Typography>
-              <Typography className="home-VSe" onClick={() => navigate('/')}>Logout<LogoutIcon  sx={{verticalAlign:'middle'}}/></Typography>
+              <Typography className="home-VSe" onClick={Logout}>Logout<LogoutIcon  sx={{verticalAlign:'middle'}}/></Typography>
               </Box>
               <Snackbar open={isSnackbarOpen} autoHideDuration={6000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>

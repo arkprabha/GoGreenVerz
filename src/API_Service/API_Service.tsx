@@ -121,8 +121,17 @@ const update_government_agency: string = `${baseApiurl}update_government_agency`
 
 const add_government_agency: string = `${baseApiurl}add_government_agency`;
 
+const get_afforestation: string = `${baseApiurl}get_afforestation`;
+
+const update_afforestation: string = `${baseApiurl}update_afforestation`;
+
+const get_city: string = `${baseApiurl}get_city`;
+
 export {
     get_all_user_profile_type,
+    get_afforestation,
+    update_afforestation,
+    get_city,
     add_government_agency,
     update_buyer,
     update_land_owner,

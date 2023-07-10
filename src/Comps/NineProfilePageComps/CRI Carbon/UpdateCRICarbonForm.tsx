@@ -210,8 +210,8 @@ export default function UpdateCRICarbonForm() {
             ProjectCommenceDate: projectCommenceDate,
             CRIAddress1:CRIAddress1,
             CRIAddress2:CRIAddress2,
-            CRICity:CRICity,
-            CRIState:CRIState,
+            CRICity: CRICity?.DistrictName,
+            CRIState: CRIState?.StateName,
             CRIPostalCode:CRIPostalCode,
             CRICountry:CRICountry,
             CCRegistry:CCRegistry,
@@ -270,7 +270,7 @@ export default function UpdateCRICarbonForm() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2}>
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Edit CRI Submission Form</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Edit CRI Submission Form</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>

@@ -214,8 +214,8 @@ export default function UpdateBuyerForm() {
         AlternateMobile:alternateMobile,
         BuyerAddress1:buyerAddress1,
         BuyerAddress2:buyerAddress2,
-        BuyerCity:buyerCity,
-        BuyerState:buyerState,
+            BuyerCity: buyerCity?.DistrictName,
+            BuyerState: buyerState?.StateName,
         BuyerPostalCode:buyerPostalCode,
         BuyerCountry:buyerCountry,
         CCTrading:ccTrading,
@@ -275,7 +275,7 @@ export default function UpdateBuyerForm() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2}>
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.8rem'}} >Edit Purchase Information</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Edit Purchase Information</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>
