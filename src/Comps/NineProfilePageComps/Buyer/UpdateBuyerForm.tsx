@@ -177,8 +177,8 @@ export default function UpdateBuyerForm() {
                     setBuyerName(res.data.data.BuyerName);
                     setBuyerAddress1(res.data.data.BuyerAddress1);
                     setBuyerAddress2(res.data.data.BuyerAddress2);
-                    // setBuyerCity(res.data.data.BuyerCity);
-                    // setBuyerState(res.data.data.BuyerState);
+                    setBuyerCity(res.data.data.BuyerCity || null);
+                    setBuyerState(res.data.data.BuyerState || null);
                     setBuyerPostalCode(res.data.data.BuyerPostalCode);
                     setBuyerCountry(res.data.data.BuyerCountry);
                     setCCTrading(res.data.data.CCTrading);
@@ -391,7 +391,8 @@ export default function UpdateBuyerForm() {
                                                 }
                                             })}
                                         options={state}
-                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        value={buyerState}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : option)}
                                         renderInput={(params) => <TextField {...params} label="State" />}
                                     />
                                     </Grid>
@@ -409,7 +410,8 @@ export default function UpdateBuyerForm() {
                                             }
                                         })}
                                         options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        value={buyerCity}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

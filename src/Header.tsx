@@ -6,8 +6,7 @@ import {useState} from "react";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import * as React from 'react';
-import LogoutIcon from '@mui/icons-material/Logout';
-
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 interface  HeaderProps {
   isConnectedWallet?: string;
@@ -122,8 +121,9 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
               {
               UserProfileType === 'Buyers' && <Typography className="home-VSe" onClick={() => handleOpenPage('yourlands')}>Your Lands</Typography>
               }
+              <Typography className="home-VSe" onClick={() => handleOpenPage('afforestation')}>Afforestation</Typography>
               <Typography className="home-VSe" onClick={() => handleOpenPage('profile')}>Profile</Typography>
-              <Typography className="home-VSe" onClick={Logout}>Logout<LogoutIcon  sx={{verticalAlign:'middle'}}/></Typography>
+              <Typography className="home-VSe" onClick={Logout}><PowerSettingsNewIcon  sx={{verticalAlign:'middle'}}/></Typography>
               </Box>
               <Snackbar open={isSnackbarOpen} autoHideDuration={6000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>

@@ -176,8 +176,8 @@ export default function UpdateVVBForm() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setVVBAddress1(res.data.data.VVBAddress1);
                     setVVBAddress2(res.data.data.VVBAddress2);
-                    // setVVBCity(res.data.data.VVBCity);
-                    // setVVBState(res.data.data.VVBState);
+                    setVVBCity(res.data.data.VVBCity || null);
+                    setVVBState(res.data.data.VVBState || null);
                     setVVBPostalCode(res.data.data.VVBPostalCode);
                     setVVBCountry(res.data.data.VVBCountry);
                     setAccreditationInformation(res.data.data.AccreditationInformation);
@@ -388,7 +388,8 @@ export default function UpdateVVBForm() {
                                                 }
                                             })}
                                         options={state}
-                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        value={VVBState}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : option)}
                                         renderInput={(params) => <TextField {...params} label="State" />}
                                     />
                                     </Grid>
@@ -406,7 +407,8 @@ export default function UpdateVVBForm() {
                                             }
                                         })}
                                         options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        value={VVBCity}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

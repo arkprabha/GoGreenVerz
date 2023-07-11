@@ -175,8 +175,8 @@ export default function UpdateAdminForm() {
                     setAdminName(res.data.data.AdminName);
                     setAdminAddress1(res.data.data.AdminAddress1);
                     setAdminAddress2(res.data.data.AdminAddress2);
-                    // setAdminCity(res.data.data.AdminCity);
-                    // setAdminState(res.data.data.AdminState);
+                    setAdminCity(res.data.data.AdminCity || null);
+                    setAdminState(res.data.data.AdminState || null);
                     setAdminPostalCode(res.data.data.AdminPostalCode);
                     setAdminCountry(res.data.data.AdminCountry);
                     setUserManagement(res.data.data.UserManagement);
@@ -393,7 +393,8 @@ export default function UpdateAdminForm() {
                                                 }
                                             })}
                                         options={state}
-                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        value={adminState}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : option)}
                                         renderInput={(params) => <TextField {...params} label="State" />}
                                     />
                                     </Grid>
@@ -411,7 +412,8 @@ export default function UpdateAdminForm() {
                                             }
                                         })}
                                         options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        value={adminCity}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

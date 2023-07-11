@@ -62,7 +62,7 @@ export default function AfforestationDoneLands() {
   return (
     <Box p={2}>
       <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
-      <TableContainer component={Paper} sx={{ backgroundColor: '#daf6e8', boxShadow: 4 }}>
+      <TableContainer className='borderAnimae' component={Paper} sx={{ backgroundColor: '#daf6e8', ':hover': { boxShadow: 10 }, }}>
       <Table>
           <TableHead sx={{ bgcolor:'#dee4e1'}}>
           <TableRow>

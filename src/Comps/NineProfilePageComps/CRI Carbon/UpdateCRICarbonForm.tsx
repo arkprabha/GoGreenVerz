@@ -174,8 +174,8 @@ export default function UpdateCRICarbonForm() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setCRIAddress1(res.data.data.CRIAddress1);
                     setCRIAddress2(res.data.data.CRIAddress2);
-                    // setCRICity(res.data.data.CRICity);
-                    // setCRIState(res.data.data.CRIState);
+                    setCRICity(res.data.data.CRICity || null);
+                    setCRIState(res.data.data.CRIState || null);
                     setCRIPostalCode(res.data.data.CRIPostalCode);
                     setCRICountry(res.data.data.CRICountry);
                     setCCRegistry(res.data.data.CCRegistry);
@@ -386,7 +386,8 @@ export default function UpdateCRICarbonForm() {
                                                 }
                                             })}
                                         options={state}
-                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        value={CRIState}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : option)}
                                         renderInput={(params) => <TextField {...params} label="State" />}
                                     />
                                     </Grid>
@@ -404,7 +405,8 @@ export default function UpdateCRICarbonForm() {
                                             }
                                         })}
                                         options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        value={CRICity}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

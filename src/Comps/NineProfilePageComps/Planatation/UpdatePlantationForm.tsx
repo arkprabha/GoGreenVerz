@@ -180,8 +180,8 @@ export default function UpdatePlantationForm() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setPlantationPartnerAddress1(res.data.data.PlantationPartnerAddress1);
                     setPlantationPartnerAddress2(res.data.data.PlantationPartnerAddress2);
-                    // setPlantationPartnerCity(res.data.data.PlantationPartnerCity);
-                    // setPlantationPartnerState(res.data.data.PlantationPartnerState);
+                    setPlantationPartnerCity(res.data.data.PlantationPartnerCity || null);
+                    setPlantationPartnerState(res.data.data.PlantationPartnerState || null);
                     setPlantationPartnerPostalCode(res.data.data.PlantationPartnerPostalCode);
                     setPlantationPartnerCountry(res.data.data.PlantationPartnerCountry);
                     setPlantTypes(res.data.data.PlantTypes);
@@ -402,7 +402,8 @@ export default function UpdatePlantationForm() {
                                                 }
                                             })}
                                         options={state}
-                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        value={PlantationPartnerState}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : option)}
                                         renderInput={(params) => <TextField {...params} label="State" />}
                                     />
                                     </Grid>
@@ -420,7 +421,8 @@ export default function UpdatePlantationForm() {
                                             }
                                         })}
                                         options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        value={PlantationPartnerCity}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

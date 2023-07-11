@@ -184,8 +184,8 @@ export default function UpdateInvestLands() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setInvestorAddress1(res.data.data.InvestorAddress1);
                     setInvestorAddress2(res.data.data.InvestorAddress2);
-                    // setInvestorCity(res.data.data.InvestorCity.DistrictName);
-                    // setInvestorState(res.data.data.InvestorState.StateName);
+                    setInvestorCity(res.data.data.InvestorCity.DistrictName || null);
+                    setInvestorState(res.data.data.InvestorState.StateName || null);
                     setInvestorPostalCode(res.data.data.InvestorPostalCode);
                     setInvestorCountry(res.data.data.InvestorCountry);
                     setLatitude(res.data.data.Latitude);
@@ -298,7 +298,7 @@ export default function UpdateInvestLands() {
                     </Box>
                 </Container>
 
-                <Box py={4} sx={{ px: 5, backgroundColor: '#e5f4eb', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
+                <Box py={4} className='borderAnimae' sx={{ px: 5, backgroundColor: '#daf6e8', mx: 3, my: 4, ':hover': { boxShadow: 10 }, }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
                         <Grid item lg={12} xl={12} >
@@ -407,7 +407,8 @@ export default function UpdateInvestLands() {
                                                 }
                                             })}
                                         options={state}
-                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        value={InvestorState}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : option)}
                                         renderInput={(params) => <TextField {...params} label="State" />}
                                     />
                                     </Grid>
@@ -425,7 +426,8 @@ export default function UpdateInvestLands() {
                                             }
                                         })}
                                         options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        value={InvestorCity}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

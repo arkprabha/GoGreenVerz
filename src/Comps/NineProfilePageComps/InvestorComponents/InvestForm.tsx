@@ -175,15 +175,15 @@ export default function InvestForm() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message)
-                    setLandSize(res.data.data[0].LandSize);
-                    setLatitude(res.data.data[0].Latitude);
-                    setLongitude(res.data.data[0].Longitude);
-                    setTermsAndConditions(res.data.data[0].TermsAndConditions);
-                    setCreationDate(res.data.data[0].CreationDate);
-                    setProjectCommenceDate(res.data.data[0].ProjectCommenceDate);
-                    setLandStatus(res.data.data[0].LandStatus);
-                    setInvestorStatus(res.data.data[0].InvestorStatus);
-                    setRemarks(res.data.data[0].Remarks);
+                    setLandSize(res.data.data.LandSize);
+                    setLatitude(res.data.data.Latitude);
+                    setLongitude(res.data.data.Longitude);
+                    setTermsAndConditions(res.data.data.TermsAndConditions);
+                    setCreationDate(res.data.data.CreationDate);
+                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setLandStatus(res.data.data.LandStatus);
+                    setInvestorStatus(res.data.data.InvestorStatus);
+                    setRemarks(res.data.data.Remarks);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -281,7 +281,7 @@ export default function InvestForm() {
                     </Box>
                 </Container>
 
-                <Box py={4} sx={{ px: 5, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
+                <Box py={4} className='borderAnimae' sx={{ px: 5, backgroundColor: '#daf6e8', mx: 3, my: 4, ':hover': { boxShadow: 10 }, }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
                         <Grid item lg={12} xl={12} >

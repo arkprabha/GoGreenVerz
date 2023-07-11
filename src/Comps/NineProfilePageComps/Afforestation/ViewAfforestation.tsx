@@ -200,7 +200,7 @@ export default function ViewAfforestion() {
                     </Box>
                 </Container>
 
-                <Box py={4} sx={{ px: 5, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
+                <Box py={4} className='borderAnimae' sx={{ px: 5, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 3, my: 4, ':hover': { boxShadow: 10 }, }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
                         <Grid item lg={12} xl={12}>

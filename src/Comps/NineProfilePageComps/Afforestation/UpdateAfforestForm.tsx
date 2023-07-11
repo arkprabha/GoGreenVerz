@@ -123,11 +123,13 @@ export default function UpdateAfforestForm() {
     });
   }, [])
 
+  console.log(stateName?.StateId)
+
   // POST CITY FETCH
   useEffect(() => {
     if (stateName !== null) {
       const lData = new FormData()
-      lData.append('StateId', stateName.StateId.toString());
+      lData.append('StateId', stateName.StateId);
       axios({
         method: methodPost,
         url: get_district,
@@ -312,7 +314,7 @@ export default function UpdateAfforestForm() {
     <Box>
       <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
       <Header isConnectedWallet={isConnectedWallet} />
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
 
         <Container>
           <Box mb={1}>
@@ -325,7 +327,7 @@ export default function UpdateAfforestForm() {
           </Box>
         </Container>
 
-        <Box py={4} sx={{ px: 5, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
+        <Box py={4} className='borderAnimae' sx={{ px: 5, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 3, my: 4, ':hover': { boxShadow: 10 }, }}>
 
           <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
             <Grid item lg={12} xl={12}>

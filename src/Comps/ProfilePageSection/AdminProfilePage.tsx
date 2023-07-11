@@ -103,7 +103,7 @@ export default function AdminProfilePage() {
                 <Typography color="#F9F9F8" variant="subtitle1">
                   Admin
                 </Typography>
-                <Typography color="#F9F9F8" variant="caption">
+                <Typography color="#ACE1AF" variant="caption">
                   Customer Id : AD23-1
                 </Typography>
               </Box>
@@ -138,15 +138,15 @@ export default function AdminProfilePage() {
               >
                 <Box textAlign="center">
                   <Typography color="#F9F9F8">Active</Typography>
-                  <Typography color="#F9F9F8">1</Typography>
+                  <Typography color="#ACE1AF">1</Typography>
                 </Box>
                 <Box textAlign="center">
                   <Typography color="#F9F9F8">In Active</Typography>
-                  <Typography color="#F9F9F8">1</Typography>
+                  <Typography color="#ACE1AF">1</Typography>
                 </Box>
                 <Box textAlign="center">
                   <Typography color="#F9F9F8">Suspended</Typography>
-                  <Typography color="#F9F9F8">1</Typography>
+                  <Typography color="#ACE1AF">1</Typography>
                 </Box>
               </Box>
             </Box>
@@ -183,11 +183,11 @@ export default function AdminProfilePage() {
               >
                 <Box textAlign="center" onClick={() => navigate('/listedlands')}>
                   <Typography color="#F9F9F8">Listed Lands</Typography>
-                  <Typography color="#F9F9F8">4</Typography>
+                  <Typography color="#ACE1AF">4</Typography>
                 </Box>
                 <Box textAlign="center">
                   <Typography color="#F9F9F8">Update Admin LandForm</Typography>
-                  <Typography color="#F9F9F8">
+                  <Typography color="#ACE1AF">
                     <AddCircleOutlineIcon
                       onClick={() => navigate('/listedlands')}
                     />
@@ -197,7 +197,7 @@ export default function AdminProfilePage() {
                   <Typography color="#F9F9F8">
                     Edit Admin LandForm
                   </Typography>
-                  <Typography color="#F9F9F8">
+                  <Typography color="#ACE1AF">
                     <UpgradeIcon
                       onClick={() => navigate('/adminsubmittedlands')}
                     />
@@ -238,7 +238,7 @@ export default function AdminProfilePage() {
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <Box textAlign="center" display="flex" flexDirection="column" gap={1}>
                       <Typography color="#F9F9F8">Phone Number</Typography>
-                      <Typography color="#F9F9F8" variant="subtitle2">
+                      <Typography color="#ACE1AF" variant="subtitle2">
                         {userData?.UserMobile}
                       </Typography>
                     </Box>
@@ -246,7 +246,7 @@ export default function AdminProfilePage() {
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <Box textAlign="center" display="flex" flexDirection="column" gap={1}>
                       <Typography color="#F9F9F8">Email</Typography>
-                      <Typography color="#F9F9F8" variant="subtitle2">
+                      <Typography color="#ACE1AF" variant="subtitle2">
                         {userData?.UserEmail}
                       </Typography>
                     </Box>
@@ -254,7 +254,7 @@ export default function AdminProfilePage() {
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <Box textAlign="center" display="flex" flexDirection="column" gap={1}>
                       <Typography color="#F9F9F8">Address</Typography>
-                      <Typography color="#F9F9F8" variant="subtitle2">
+                      <Typography color="#ACE1AF" variant="subtitle2">
                         {userData?.UserCity}, {userData?.UserState}
                       </Typography>
                     </Box>

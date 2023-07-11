@@ -82,6 +82,7 @@ export default function InvestorProfilePage() {
               alignItems="center"
               display="flex"
               flexDirection="row"
+              bgcolor='#008080'
             >
               <Box>
                 <img
@@ -96,13 +97,13 @@ export default function InvestorProfilePage() {
                 />
               </Box>
               <Box px={2}>
-                <Typography color="#28313c" fontWeight={600} fontSize={17}>
+                <Typography color="#F9F9F8" fontWeight={600} fontSize={17}>
                   {userData?.UserName}
                 </Typography>
-                <Typography color="#616e80" variant="subtitle1">
+                <Typography color="#F9F9F8" variant="subtitle1">
                   Investor
                 </Typography>
-                <Typography color="#616e80" variant="caption">
+                <Typography color="#ACE1AF" variant="caption">
                   Customer Id : IN23-1
                 </Typography>
               </Box>
@@ -117,15 +118,16 @@ export default function InvestorProfilePage() {
               display="flex"
               justifyContent="space-between"
               flexDirection="column"
+              bgcolor='#008080'
             >
               <Box
                 display="flex"
                 justifyContent="space-between"
                 flexDirection="row"
               >
-                <Typography fontWeight={600}>Lands Status</Typography>
+                <Typography fontWeight={600} color="#F9F9F8">Lands Status</Typography>
                 <Box alignSelf="center">
-                  <LandscapeIcon sx={{ color: '#616e80' }} fontSize="large" />
+                  <LandscapeIcon sx={{ color: '#F9F9F8' }} fontSize="large" />
                 </Box>
               </Box>
               <Box
@@ -135,23 +137,23 @@ export default function InvestorProfilePage() {
                 justifyContent="space-around"
               >
                 <Box textAlign="center">
-                  <Typography color="#3860b5">Active</Typography>
-                  <Typography color="#84cb25">1</Typography>
+                  <Typography color="#F9F9F8">Active</Typography>
+                  <Typography color="#ACE1AF">1</Typography>
                 </Box>
                 <Box textAlign="center">
-                  <Typography color="#3860b5">In Review</Typography>
-                  <Typography color="#84cb25">1</Typography>
+                  <Typography color="#F9F9F8">In Review</Typography>
+                  <Typography color="#ACE1AF">1</Typography>
                 </Box>
                 <Box textAlign="center">
-                  <Typography color="#3860b5">On Hold</Typography>
-                  <Typography color="#84cb25">1</Typography>
+                  <Typography color="#F9F9F8">On Hold</Typography>
+                  <Typography color="#ACE1AF">1</Typography>
                 </Box>
                 <Box textAlign="center">
-                  <Typography color="#3860b5">Sold</Typography>
-                  <Typography color="#84cb25">1</Typography>
+                  <Typography color="#F9F9F8">Sold</Typography>
+                  <Typography color="#ACE1AF">1</Typography>
                 </Box>
                 <Box textAlign="center">
-                  <Typography color="#c2312f">Expired</Typography>
+                  <Typography color="#F9F9F8">Expired</Typography>
                   <Typography color="#c2312f">1</Typography>
                 </Box>
               </Box>
@@ -166,16 +168,17 @@ export default function InvestorProfilePage() {
               display="flex"
               justifyContent="space-between"
               flexDirection="column"
+              bgcolor='#008080'
             >
               <Box
                 display="flex"
                 justifyContent="space-between"
                 flexDirection="row"
               >
-                <Typography fontWeight={600}>Lands</Typography>
+                <Typography fontWeight={600} color="#F9F9F8">Lands</Typography>
                 <Box alignSelf="center">
                   <FormatListBulletedIcon
-                    sx={{ color: '#616e80' }}
+                    sx={{ color: '#F9F9F8' }}
                     fontSize="large"
                   />
                 </Box>
@@ -187,22 +190,22 @@ export default function InvestorProfilePage() {
                 justifyContent="space-around"
               >
                 <Box textAlign="center" onClick={() => navigate('/investedlands')}>
-                  <Typography color="#3860b5">Invested Lands</Typography>
-                  <Typography color="#84cb25">4</Typography>
+                  <Typography color="#F9F9F8">Invested Lands</Typography>
+                  <Typography color="#ACE1AF">4</Typography>
                 </Box>
                 <Box textAlign="center">
-                  <Typography color="#3860b5">New Invest</Typography>
-                  <Typography color="#84cb25">
+                  <Typography color="#F9F9F8">New Invest</Typography>
+                  <Typography color="#ACE1AF">
                     <AddCircleOutlineIcon
                       onClick={() => navigate('/listedlands')}
                     />
                   </Typography>
                 </Box>
                 <Box textAlign="center">
-                  <Typography color="#3860b5">
+                  <Typography color="#F9F9F8">
                     Edit Invest Information
                   </Typography>
-                  <Typography color="#84cb25">
+                  <Typography color="#ACE1AF">
                     <UpgradeIcon
                       onClick={() => navigate('/investedlands')}
                     />
@@ -220,15 +223,16 @@ export default function InvestorProfilePage() {
               display="flex"
               justifyContent="space-between"
               flexDirection="column"
+              bgcolor='#008080'
             >
               <Box
                 display="flex"
                 justifyContent="space-between"
                 flexDirection="row"
               >
-                <Typography fontWeight={600}>Contact</Typography>
+                <Typography fontWeight={600} color="#F9F9F8">Contact</Typography>
                 <Box alignSelf="center">
-                  <ContactsIcon sx={{ color: '#616e80' }} fontSize="large" />
+                  <ContactsIcon sx={{ color: '#F9F9F8' }} fontSize="large" />
                 </Box>
               </Box>
               <Box mt={5}>
@@ -241,24 +245,24 @@ export default function InvestorProfilePage() {
                 >
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <Box textAlign="center" display="flex" flexDirection="column" gap={1}>
-                      <Typography color="#3860b5">Phone Number</Typography>
-                      <Typography color="#84cb25" variant="subtitle2">
+                      <Typography color="#F9F9F8">Phone Number</Typography>
+                      <Typography color="#ACE1AF" variant="subtitle2">
                         {userData?.UserMobile}
                       </Typography>
                     </Box>
                   </Grid>
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <Box textAlign="center" display="flex" flexDirection="column" gap={1}>
-                      <Typography color="#3860b5">Email</Typography>
-                      <Typography color="#84cb25" variant="subtitle2">
+                      <Typography color="#F9F9F8">Email</Typography>
+                      <Typography color="#ACE1AF" variant="subtitle2">
                         {userData?.UserEmail}
                       </Typography>
                     </Box>
                   </Grid>
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <Box textAlign="center" display="flex" flexDirection="column" gap={1}>
-                      <Typography color="#3860b5">Address</Typography>
-                      <Typography color="#84cb25" variant="subtitle2">
+                      <Typography color="#F9F9F8">Address</Typography>
+                      <Typography color="#ACE1AF" variant="subtitle2">
                         {userData?.UserCity}, {userData?.UserState}
                       </Typography>
                     </Box>

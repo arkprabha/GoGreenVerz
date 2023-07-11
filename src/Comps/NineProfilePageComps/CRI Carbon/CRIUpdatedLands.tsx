@@ -395,15 +395,7 @@ const CRIUpdatedLands: React.FC = () => {
                 >
                   {CRIList.map((i) => (
                     <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
-                      <Card
-                        sx={{
-                          maxWidth: 300,
-                          height: "100%",
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "space-between",
-                        }}
-                      >
+                      <Card sx={{ maxWidth: 300, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
                         <CardActionArea>
                           {Loading ? (
                             <Skeleton
@@ -542,15 +534,7 @@ const CRIUpdatedLands: React.FC = () => {
               >
                 {slicedData.map((i) => (
                   <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
-                    <Card
-                      sx={{
-                        maxWidth: 300,
-                        height: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                      }}
-                    >
+                    <Card sx={{ maxWidth: 300, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
                       <CardActionArea>
                         {Loading ? (
                           <Skeleton

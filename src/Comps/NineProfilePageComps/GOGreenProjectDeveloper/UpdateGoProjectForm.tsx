@@ -174,8 +174,8 @@ export default function UpdateGoProjectForm() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setDeveloperAddress1(res.data.data.DeveloperAddress1);
                     setDeveloperAddress2(res.data.data.DeveloperAddress2);
-                    // setDeveloperCity(res.data.data.DeveloperCity);
-                    // setDeveloperState(res.data.data.DeveloperState);
+                    setDeveloperCity(res.data.data.DeveloperCity || null);
+                    setDeveloperState(res.data.data.DeveloperState || null);
                     setDeveloperPostalCode(res.data.data.DeveloperPostalCode);
                     setDeveloperCountry(res.data.data.DeveloperCountry);
                     setMetaversePlatform(res.data.data.MetaversePlatform);
@@ -383,7 +383,8 @@ export default function UpdateGoProjectForm() {
                                                 }
                                             })}
                                         options={state}
-                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : '')}
+                                        value={developerState}
+                                        getOptionLabel={(option) => (typeof option === 'object'  ? option.StateName : option)}
                                         renderInput={(params) => <TextField {...params} label="State" />}
                                     />
                                     </Grid>
@@ -401,7 +402,8 @@ export default function UpdateGoProjectForm() {
                                             }
                                         })}
                                         options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        value={developerCity}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>
