@@ -77,6 +77,7 @@ export default function LandOwnerProfile() {
           <Grid item xs={6} sm={6} md={6} lg={6}>
             <Box
               component={Card}
+              boxShadow={5}
               p={4}
               alignItems="center"
               display="flex"
@@ -111,6 +112,7 @@ export default function LandOwnerProfile() {
               mt={1}
               mb={2}
               component={Card}
+              boxShadow={5}
               p={2}
               display="flex"
               justifyContent="space-between"
@@ -159,6 +161,7 @@ export default function LandOwnerProfile() {
           <Grid item xs={6} sm={6} md={6} lg={6}>
             <Box
               component={Card}
+              boxShadow={5}
               p={3}
               display="flex"
               justifyContent="space-between"
@@ -212,6 +215,7 @@ export default function LandOwnerProfile() {
               mt={1}
               mb={2}
               component={Card}
+              boxShadow={5}
               p={2}
               display="flex"
               justifyContent="space-between"

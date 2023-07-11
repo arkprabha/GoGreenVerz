@@ -4,8 +4,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-   background-color: #ffffff;
-   font-size: 1rem;
+  background-color: #ffffee;
+  font-size: 1rem;
 }
 
 code {
@@ -22,9 +22,50 @@ code {
     width: 100%;
     position: relative; 
 }
-.FormheadingName{
+/* .FormheadingName{
     font-weight: 400;
     color: rgba(0, 0, 17, 0.63);
     font-family: Inter, "Source Sans Pro";
     white-space: nowrap;
+} */
+
+
+
+/* Form BackGround */
+.text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.FormheadingName {
+  margin: 0;
+  color: rgba(225, 225, 225, .01);
+  background-image: url('./assets/BackImageAllColor.jpg');
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  animation: animate 15s ease-in-out infinite;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+@keyframes animate {
+
+  0%,
+  100% {
+    background-position: left top;
+  }
+
+  25% {
+    background-position: right bottom;
+  }
+
+  50% {
+    background-position: left bottom;
+  }
+
+  75% {
+    background-position: right top;
+  }
 }

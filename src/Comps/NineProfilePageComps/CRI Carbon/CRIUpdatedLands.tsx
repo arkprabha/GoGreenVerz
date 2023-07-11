@@ -60,7 +60,7 @@ interface State {
 const CRIUpdatedLands: React.FC = () => {
   const [state, setState] = useState<any[]>([]);
   const [page, setPage] = useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+ const [rowsPerPage, setRowsPerPage] = useState<number>(6);
   const [data, setData] = useState<any[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [status, setStatus] = useState<boolean>(false);
@@ -267,7 +267,7 @@ const CRIUpdatedLands: React.FC = () => {
           <Box mb={1}>
             <Grid container mb={2} mt={2}>
               <Grid item xs={12} md={12} lg={12} xl={12}>
-                <Box width='100%' textAlign='center' py={2}>
+            <Box width='100%' textAlign='center' py={2} className="text-container">
                   <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >My Work Submissions</Typography>                  </Box>
               </Grid>
             </Grid>
@@ -335,13 +335,7 @@ const CRIUpdatedLands: React.FC = () => {
               </Box>
               <Box py={3}>
                 <Stack spacing={2}>
-                  <Typography
-                    color="primary"
-                    sx={{ textDecoration: "underline" }}
-                    fontWeight={600}
-                  >
-                    Recent Searches
-                  </Typography>
+               <Typography color='#008080' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
                   {recentSearch &&
                     recentSearch.map((i, index) => (
                       <Typography sx={{ marginBottom: 1 }} key={index}>

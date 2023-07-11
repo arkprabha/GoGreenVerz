@@ -49,7 +49,7 @@ const ListedLands: React.FC = () => {
 
   const [state, setState] = useState<any[]>([]);
   const [page, setPage] = useState<number>(0);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(6);
   const [data, setData] = useState<any[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [status, setStatus] = useState<boolean>(false);
@@ -253,7 +253,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             <Box mb={1}>
               <Grid container mb={2} mt={2}>
                 <Grid item xs={12} md={12} lg={12} xl={12}>
-                  <Box width='100%' textAlign='center' py={2}>
+              <Box width='100%' textAlign='center' py={2} className="text-container">
                     <Typography className="FormheadingName" sx={{fontSize:'2rem'}} > Listed Lands</Typography>                  </Box>
                 </Grid>
               </Grid>
@@ -279,7 +279,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
           {...params}
           placeholder="Search Lands By Address, ID, Lat"
           variant="standard"
-          sx={{ width: '25ch' }}
+          sx={{ width: '25ch', color:'#008080' }}
            onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
           />
           )}
@@ -291,7 +291,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             </Box>
             <Box py={3}>
             <Stack spacing={2}>
-            <Typography color='primary' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
+            <Typography color='#008080' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
            {
             recentSearch && recentSearch.map((i , index)=>
             <Typography sx={{marginBottom:1}} key={index}>{i}<CloseIcon sx={{verticalAlign:'middle'}} fontSize='small'  onClick={()=>removeSearchText(index)}/> </Typography>
@@ -321,7 +321,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
           {LandList.map((i) => (
           <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
-           <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' }}>
+           <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
             <CardActionArea>
         {Loading ? (
         <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
@@ -427,7 +427,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
       <Grid item xs={12}>
         <TablePagination
           component="div"
-          count={data.length}
+          count={LandList.length}
           page={page}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
@@ -441,7 +441,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
           {slicedData.map((i) => (
           <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
-           <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' }}>
+           <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between', boxShadow:5 }}>
             <CardActionArea>
         {Loading ? (
         <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />

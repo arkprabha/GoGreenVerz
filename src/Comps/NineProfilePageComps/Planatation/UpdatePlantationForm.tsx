@@ -285,7 +285,7 @@ export default function UpdatePlantationForm() {
                     <Box mb={1}>
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
-                                <Box width='100%' textAlign='center' py={2}>
+                            <Box width='100%' textAlign='center' py={2} className="text-container">
                                     <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Edit Planatation Information</Typography>                  </Box>
                             </Grid>
                         </Grid>

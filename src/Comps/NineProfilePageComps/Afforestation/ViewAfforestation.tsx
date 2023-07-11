@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField, Stack, Autocomplete } from "@mui/material";
+import { Box, Button, Grid, TextField, Stack, Autocomplete, Container, Typography } from "@mui/material";
 import Header from '../../../Header';
 import {get_afforestation, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
@@ -187,7 +187,18 @@ export default function ViewAfforestion() {
         <Box>
             <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Header isConnectedWallet={isConnectedWallet} />
-            <Box sx={{ height: '90%' }} display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
+
+                <Container>
+                    <Box mb={1}>
+                        <Grid container mt={2}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box width='100%' textAlign='center' py={2} className="text-container">
+                                    <Typography className="FormheadingName" sx={{ fontSize: '2rem' }} >View Afforestation Form</Typography>                  </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
 
                 <Box py={4} sx={{ px: 5, backgroundColor: '#daf6e8', borderRadius: '10px', mx: 3, my: 4, boxShadow: 11 }}>
 

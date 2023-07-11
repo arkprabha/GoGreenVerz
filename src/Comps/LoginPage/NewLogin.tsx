@@ -128,7 +128,7 @@ export default function NewLoginPage() {
                                             fullWidth
                                             variant="outlined"
                                             autoComplete="off"
-                                            type={showPassword ? 'password' : 'text'}
+                                            type={!showPassword ? 'password' : 'text'}
                                             label="Password"
                                             onChange={(e) => setPassword(e.target.value)}
                                             InputProps={{
