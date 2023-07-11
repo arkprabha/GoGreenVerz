@@ -69,3 +69,12 @@ code {
     background-position: right top;
   }
 }
+
+
+
+.borderAnimae{
+  border-radius: 10px;
+  background-color: #eeeeee;
+  border: 2px outset #BAD129;
+  box-shadow: -2px 3px 15px 10px rgba(103, 146, 103, 0.5);
+}

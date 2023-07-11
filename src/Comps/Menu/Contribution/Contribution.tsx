@@ -86,7 +86,9 @@ const Contribution = () => {
                     <Typography variant="body1" className="total-value-3-sol-x4W"> Total value = {images.length} SOL</Typography>
                 </Box>
             </Box>
+           <Box className="text-container">
             <Typography variant="body1" className="your-contribution-z1C">Your Contribution</Typography>
+            </Box>
         </Box>
     );
 };

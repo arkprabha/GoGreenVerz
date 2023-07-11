@@ -10,7 +10,7 @@ const Offset : React.FC = () => {
     return (
         <Box className="desktop-4-AX8">
       <Header  isConnectedWallet={ isConnectedWallet} />
-            <Typography variant="body1" className="your-carbon-footprint-jXc">Carbon offset</Typography>
+            <Typography variant="body1" className="your-carbon-footprint-jXcoff">Carbon offset</Typography>
             <Box className="auto-group-ynay-crJ">
                 <img className="pngegg-3-1-jA" src={pngwing4} alt="image" />
                 <Box className="auto-group-lxus-RHx">

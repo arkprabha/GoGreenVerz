@@ -99,7 +99,7 @@ input {
   width: 40.7rem;
   height: 39.8rem;
   position: absolute;
-  left: 16.5rem;
+  left: 18rem;
   top: 11.2rem;
   align-items: center;
   display: flex;
@@ -196,16 +196,23 @@ input {
   flex-shrink: 0;
 }
 .desktop-2-HUr .your-contribution-z1C {
-  width: 33.2rem;
+  width: 35.2rem;
   height: 4.9rem;
   position: absolute;
-  left: 28rem;
-  top: 7.1rem;
+  left: 23rem;
+  top: 7rem;
   font-size: 3rem;
-  font-weight: 400;
   line-height: 1.2125;
-  color: rgba(0, 0, 17, 0.6299999952);
   font-family: Inter, 'Source Sans Pro';
   white-space: nowrap;
   margin-top:4rem;
+
+  color: rgba(225, 225, 225, .01);
+  background-image: url('../../../assets/BackImageAllColor.jpg');
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  animation: animate 15s ease-in-out infinite;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 900;
 }
