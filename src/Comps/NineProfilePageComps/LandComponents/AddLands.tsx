@@ -106,7 +106,7 @@ export default function AddLands() {
     useEffect(() => {
         if(landState !== null ){
             const lData = new FormData()
-            lData.append('StateId', landState.StateId.toString());
+            lData.append('StateId', landState.StateId);
             axios({
                 method: methodPost,
                 url: get_district,
@@ -239,7 +239,7 @@ export default function AddLands() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                             <Box width='100%' textAlign='center' py={2} className="text-container">
-                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Add Your Lands</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} >Add Your Lands</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>

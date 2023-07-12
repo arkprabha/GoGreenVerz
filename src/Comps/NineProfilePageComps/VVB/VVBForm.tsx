@@ -117,7 +117,7 @@ export default function VVB() {
     useEffect(() => {
         if(VVBState !== null ){
             const lData = new FormData()
-            lData.append('StateId', VVBState.StateId.toString());
+            lData.append('StateId', VVBState.StateId);
             axios({
                 method: methodPost,
                 url: get_district,
@@ -222,7 +222,7 @@ export default function VVB() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                             <Box width='100%' textAlign='center' py={2} className="text-container">
-                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Update VVB Information</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} >Update VVB Information</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>

@@ -8,7 +8,7 @@ TablePagination, Autocomplete } from '@mui/material';
 import { useState } from 'react';
 import { Box , Container} from '@mui/material';
 import axios from 'axios';
-import { LandOwnerFiles, get_all_land_owner, get_state, methodGet } from '../../../API_Service/API_Service';
+import { LandOwnerFiles, get_all_land_owner, get_land_owner, get_state, methodGet, methodPost } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -68,7 +68,8 @@ const ListedLands: React.FC = () => {
   const [recentSearch, setRecentSearch] = useState<any[]>([]);
   const [inputKey, setInputKey] = useState<number>(0);
   const navigate = useNavigate();
-    
+  const UserId: string | null = localStorage.getItem('UserId') ?? '';
+
       useEffect(() => {
         const storedRecentSearch = localStorage.getItem('RecentSearch');
         if (storedRecentSearch !== null) {
@@ -106,6 +107,7 @@ const ListedLands: React.FC = () => {
 
 
    useEffect(()=>{
+    if(UserType !== 'Land owner'){
        axios({
            method: 'GET',
            url: get_all_land_owner,
@@ -125,6 +127,31 @@ const ListedLands: React.FC = () => {
            .catch((err) => {
                alert("Oops something went wrong " + err);
            });
+          }
+      else {
+      const lData = new FormData()
+      lData.append('UserId', UserId);
+      axios({
+        method: methodPost,
+        url: get_land_owner,
+        data: lData,
+        headers: {
+          'Authorization': `Bearer ${UserToken}`,
+        }
+      })
+        .then((res) => {
+          if (res.data.error) {
+            setData([]);
+            setLoading(false);
+          } else {
+            setData(res.data.data);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          alert("Oops something went wrong " + err);
+        });
+          }
    }, [UserToken])
 
 
@@ -254,7 +281,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
               <Grid container mb={2} mt={2}>
                 <Grid item xs={12} md={12} lg={12} xl={12}>
               <Box width='100%' textAlign='center' py={2} className="text-container">
-                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} > Listed Lands</Typography>                  </Box>
+                    <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} > Listed Lands</Typography> </Box>
                 </Grid>
               </Grid>
             </Box>
@@ -277,9 +304,10 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
           renderInput={(params) => (
           <TextField
           {...params}
-          placeholder="Search Lands By Address, ID, Lat"
-          variant="standard"
-          sx={{ width: '25ch', color:'#008080' }}
+              placeholder="Search By Location"
+              variant="standard"
+              sx={{ width: '25ch' }}
+              color="success"
            onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
           />
           )}

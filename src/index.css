@@ -47,7 +47,9 @@ code {
   animation: animate 15s ease-in-out infinite;
   text-align: center;
   text-transform: uppercase;
-  font-weight: 900;
+  line-height: 1.2125;
+  height: 3.5rem;
+  font-family: Inter, 'Source Sans Pro';
 }
 
 @keyframes animate {

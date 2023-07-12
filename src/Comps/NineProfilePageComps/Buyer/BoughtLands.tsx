@@ -235,7 +235,7 @@ const BoughtLands: React.FC = () => {
             <Grid container mb={2} mt={2}>
               <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box width='100%' textAlign='center' py={2} className="text-container">
-                  <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Bought Lands</Typography>                  </Box>
+                  <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} >Bought Lands</Typography>                  </Box>
               </Grid>
             </Grid>
           </Box>
@@ -258,9 +258,10 @@ const BoughtLands: React.FC = () => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        placeholder="Search Buyers By Address, ID, Lat"
+                        placeholder="Search By Location"
                         variant="standard"
                         sx={{ width: '25ch' }}
+                        color="success"
                         onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
                       />
                     )}
@@ -364,7 +365,7 @@ const BoughtLands: React.FC = () => {
                     <Grid item xs={12}>
                       <TablePagination
                         component="div"
-                        count={data.length}
+                        count={BuyerList.length}
                         page={page}
                         onPageChange={handleChangePage}
                         rowsPerPage={rowsPerPage}

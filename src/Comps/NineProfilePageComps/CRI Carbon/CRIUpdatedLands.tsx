@@ -268,7 +268,7 @@ const CRIUpdatedLands: React.FC = () => {
             <Grid container mb={2} mt={2}>
               <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box width='100%' textAlign='center' py={2} className="text-container">
-                  <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >My Work Submissions</Typography>                  </Box>
+                  <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} >My Work Submissions</Typography>                  </Box>
               </Grid>
             </Grid>
           </Box>
@@ -312,9 +312,10 @@ const CRIUpdatedLands: React.FC = () => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        placeholder="Search CRI's Data By Address, ID, Lat"
+                        placeholder="Search By Location"
                         variant="standard"
-                        sx={{ width: "25ch" }}
+                        sx={{ width: '25ch' }}
+                        color="success"
                         onChange={
                           handleSearchChange as React.ChangeEventHandler<
                             HTMLInputElement | HTMLTextAreaElement
@@ -514,7 +515,7 @@ const CRIUpdatedLands: React.FC = () => {
                   <Grid item xs={12}>
                     <TablePagination
                       component="div"
-                      count={data.length}
+                      count={CRIList.length}
                       page={page}
                       onPageChange={handleChangePage}
                       rowsPerPage={rowsPerPage}

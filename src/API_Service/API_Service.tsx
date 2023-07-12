@@ -127,6 +127,7 @@ const update_afforestation: string = `${baseApiurl}update_afforestation`;
 
 const get_city: string = `${baseApiurl}get_city`;
 
+
 export {
     get_all_user_profile_type,
     get_afforestation,

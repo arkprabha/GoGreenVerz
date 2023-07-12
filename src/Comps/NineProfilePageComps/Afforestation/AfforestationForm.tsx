@@ -127,7 +127,7 @@ export default function AfforestationForm({setValue}:SetValueProps) {
     useEffect(() => {
         if(stateName !== null ){
             const lData = new FormData()
-            lData.append('StateId', stateName.StateId.toString());
+            lData.append('StateId', stateName.StateId);
             axios({
                 method: methodPost,
                 url: get_district,

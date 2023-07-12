@@ -122,7 +122,7 @@ export default function InvestForm() {
     useEffect(() => {
         if(InvestorState !== null ){
             const lData = new FormData()
-            lData.append('StateId', InvestorState.StateId.toString());
+            lData.append('StateId', InvestorState.StateId);
             axios({
                 method: methodPost,
                 url: get_district,
@@ -275,7 +275,7 @@ export default function InvestForm() {
                         <Grid container mt={2}>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                             <Box width='100%' textAlign='center' py={2} className="text-container">
-                                    <Typography className="FormheadingName" sx={{fontSize:'2rem'}} >Land Investment Form</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} >Land Investment Form</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>
