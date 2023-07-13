@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import { add_government_agency, get_district,  get_state, methodGet, methodPost} from "../../../API_Service/API_Service";
+import { add_government_agency, get_city,  get_state, methodGet, methodPost} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -37,9 +37,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 interface LocationState {
     id: string;
@@ -55,7 +55,7 @@ export default function GovtAgencyForm() {
     const [alternateMobile, setAlternateMobile] = useState<string>('');
     const [GovAgencyAddress1, setGovAgencyAddress1] = useState<string>('');
     const [GovAgencyAddress2, setGovAgencyAddress2] = useState<string>('');
-    const [GovAgencyCity, setGovAgencyCity] = useState<District | null>(null);
+    const [GovAgencyCity, setGovAgencyCity] = useState<City | null>(null);
     const [GovAgencyState, setGovAgencyState] =useState<State | null>(null);
     const [GovAgencyPostalCode, setGovAgencyPostalCode] = useState<string>('');
     const [GovAgencyCountry, setGovAgencyCountry] = useState<string>('');
@@ -70,7 +70,7 @@ export default function GovtAgencyForm() {
     const [projectCommenceDate, setProjectCommenceDate] = useState<string>('');
     const [Remarks, setRemarks] = useState<string>('');
     const [state, setState] = useState<State[]>([]);
-    const [districtList, setDistrictList] = useState<District[]>([]);
+    const [CityList, setCityList] = useState<City[]>([]);
 
 
     const [open, setOpen] = useState<boolean>(false);
@@ -121,7 +121,7 @@ export default function GovtAgencyForm() {
             lData.append('StateId', GovAgencyState.StateId.toString());
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -132,10 +132,10 @@ export default function GovtAgencyForm() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -165,7 +165,7 @@ export default function GovtAgencyForm() {
             ProjectCommenceDate: projectCommenceDate,
             GovAgencyAddress1:GovAgencyAddress1,
             GovAgencyAddress2:GovAgencyAddress2,
-            GovAgencyCity: GovAgencyCity?.DistrictName,
+            GovAgencyCity: GovAgencyCity?.CityName,
             GovAgencyState: GovAgencyState?.StateName,
             GovAgencyPostalCode:GovAgencyPostalCode,
             GovAgencyCountry:GovAgencyCountry,
@@ -343,15 +343,15 @@ export default function GovtAgencyForm() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setGovAgencyCity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setGovAgencyCity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        options={CityList}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : '')}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

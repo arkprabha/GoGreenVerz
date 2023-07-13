@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import { get_cri, get_district, get_state, methodGet, methodPost, update_cri} from "../../../API_Service/API_Service";
+import { get_cri, get_city, get_state, methodGet, methodPost, update_cri} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -38,9 +38,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 
 
@@ -52,7 +52,7 @@ export default function UpdateCRICarbonForm() {
     const [alternateMobile, setAlternateMobile] =useState<string>('');
     const [CRIAddress1, setCRIAddress1] =useState<string>('');
     const [CRIAddress2, setCRIAddress2] =useState<string>('');
-    const [CRICity, setCRICity] = useState<District | null>(null);
+    const [CRICity, setCRICity] = useState<City | null>(null);
     const [CRIState, setCRIState] = useState<State | null>(null);
     const [CRIPostalCode, setCRIPostalCode] =useState<string>('');
     const [CRICountry, setCRICountry] =useState<string>('');
@@ -67,7 +67,7 @@ export default function UpdateCRICarbonForm() {
     const [CCTradingHistoryFile, setCCTradingHistoryFile] =  useState<File | null>(null);
     const [Remarks, setRemarks] = useState<string>('');
     const [state, setState] = useState<State[]>([]);
-    const [districtList, setDistrictList] = useState<District[]>([]);
+    const [CityList, setCityList] = useState<City[]>([]);
 
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
@@ -114,7 +114,7 @@ export default function UpdateCRICarbonForm() {
             lData.append('StateId', CRIState.StateId);
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -125,10 +125,10 @@ export default function UpdateCRICarbonForm() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -210,7 +210,7 @@ export default function UpdateCRICarbonForm() {
             ProjectCommenceDate: projectCommenceDate,
             CRIAddress1:CRIAddress1,
             CRIAddress2:CRIAddress2,
-            CRICity: CRICity?.DistrictName,
+            CRICity: CRICity?.CityName,
             CRIState: CRIState?.StateName,
             CRIPostalCode:CRIPostalCode,
             CRICountry:CRICountry,
@@ -397,16 +397,16 @@ export default function UpdateCRICarbonForm() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setCRICity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setCRICity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
+                                        options={CityList}
                                         value={CRICity}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

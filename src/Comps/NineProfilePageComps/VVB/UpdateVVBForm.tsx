@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import {get_district, get_state, get_vvb, methodGet, methodPost, update_vvb } from "../../../API_Service/API_Service";
+import {get_city, get_state, get_vvb, methodGet, methodPost, update_vvb } from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -38,9 +38,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 
 
@@ -53,7 +53,7 @@ export default function UpdateVVBForm() {
     const [alternateMobile, setAlternateMobile] = useState<string>('');
     const [VVBAddress1, setVVBAddress1] = useState<string>('');
     const [VVBAddress2, setVVBAddress2] = useState<string>('');
-    const [VVBCity, setVVBCity] = useState<District | null>(null);
+    const [VVBCity, setVVBCity] = useState<City | null>(null);
     const [VVBState, setVVBState] = useState<State | null>(null);
     const [VVBPostalCode, setVVBPostalCode] = useState<string>('');
     const [VVBCountry, setVVBCountry] = useState<string>('');
@@ -68,7 +68,7 @@ export default function UpdateVVBForm() {
     const [InspectionFindingsFile, setInspectionFindingsFile] = useState<File | null>(null);
     const [VVBStatus, setVVBStatus] = useState<string>('');
     const [state, setState] = useState<State[]>([]);
-    const [districtList, setDistrictList] = useState<District[]>([]);
+    const [CityList, setCityList] = useState<City[]>([]);
 
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
@@ -115,7 +115,7 @@ export default function UpdateVVBForm() {
             lData.append('StateId', VVBState.StateId.toString());
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -126,10 +126,10 @@ export default function UpdateVVBForm() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -211,7 +211,7 @@ export default function UpdateVVBForm() {
         AlternateMobile:alternateMobile,
         VVBAddress1:VVBAddress1,
         VVBAddress2:VVBAddress2,
-            VVBCity: VVBCity?.DistrictName,
+            VVBCity: VVBCity?.CityName,
             VVBState: VVBState?.StateName,
         VVBPostalCode:VVBPostalCode,
         VVBCountry:VVBCountry,
@@ -399,16 +399,16 @@ export default function UpdateVVBForm() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setVVBCity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setVVBCity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
+                                        options={CityList}
                                         value={VVBCity}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

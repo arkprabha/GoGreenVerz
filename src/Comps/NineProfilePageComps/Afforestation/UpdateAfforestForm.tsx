@@ -165,30 +165,34 @@ export default function UpdateAfforestForm() {
 
   //ALL CITY FETCH
   useEffect(() => {
-    axios({
-      method: methodGet,
-      url: get_city,
-      headers: {
-        'Authorization': `Bearer ${UserToken}`,
-      }
-    }).then(res => {
-      if (res.data.error) {
-        setMessage(res.data.message)
-        setOpen(true)
-        setStatus(false)
-        setColor(false)
-      } else {
-        setMessage(res.data.message)
-        setOpen(true)
-        setStatus(true)
-        setColor(true)
-        setVillageList(res.data.data)
-      }
-    }).catch(err => {
-      alert('Oops something went wrong ' + err)
-    });
-  }, [])
-
+    if (stateName !== null) {
+      const lData = new FormData()
+      lData.append('StateId', stateName.StateId);
+      axios({
+        method: methodPost,
+        url: get_city,
+        headers: {
+          'Authorization': `Bearer ${UserToken}`,
+        },
+        data: lData
+      }).then(res => {
+        if (res.data.error) {
+          setMessage(res.data.message)
+          setOpen(true)
+          setStatus(false)
+          setColor(false)
+        } else {
+          setMessage(res.data.message)
+          setOpen(true)
+          setStatus(true)
+          setColor(true)
+          setVillageList(res.data.data)
+        }
+      }).catch(err => {
+        alert('Oops something went wrong ' + err)
+      });
+    }
+  }, [stateName])
 
   // FETCH AFFOREST DATA
   useEffect(() => {

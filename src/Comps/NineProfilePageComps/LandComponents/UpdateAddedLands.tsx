@@ -2,7 +2,7 @@ import { Box, Button, Grid, TextField, Autocomplete, Stack, Typography, Containe
 import Header from "../../../Header";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
-import {get_district, get_land_owner, get_state, methodGet, methodPost, update_land_owner } from "../../../API_Service/API_Service";
+import {get_city, get_land_owner, get_state, methodGet, methodPost, update_land_owner } from "../../../API_Service/API_Service";
 import axios from "axios";
 import { useLocation, useNavigate} from "react-router-dom";
 import SnackBar from "../../SnackBar/SnackBar";
@@ -37,9 +37,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 
 
@@ -52,7 +52,7 @@ export default function UpdateAddedLands() {
     const [alternateMobile, setAlternateMobile] = useState<string>('');
     const [landAddress1, setLandAddress1] = useState<string>('');
     const [landAddress2, setLandAddress2] = useState<string>('');
-    const [landCity, setLandCity] = useState<District | null>(null);
+    const [landCity, setLandCity] = useState<City | null>(null);
     const [landState, setLandState] = useState<State | null>(null);
     const [landPostalCode, setLandPostalCode] = useState<string>('');
     const [landCountry, setLandCountry] = useState<string>('');
@@ -67,7 +67,7 @@ export default function UpdateAddedLands() {
     const [VirtualVideo, setVirtualVideo] = useState<File | null>(null);
     const [Remarks, setRemarks] = useState<string>('');
     const [state, setState] = useState<State[]>([]);
-    const [districtList, setDistrictList] = useState<District[]>([]);
+    const [CityList, setCityList] = useState<City[]>([]);
     const navigate = useNavigate();
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
@@ -114,7 +114,7 @@ export default function UpdateAddedLands() {
             lData.append('StateId', landState.StateId);
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -125,10 +125,10 @@ export default function UpdateAddedLands() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -205,7 +205,7 @@ export default function UpdateAddedLands() {
         AlternateMobile:alternateMobile,
         LandAddress1:landAddress1,
         LandAddress2:landAddress2,
-        LandCity: landCity?.DistrictName, 
+        LandCity: landCity?.CityName, 
         LandState:landState?.StateName,
         LandPostalCode: landPostalCode,
         LandCountry: landCountry,
@@ -410,16 +410,16 @@ export default function UpdateAddedLands() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setLandCity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setLandCity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
+                                        options={CityList}
                                         value={landCity}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

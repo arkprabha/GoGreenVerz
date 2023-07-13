@@ -77,7 +77,7 @@ export default function AfforestationDoneLands() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {data && data.map((row) => (
             <TableRow key={row?.AfforestationId}>
               <TableCell align='center'>{row?.AfforestationId}</TableCell>
               <TableCell align='center'>{row?.CompanyName}</TableCell>

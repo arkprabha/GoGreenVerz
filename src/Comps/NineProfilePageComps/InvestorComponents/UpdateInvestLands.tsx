@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import {get_investor, update_investor } from "../../../API_Service/API_Service";
 import axios from "axios";
-import { get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
+import { get_city, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import { useLocation, useNavigate } from "react-router-dom";
 import SnackBar from "../../SnackBar/SnackBar";
 
@@ -44,9 +44,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 
 
@@ -58,7 +58,7 @@ export default function UpdateInvestLands() {
     const [alternateMobile, setAlternateMobile] =  useState<string>('');
     const [InvestorAddress1, setInvestorAddress1] =  useState<string>('');
     const [InvestorAddress2, setInvestorAddress2] =  useState<string>('');
-    const [InvestorCity, setInvestorCity] = useState<District | null>(null);
+    const [InvestorCity, setInvestorCity] = useState<City | null>(null);
     const [InvestorState, setInvestorState] =  useState<State | null>(null);
     const [InvestorPostalCode, setInvestorPostalCode] =  useState<string>('');
     const [InvestorCountry, setInvestorCountry] =  useState<string>('');
@@ -78,7 +78,7 @@ export default function UpdateInvestLands() {
     const [LandId, setLandId] =  useState<string>('');
     const [Remarks, setRemarks] =  useState<string>('');
     const [state, setState] = useState<State[]>([]);
-    const [districtList, setDistrictList] = useState<District[]>([]);
+    const [CityList, setCityList] = useState<City[]>([]);
     const navigate = useNavigate();
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
@@ -126,7 +126,7 @@ export default function UpdateInvestLands() {
             lData.append('StateId', InvestorState.StateId.toString());
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -137,10 +137,10 @@ export default function UpdateInvestLands() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -184,7 +184,7 @@ export default function UpdateInvestLands() {
                     setProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setInvestorAddress1(res.data.data.InvestorAddress1);
                     setInvestorAddress2(res.data.data.InvestorAddress2);
-                    setInvestorCity(res.data.data.InvestorCity.DistrictName || null);
+                    setInvestorCity(res.data.data.InvestorCity.CityName || null);
                     setInvestorState(res.data.data.InvestorState.StateName || null);
                     setInvestorPostalCode(res.data.data.InvestorPostalCode);
                     setInvestorCountry(res.data.data.InvestorCountry);
@@ -227,7 +227,7 @@ export default function UpdateInvestLands() {
             AlternateMobile: alternateMobile,
             InvestorAddress1: InvestorAddress1,
             InvestorAddress2: InvestorAddress2,
-            InvestorCity: InvestorCity?.DistrictName,
+            InvestorCity: InvestorCity?.CityName,
             InvestorState: InvestorState?.StateName,
             InvestorPostalCode: InvestorPostalCode,
             InvestorCountry: InvestorCountry,
@@ -418,16 +418,16 @@ export default function UpdateInvestLands() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setInvestorCity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setInvestorCity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
+                                        options={CityList}
                                         value={InvestorCity}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

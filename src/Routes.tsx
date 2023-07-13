@@ -94,7 +94,11 @@ function Routes() {
         },
         {
             path: startUrl,
-            element: <NewLoginPage />
+            element: UserAuth === 'true' ? (
+                <Navigate to="/home" />
+            ) : (
+                <NewLoginPage />
+            ),
         },
         {
             path: `${startUrl}home`,
@@ -119,6 +123,8 @@ function Routes() {
             path: 'resetpassword',
             element: <ForgotPassword />
         },
+        ...(UserAuth === 'true'
+            ? [
         {
             path: 'contribution',
             element: <Contribution />,
@@ -278,6 +284,13 @@ function Routes() {
             path: 'profile',
             element: <UserProfile />,
         },
+        ]
+        : [
+        {
+        path: startUrl,
+        element: <NewLoginPage />
+        }
+        ])
 
     ]);
 }

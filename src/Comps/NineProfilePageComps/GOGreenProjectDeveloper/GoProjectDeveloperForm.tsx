@@ -2,7 +2,7 @@ import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography , Contain
 import Header from "../../../Header";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
-import { add_project_developer, get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
+import { add_project_developer, get_city, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import axios from "axios";
 import SnackBar from "../../SnackBar/SnackBar";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -36,9 +36,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 
 interface LocationState {
@@ -53,7 +53,7 @@ export default function GoProjectDeveloperForm() {
     const [alternateMobile, setAlternateMobile] =useState<string>('');
     const [developerAddress1, setDeveloperAddress1] =useState<string>('');
     const [developerAddress2, setDeveloperAddress2] =useState<string>('');
-    const [developerCity, setDeveloperCity] = useState<District | null>(null);
+    const [developerCity, setDeveloperCity] = useState<City | null>(null);
     const [developerState, setDeveloperState] = useState<State | null>(null);
     const [developerPostalCode, setDeveloperPostalCode] =useState<string>('');
     const [developerCountry, setDeveloperCountry] =useState<string>('');
@@ -67,7 +67,7 @@ export default function GoProjectDeveloperForm() {
     const [developmentReportFile, setDevelopmentReportFile] =useState<File | null>(null);
     const [Remarks, setRemarks] =useState<string>('');
     const [state, setState] = useState<State[]>([]);
-    const [districtList, setDistrictList] = useState<District[]>([]);
+    const [CityList, setCityList] = useState<City[]>([]);
 
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
@@ -115,7 +115,7 @@ export default function GoProjectDeveloperForm() {
             lData.append('StateId', developerState.StateId.toString());
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -126,10 +126,10 @@ export default function GoProjectDeveloperForm() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -156,7 +156,7 @@ export default function GoProjectDeveloperForm() {
             AlternateMobile:alternateMobile,
             DeveloperAddress1:developerAddress1,
             DeveloperAddress2:developerAddress2,
-            DeveloperCity: developerCity?.DistrictName,
+            DeveloperCity: developerCity?.CityName,
             DeveloperState: developerState?.StateName,
             DeveloperPostalCode:developerPostalCode,
             DeveloperCountry:developerCountry,
@@ -335,15 +335,15 @@ export default function GoProjectDeveloperForm() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setDeveloperCity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setDeveloperCity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        options={CityList}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : '')}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

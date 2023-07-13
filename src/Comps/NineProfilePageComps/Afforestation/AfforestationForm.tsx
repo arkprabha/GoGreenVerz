@@ -163,12 +163,16 @@ export default function AfforestationForm({setValue}:SetValueProps) {
 
 //ALL CITY FETCH
     useEffect(() => {
+        if (stateName !== null) {
+            const lData = new FormData()
+            lData.append('StateId', stateName.StateId);
         axios({
-            method: methodGet,
+            method: methodPost,
             url: get_city,
             headers: {
                 'Authorization': `Bearer ${UserToken}`,
-            }
+            },
+            data:lData
         }).then(res => {
             if (res.data.error) {
                 setMessage(res.data.message)
@@ -185,7 +189,8 @@ export default function AfforestationForm({setValue}:SetValueProps) {
         }).catch(err => {
             alert('Oops something went wrong ' + err)
         });
-    }, [])
+    }
+    }, [stateName])
 
 
     const handleSubmit = () => {

@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import {get_district, get_plantation_partner, get_state, methodGet, methodPost, update_plantation_partner} from "../../../API_Service/API_Service";
+import {get_city, get_plantation_partner, get_state, methodGet, methodPost, update_plantation_partner} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -41,9 +41,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 
 
@@ -55,7 +55,7 @@ export default function UpdatePlantationForm() {
     const [alternateMobile, setAlternateMobile] = useState<string>('');
     const [PlantationPartnerAddress1, setPlantationPartnerAddress1] = useState<string>('');
     const [PlantationPartnerAddress2, setPlantationPartnerAddress2] = useState<string>('');
-    const [PlantationPartnerCity, setPlantationPartnerCity] = useState<District | null>(null);
+    const [PlantationPartnerCity, setPlantationPartnerCity] = useState<City | null>(null);
     const [PlantationPartnerState, setPlantationPartnerState] =useState<State | null>(null);
     const [PlantationPartnerPostalCode, setPlantationPartnerPostalCode] = useState<string>('');
     const [PlantationPartnerCountry, setPlantationPartnerCountry] = useState<string>('');
@@ -74,7 +74,7 @@ export default function UpdatePlantationForm() {
     const [creationDate, setCreationDate] = useState<string>('');
     const [projectCommenceDate, setProjectCommenceDate] = useState<string>('');
     const [state, setState] = useState<State[]>([]);
-    const [districtList, setDistrictList] = useState<District[]>([]);
+    const [CityList, setCityList] = useState<City[]>([]);
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
     const [color, setColor] = useState<boolean>(false);
@@ -120,7 +120,7 @@ export default function UpdatePlantationForm() {
             lData.append('StateId', PlantationPartnerState.StateId);
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -131,10 +131,10 @@ export default function UpdatePlantationForm() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -224,7 +224,7 @@ export default function UpdatePlantationForm() {
             ProjectCommenceDate: projectCommenceDate,
             PlantationPartnerAddress1:PlantationPartnerAddress1,
             PlantationPartnerAddress2:PlantationPartnerAddress2,
-            PlantationPartnerCity: PlantationPartnerCity?.DistrictName,
+            PlantationPartnerCity: PlantationPartnerCity?.CityName,
             PlantationPartnerState: PlantationPartnerState?.StateName,
             PlantationPartnerPostalCode:PlantationPartnerPostalCode,
             PlantationPartnerCountry:PlantationPartnerCountry,
@@ -413,16 +413,16 @@ export default function UpdatePlantationForm() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setPlantationPartnerCity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setPlantationPartnerCity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
+                                        options={CityList}
                                         value={PlantationPartnerCity}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

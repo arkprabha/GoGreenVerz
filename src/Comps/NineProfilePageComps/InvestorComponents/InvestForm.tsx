@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import {add_investor, get_land_owner } from "../../../API_Service/API_Service";
 import axios from "axios";
-import { get_district, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
+import { get_city, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import SnackBar from "../../SnackBar/SnackBar";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -42,9 +42,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 interface LocationState {
     id: string;
@@ -58,7 +58,7 @@ export default function InvestForm() {
     const [alternateMobile, setAlternateMobile] =  useState<string>('');
     const [InvestorAddress1, setInvestorAddress1] =  useState<string>('');
     const [InvestorAddress2, setInvestorAddress2] =  useState<string>('');
-    const [InvestorCity, setInvestorCity] = useState<District | null>(null);
+    const [InvestorCity, setInvestorCity] = useState<City | null>(null);
     const [InvestorState, setInvestorState] =  useState<State | null>(null);
     const [InvestorPostalCode, setInvestorPostalCode] =  useState<string>('');
     const [InvestorCountry, setInvestorCountry] =  useState<string>('');
@@ -76,7 +76,7 @@ export default function InvestForm() {
     const [termsAndConditionsFile, setTermsAndConditionsFile] = useState<File | null>(null);
     const [landSize, setLandSize] =  useState<string>('');
     const [state, setState] = useState<State[]>([]);
-    const [districtList, setDistrictList] = useState<District[]>([]);
+    const [CityList, setCityList] = useState<City[]>([]);
     const navigate = useNavigate();
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
@@ -125,7 +125,7 @@ export default function InvestForm() {
             lData.append('StateId', InvestorState.StateId);
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -136,10 +136,10 @@ export default function InvestForm() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -210,7 +210,7 @@ export default function InvestForm() {
             AlternateMobile: alternateMobile,
             InvestorAddress1: InvestorAddress1,
             InvestorAddress2: InvestorAddress2,
-            InvestorCity: InvestorCity?.DistrictName,
+            InvestorCity: InvestorCity?.CityName,
             InvestorState: InvestorState?.StateName,
             InvestorPostalCode: InvestorPostalCode,
             InvestorCountry: InvestorCountry,
@@ -394,15 +394,15 @@ export default function InvestForm() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setInvestorCity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setInvestorCity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : '')}
+                                        options={CityList}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : '')}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

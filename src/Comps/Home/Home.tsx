@@ -34,6 +34,7 @@ import Header from '../../Header';
 import gotlogouncut from '../../assets/gotlogouncut-removebg-preview-1.png'
 import pngwing3 from '../../assets/pngwing-3.png'
 import './Home.css';
+
 const ConnectButton = styled(WalletDialogButton)`
   width: 100%;
   height: 60px;
@@ -687,10 +688,7 @@ const Home = (props: HomeProps) => {
                 </Box>
             </Box>
         </Box>
-
-
-
-
+       
 
 
       <Snackbar

@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete , Container , Typography } from "@mui/material";
 import Header from '../../../Header';
-import { get_buyer, get_district, get_state, methodGet, methodPost, update_buyer} from "../../../API_Service/API_Service";
+import { get_buyer, get_city, get_state, methodGet, methodPost, update_buyer} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -40,9 +40,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 
 
@@ -54,7 +54,7 @@ export default function UpdateBuyerForm() {
   const [alternateMobile, setAlternateMobile] = useState<string>('');
   const [buyerAddress1, setBuyerAddress1] = useState<string>('');
   const [buyerAddress2, setBuyerAddress2] = useState<string>('');
-  const [buyerCity, setBuyerCity] = useState<District | null>(null);
+  const [buyerCity, setBuyerCity] = useState<City | null>(null);
   const [buyerState, setBuyerState] = useState<State | null>(null);
   const [buyerPostalCode, setBuyerPostalCode] = useState<string>('');
   const [buyerCountry, setBuyerCountry] = useState<string>('');
@@ -71,7 +71,7 @@ export default function UpdateBuyerForm() {
   const [projectCommenceDate, setProjectCommenceDate] = useState<string>('');
   const [Remarks, setRemarks] = useState<string>('');
   const [state, setState] = useState<State[]>([]);
-  const [districtList, setDistrictList] = useState<District[]>([]);
+  const [CityList, setCityList] = useState<City[]>([]);
 
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
@@ -118,7 +118,7 @@ export default function UpdateBuyerForm() {
             lData.append('StateId', buyerState.StateId);
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -129,10 +129,10 @@ export default function UpdateBuyerForm() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -214,7 +214,7 @@ export default function UpdateBuyerForm() {
         AlternateMobile:alternateMobile,
         BuyerAddress1:buyerAddress1,
         BuyerAddress2:buyerAddress2,
-            BuyerCity: buyerCity?.DistrictName,
+            BuyerCity: buyerCity?.CityName,
             BuyerState: buyerState?.StateName,
         BuyerPostalCode:buyerPostalCode,
         BuyerCountry:buyerCountry,
@@ -402,16 +402,16 @@ export default function UpdateBuyerForm() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setBuyerCity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setBuyerCity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
+                                        options={CityList}
                                         value={buyerCity}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>

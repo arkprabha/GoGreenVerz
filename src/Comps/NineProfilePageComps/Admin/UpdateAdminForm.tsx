@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Stack , Autocomplete , Container , Typography } from "@mui/material";
 import Header from '../../../Header';
-import { get_admin, get_district, get_state, methodGet, methodPost, update_admin } from "../../../API_Service/API_Service";
+import { get_admin, get_city, get_state, methodGet, methodPost, update_admin } from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -39,9 +39,9 @@ interface State {
   StateName: string;
 }
 
-interface District {
-  DistrictId: string;
-  DistrictName: string;
+interface City {
+  CityId: string;
+  CityName: string;
 }
 
 export default function UpdateAdminForm() {
@@ -52,7 +52,7 @@ export default function UpdateAdminForm() {
     const [alternateMobile, setAlternateMobile] =useState<string>('');
     const [adminAddress1, setAdminAddress1] =useState<string>('');
     const [adminAddress2, setAdminAddress2] =useState<string>('');
-    const [adminCity, setAdminCity] = useState<District | null>(null);
+    const [adminCity, setAdminCity] = useState<City | null>(null);
     const [adminState, setAdminState] = useState<State | null>(null);
     const [adminPostalCode, setAdminPostalCode] =useState<string>('');
     const [adminCountry, setAdminCountry] =useState<string>('');
@@ -69,7 +69,7 @@ export default function UpdateAdminForm() {
     const [projectCommenceDate, setProjectCommenceDate] =useState<string>('');
     const [Remarks, setRemarks] =useState<string>('');
     const [state, setState] = useState<State[]>([]);
-    const [districtList, setDistrictList] = useState<District[]>([]);
+    const [CityList, setCityList] = useState<City[]>([]);
     
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
@@ -117,7 +117,7 @@ export default function UpdateAdminForm() {
             lData.append('StateId', adminState.StateId);
             axios({
                 method: methodPost,
-                url: get_district,
+                url: get_city,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -128,10 +128,10 @@ export default function UpdateAdminForm() {
                     setOpen(true)
                     setStatus(false)
                     setColor(false)
-                    setDistrictList([])
+                    setCityList([])
                 } else {
                     setMessage(res.data.message)
-                    setDistrictList(res.data.data)
+                    setCityList(res.data.data)
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -213,7 +213,7 @@ export default function UpdateAdminForm() {
         AlternateMobile:alternateMobile,
         AdminAddress1:adminAddress1,
         AdminAddress2:adminAddress2,
-        AdminCity: adminCity?.DistrictName,
+        AdminCity: adminCity?.CityName,
         AdminState: adminState?.StateName,
         AdminPostalCode:adminPostalCode,
         AdminCountry:adminCountry,
@@ -404,16 +404,16 @@ export default function UpdateAdminForm() {
                                         id="combo-box-demo"
                                         size="small"
                                         freeSolo
-                                         onChange={(event, value: string | District | null) => setAdminCity(prevCity => {
+                                         onChange={(event, value: string | City | null) => setAdminCity(prevCity => {
                                             if (typeof value === 'string') {
                                             return null;
                                             } else {
                                             return value ?? prevCity;
                                             }
                                         })}
-                                        options={districtList}
+                                        options={CityList}
                                         value={adminCity}
-                                        getOptionLabel={(option) => (typeof option === 'object' ? option.DistrictName : option)}
+                                        getOptionLabel={(option) => (typeof option === 'object' ? option.CityName : option)}
                                         renderInput={(params) => <TextField {...params} label="City" />}
                                     />
                                     </Grid>
