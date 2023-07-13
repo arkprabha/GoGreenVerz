@@ -2,7 +2,7 @@ input {
     border: none;
 }
 .desktop-1-42aa {
-    padding: 2.1rem 0rem 1.1rem 0rem;
+    padding: 1.8rem 0rem 1.1rem 0rem;
     overflow: hidden;
     position: relative;
     align-items: flex-end;
@@ -20,9 +20,9 @@ input {
 }
 
 .desktop-1-42aa .auto-group-wh57-8wY .removebg-preview-1-FoC {
-    width: 28.7rem;
-    height: 3rem;
-    object-fit: contain;
+    width: 400px;
+    height: 90px;
+    object-fit: cover;
     vertical-align: top;
     flex-shrink: 0;
     float: left;

@@ -1,6 +1,6 @@
 import { Box, Typography, Grid , MenuItem, Menu} from '@mui/material';
 import { useNavigate} from 'react-router-dom';
-import RemoveBg from './assets/removebg-preview-1.png';
+import RemoveBg from './assets/NewLogo.png';
 import './Header.styles.css';
 import {useState} from "react";
 import Snackbar from '@mui/material/Snackbar';
