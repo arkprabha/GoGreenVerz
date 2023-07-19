@@ -272,10 +272,10 @@ export default function UpdateBuyerForm() {
             <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
                 <Container>
                     <Box mb={1}>
-                        <Grid container mt={2}>
+                        <Grid container>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                             <Box width='100%' textAlign='center' py={2} className="text-container">
-                                    <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} >Edit Purchase Information</Typography>                  </Box>
+                                    <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem' }} >Edit Purchase Information</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>

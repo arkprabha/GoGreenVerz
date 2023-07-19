@@ -190,8 +190,8 @@ export default function ViewAfforestion() {
             <Box display="flex" alignItems="center" flexDirection='column' fontSize={15}>
 
                 <Container>
-                    <Box mb={1}>
-                        <Grid container mt={2}>
+                      <Box mb={1}>
+                        <Grid container>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2} className="text-container">
                                     <Typography className="FormheadingName" sx={{ fontSize: '2rem', fontWeight: 600 }} >View Afforestation Form</Typography>                  </Box>

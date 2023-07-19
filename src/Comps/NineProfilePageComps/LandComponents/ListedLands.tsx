@@ -19,7 +19,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import LandDataDialog from './LandDataDialog';
 import SnackBar from '../../SnackBar/SnackBar';
 
-
 interface LandItem {
   LandOwnerId: string;
   VirtualVideo: string;
@@ -180,14 +179,14 @@ const ListedLands: React.FC = () => {
  }
 
 const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null) => {
-  const selectedValue = newValue ? newValue.StateName : event.target.value;
+  const selectedValue = newValue ? newValue.StateName : event.target.value ;
   setSearchQuery(selectedValue);
 };
 
   const handleSearch = () => {
+    if (searchQuery !== '' || searchQuery !== null) {
     setRecentSearch([...recentSearch , searchQuery]);
     localStorage.setItem('RecentSearch', JSON.stringify(recentSearch));
-    if(searchQuery !== '' || searchQuery !== null){
     setShowFilterList(true);
     const filteredProducts = data && data.filter((i) => {
     const {LandAddress1, LandAddress2 ,LandOwnerId, LandCity, LandState, LandCountry, Latitude, Longitude } = i;
@@ -278,16 +277,17 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
 
           <Container>
             <Box mb={1}>
-              <Grid container mb={2} mt={2}>
+              <Grid container>
                 <Grid item xs={12} md={12} lg={12} xl={12}>
               <Box width='100%' textAlign='center' py={2} className="text-container">
-                    <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} > Listed Lands</Typography> </Box>
+                    <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem'}} > Listed Lands</Typography> </Box>
                 </Grid>
               </Grid>
             </Box>
           </Container>
 
-           <Grid container spacing={2}  display='flex' justifyContent='space-between'>
+
+          <Grid container spacing={2}  display='flex' justifyContent='space-between'>
        
           <Grid item xs={12} sm={12} md={3} lg={3} height='auto' >
           <Box p={1}>
@@ -304,10 +304,14 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
           renderInput={(params) => (
           <TextField
           {...params}
-              placeholder="Search By Location"
+              placeholder="  Search By Location"
               variant="standard"
               sx={{ width: '25ch' }}
               color="success"
+              InputProps={{
+                ...params.InputProps,
+                disableUnderline: true,
+              }}
            onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
           />
           )}

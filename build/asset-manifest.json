@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.6ea89b07.chunk.css",
-    "main.js": "/static/js/main.2237c771.chunk.js",
-    "main.js.map": "/static/js/main.2237c771.chunk.js.map",
+    "main.css": "/static/css/main.59e6fd21.chunk.css",
+    "main.js": "/static/js/main.a9980cb8.chunk.js",
+    "main.js.map": "/static/js/main.a9980cb8.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.87b97c80.js",
     "runtime-main.js.map": "/static/js/runtime-main.87b97c80.js.map",
     "static/js/2.f1e155ac.chunk.js": "/static/js/2.f1e155ac.chunk.js",
@@ -14,10 +14,11 @@
     "static/js/5.d53bfb9a.chunk.js": "/static/js/5.d53bfb9a.chunk.js",
     "static/js/5.d53bfb9a.chunk.js.map": "/static/js/5.d53bfb9a.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.6ea89b07.chunk.css.map": "/static/css/main.6ea89b07.chunk.css.map",
+    "static/css/main.59e6fd21.chunk.css.map": "/static/css/main.59e6fd21.chunk.css.map",
     "static/js/2.f1e155ac.chunk.js.LICENSE.txt": "/static/js/2.f1e155ac.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/BackImageAllColor.053dd1e7.jpg",
     "static/media/GGVLOGO.d2943f98.png": "/static/media/GGVLOGO.d2943f98.png",
+    "static/media/NewLogo.66e33231.png": "/static/media/NewLogo.66e33231.png",
     "static/media/gotlogouncut-removebg-preview-1.786cae6e.png": "/static/media/gotlogouncut-removebg-preview-1.786cae6e.png",
     "static/media/page6.5be3b35c.png": "/static/media/page6.5be3b35c.png",
     "static/media/pagenotfound.da355087.png": "/static/media/pagenotfound.da355087.png",
@@ -27,13 +28,12 @@
     "static/media/pngwing-2.9564415e.png": "/static/media/pngwing-2.9564415e.png",
     "static/media/pngwing-3.51555899.png": "/static/media/pngwing-3.51555899.png",
     "static/media/pngwing-4.c61ec9bf.png": "/static/media/pngwing-4.c61ec9bf.png",
-    "static/media/Contribution.css": "/static/media/rectangle-10-bg.9564415e.png",
-    "static/media/removebg-preview-1.aea25a56.png": "/static/media/removebg-preview-1.aea25a56.png"
+    "static/media/Contribution.css": "/static/media/rectangle-10-bg.9564415e.png"
   },
   "entrypoints": [
     "static/js/runtime-main.87b97c80.js",
     "static/js/2.f1e155ac.chunk.js",
-    "static/css/main.6ea89b07.chunk.css",
-    "static/js/main.2237c771.chunk.js"
+    "static/css/main.59e6fd21.chunk.css",
+    "static/js/main.a9980cb8.chunk.js"
   ]
 }

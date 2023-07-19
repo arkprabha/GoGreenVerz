@@ -15,6 +15,8 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
 import SnackBar from "../SnackBar/SnackBar";
 import pngwing3 from '../../assets/pngwing-3.png'
+import { forgot_password } from '../../API_Service/API_Service';
+import axios from 'axios';
 
 export default function ForgotPassword() {
 
@@ -25,15 +27,41 @@ export default function ForgotPassword() {
     const [color, setColor] = useState < boolean > (false);
     const [message, setMessage] = useState < string > ('');
     const [showPassword, setShowPassword] = useState < boolean > (false);
-
+    const [UserPhone, setUserPhone] = useState<string>('');
+    const [NewPassword, setNewPassword] = useState<string>('');
+    const [ConfirmNewPassword, setConfirmNewPassword] = useState<string>('');
 
     const handleSubmit = () => {
-        setMessage('Password Reset Successfully');
-        setOpen(true);
-        setStatus(false);
-        setColor(false);
+        const sendData = new FormData();
+        sendData.append('UserPhone', UserPhone)
+        sendData.append('UserPassword', NewPassword )
+        sendData.append('ConfirmPassword', ConfirmNewPassword)
+        axios({
+            method: 'POST',
+            url: forgot_password,
+            data: sendData
+        })
+            .then((res) => {
+                if (res.data.error) {
+                    setMessage(res.data.message);
+                    setOpen(true);
+                    setStatus(false);
+                    setColor(false);
+                } else {
+                    setMessage(res.data.message);
+                    setOpen(true);
+                    setStatus(true);
+                    setColor(true);
+                    navigate('/');
+                    setNewPassword('');
+                    setConfirmNewPassword('');
+                    setUserPhone('');
+                }
+            })
+            .catch((err) => {
+                alert("Oops something went wrong " + err);
+            });
     };
-
 
 
     return (
@@ -73,10 +101,12 @@ export default function ForgotPassword() {
                                     <TextField
                                             fullWidth
                                             id="email"
-                                            label="Email Address"
-                                            name="email"
-                                            autoComplete="email"
+                                            label="Registered Phone Number"
+                                            name="phone"
+                                            autoComplete="off"
                                             size='small'
+                                            onChange={(e)=>setUserPhone(e.target.value)}
+                                            value={UserPhone}
                                             sx={{ width: { xs: 150, sm: 200, md: 300, lg: 300 } }}
                                     />
                                 </Box>
@@ -84,11 +114,13 @@ export default function ForgotPassword() {
                                 <TextField
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label="New Password"
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
                                     size='small'
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                    value={NewPassword}
                                 />
                             </Box>
                             <Box sx={{ py: 2 }}>
@@ -99,6 +131,8 @@ export default function ForgotPassword() {
                                     autoComplete="off"
                                     type={showPassword ? 'password' : 'text'}
                                     label="Confirm Password"
+                                    onChange={(e) => setConfirmNewPassword(e.target.value)}
+                                    value={ConfirmNewPassword}
                                     InputProps={{
                                         endAdornment: (
                                             <InputAdornment position="end">

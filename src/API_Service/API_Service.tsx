@@ -127,9 +127,11 @@ const update_afforestation: string = `${baseApiurl}update_afforestation`;
 
 const get_city: string = `${baseApiurl}get_city`;
 
+const forgot_password: string = `${baseApiurl}forgot_password`;
 
 export {
     get_all_user_profile_type,
+    forgot_password,
     get_afforestation,
     update_afforestation,
     get_city,

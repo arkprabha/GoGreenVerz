@@ -94,11 +94,7 @@ function Routes() {
         },
         {
             path: startUrl,
-            element: UserAuth === 'true' ? (
-                <Navigate to="/home" />
-            ) : (
-                <NewLoginPage />
-            ),
+            element: <NewLoginPage />
         },
         {
             path: `${startUrl}home`,

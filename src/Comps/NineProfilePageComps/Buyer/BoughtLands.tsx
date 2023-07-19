@@ -166,9 +166,10 @@ const BoughtLands: React.FC = () => {
   };
 
   const handleSearch = () => {
+    if (searchQuery !== '' || searchQuery !== null) {
     setRecentSearch([...recentSearch, searchQuery]);
     localStorage.setItem('RecentSearch', JSON.stringify(recentSearch));
-    if (searchQuery !== '' || searchQuery !== null) {
+  
       setShowFilterList(true);
       const filteredProducts = data && data.filter((i) => {
         const { BuyerAddress1, BuyerAddress2, BuyerOwnerId, BuyerCity, BuyerState, BuyerCountry, Latitude, Longitude } = i;
@@ -232,10 +233,10 @@ const BoughtLands: React.FC = () => {
 
         <Container>
           <Box mb={1}>
-            <Grid container mb={2} mt={2}>
+            <Grid container>
               <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box width='100%' textAlign='center' py={2} className="text-container">
-                  <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} >Bought Lands</Typography>                  </Box>
+                  <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem' }} >Bought Lands</Typography>                  </Box>
               </Grid>
             </Grid>
           </Box>
@@ -258,10 +259,14 @@ const BoughtLands: React.FC = () => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        placeholder="Search By Location"
+                        placeholder="  Search By Location"
                         variant="standard"
                         sx={{ width: '25ch' }}
                         color="success"
+                        InputProps={{
+                          ...params.InputProps,
+                          disableUnderline: true,
+                        }}
                         onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
                       />
                     )}
@@ -290,14 +295,14 @@ const BoughtLands: React.FC = () => {
                   <Box p={1}>
                     <Box display='flex' justifyContent='space-between'>
                       <Typography variant='h6' color='text.secondary'>Best Results</Typography>
-                      <Typography color='#3285a8' onClick={resetFilter} sx={{ textDecoration: 'underline' }}>See All Buyers</Typography>
+                      <Typography color='#3285a8' onClick={resetFilter} sx={{ textDecoration: 'underline' }}>View All</Typography>
                     </Box>
                     <Typography variant='caption'>({BuyerList && BuyerList.length})</Typography>
                   </Box>
                   {
                     BuyerList.length === 0 &&
                     <Box py={1}>
-                      <Typography variant='h6' color='text.secondary'>Nothing Mathces Your Search Results. <Typography color='#3285a8' onClick={() => setShowFilterList(false)} sx={{ textDecoration: 'underline' }}>See All Buyers</Typography></Typography>
+                      <Typography variant='h6' color='text.secondary'>Nothing Mathces Your Search Results. <Typography color='#3285a8' onClick={() => setShowFilterList(false)} sx={{ textDecoration: 'underline' }}>View All</Typography></Typography>
                     </Box>
                   }
                   <Grid container spacing={1} display='flex' justifyContent='start' px={3}>

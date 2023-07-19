@@ -163,9 +163,10 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
 };
 
   const handleSearch = () => {
+    if (searchQuery !== '' || searchQuery !== null) {
     setRecentSearch([...recentSearch , searchQuery]);
     localStorage.setItem('RecentSearch', JSON.stringify(recentSearch));
-    if(searchQuery !== '' || searchQuery !== null){
+
     setShowFilterList(true);
     const filteredProducts = data && data.filter((i) => {
     const {DeveloperAddress1, DeveloperAddress2 ,DeveloperOwnerId, DeveloperCity, DeveloperState, DeveloperCountry, Latitude, Longitude } = i;
@@ -230,10 +231,10 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
 
              <Container>
                         <Box mb={1}>
-                            <Grid container mb={2} mt={2}>
+                            <Grid container>
                                 <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2} className="text-container">
-                    <Typography className="FormheadingName" sx={{fontSize:'2rem' , fontWeight:700}} >Submitted Lands</Typography>                  </Box>
+                    <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem' }} >Submitted Lands</Typography>                  </Box>
                                 </Grid>
                             </Grid>
                         </Box>
@@ -256,10 +257,14 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
           renderInput={(params) => (
           <TextField
           {...params}
-              placeholder="Search By Location"
+              placeholder="  Search By Location"
               variant="standard"
               sx={{ width: '25ch' }}
               color="success"
+              InputProps={{
+                ...params.InputProps,
+                disableUnderline: true,
+              }}
            onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
           />
           )}
@@ -288,14 +293,14 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         <Box p={1}>
           <Box display='flex' justifyContent='space-between'>
           <Typography variant='h6' color='text.secondary'>Best Results</Typography>
-           <Typography color='#3285a8' onClick={resetFilter} sx={{textDecoration:'underline'}}>See All Developers</Typography>
+           <Typography color='#3285a8' onClick={resetFilter} sx={{textDecoration:'underline'}}>View All</Typography>
           </Box>
           <Typography variant='caption'>({DeveloperList && DeveloperList.length})</Typography>
         </Box>
         {
           DeveloperList.length === 0 && 
           <Box py={1}>
-          <Typography variant='h6' color='text.secondary'>Nothing Mathces Your Search Results. <Typography color='#3285a8' onClick={()=> setShowFilterList(false)} sx={{textDecoration:'underline'}}>See All Developers</Typography></Typography>
+          <Typography variant='h6' color='text.secondary'>Nothing Mathces Your Search Results. <Typography color='#3285a8' onClick={()=> setShowFilterList(false)} sx={{textDecoration:'underline'}}>View All</Typography></Typography>
         </Box>
         }
         <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
