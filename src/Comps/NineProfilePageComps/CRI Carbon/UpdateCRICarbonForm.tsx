@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import { get_cri, get_city, get_state, methodGet, methodPost, update_cri} from "../../../API_Service/API_Service";
+import { get_land_by_profile_users, get_city, get_state, methodGet, methodPost, update_cri} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -76,6 +76,7 @@ export default function UpdateCRICarbonForm() {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserId') ?? '';
+    const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -151,9 +152,11 @@ export default function UpdateCRICarbonForm() {
         if(id !== ''){
             const lData = new FormData()
             lData.append('CRIId', id);
+            lData.append('UserId', UserId);
+            lData.append('UserProfileTypeId', UserProfileTypeId);
             axios({
                 method: methodPost,
-                url: get_cri,
+                url: get_land_by_profile_users,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,

@@ -28,7 +28,7 @@ interface LandOwnerData {
     LandStatus: string;
     VirtualVideo: File | null;
     TermsAndConditionsFile: File | null;
-    Remarks: string;
+    LandRemarks: string;
 }
 
 interface State {
@@ -162,7 +162,7 @@ export default function AddLands() {
             LandStatus: landStatus,
             VirtualVideo: VirtualVideo,
             TermsAndConditionsFile: termsAndConditionsFile,
-            Remarks: Remarks,
+            LandRemarks: Remarks,
         };
 
         const sendData = appendData(obj);

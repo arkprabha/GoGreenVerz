@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import {get_city, get_government_agency, get_state, methodGet, methodPost, update_government_agency} from "../../../API_Service/API_Service";
+import { get_city, get_land_by_profile_users, get_state, methodGet, methodPost, update_government_agency} from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -78,7 +78,7 @@ export default function UpdateGovtAgencyForm() {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserId') ?? '';
-
+    const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
     const location = useLocation();
     const { id } = location.state;
     const navigate = useNavigate();
@@ -153,9 +153,11 @@ export default function UpdateGovtAgencyForm() {
         if(id !== ''){
             const lData = new FormData()
             lData.append('GovAgencyId', id);
+            lData.append('UserId', UserId);
+            lData.append('UserProfileTypeId', UserProfileTypeId);
             axios({
                 method: methodPost,
-                url: get_government_agency,
+                url: get_land_by_profile_users,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,

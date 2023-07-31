@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import axios from 'axios';
-import { LandOwnerFiles, get_government_agency, get_state, methodGet } from '../../../API_Service/API_Service';
+import { get_land_by_profile_users, get_state, methodGet } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -64,6 +64,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
   const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
   const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
   const UserId: string | null = localStorage.getItem('UserId') ?? '';
+  const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<GovAgencyData | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -113,9 +114,10 @@ const GovtAgencyUpdatedLands: React.FC = () => {
   useEffect(() => {
     const lData = new FormData()
     lData.append('UserId', UserId);
+    lData.append('UserProfileTypeId', UserProfileTypeId);
     axios({
       method: 'POST',
-      url: get_government_agency,
+      url: get_land_by_profile_users,
       data: lData,
       headers: {
         'Authorization': `Bearer ${UserToken}`,
@@ -316,7 +318,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
                                 component="video"
                                 height="170"
                                 width='100%'
-                                src={`${LandOwnerFiles}${i.VirtualVideo}`}
+                                src={i.VirtualVideo}
                                 controls
                               />
                             )}
@@ -392,7 +394,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
                               component="video"
                               height="170"
                               width='100%'
-                              src={`${LandOwnerFiles}${i.VirtualVideo}`}
+                              src={i.VirtualVideo}
                               controls
                             />
                           )}

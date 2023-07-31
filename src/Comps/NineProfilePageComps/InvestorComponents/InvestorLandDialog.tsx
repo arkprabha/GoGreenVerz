@@ -3,7 +3,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Box} from '@mui/material';
-import { LandOwnerFiles} from '../../../API_Service/API_Service';
 
 interface InvestorDataDialogProps {
   openDialog: boolean;
@@ -24,7 +23,7 @@ interface InvestorData {
   Longitude: string;
   Latitude: string;
   LandSize: string;
-  Remarks: string;
+  LandRemarks: string;
   CreationDate: string;
   ProjectCommenceDate: string;
   InvestorStatus: string;
@@ -42,7 +41,7 @@ const InvestorLandDialog = ({ openDialog, setOpenDialog, i } : InvestorDataDialo
             <DialogContent>
             <Box display="flex" justifyContent="center">
             <Card sx={{ maxWidth: 600 }}>
-            <CardMedia component="video" height="400" src={`${LandOwnerFiles}${i?.VirtualVideo}`} controls />
+            <CardMedia component="video" height="400" src={i?.VirtualVideo} controls />
             <CardContent>
             <Stack spacing={1}>
             <Typography variant="h6" color="#84cb25" fontWeight={600} sx={{marginTop:2}}>Investor Information</Typography>
@@ -78,7 +77,7 @@ const InvestorLandDialog = ({ openDialog, setOpenDialog, i } : InvestorDataDialo
             </Box>
             <Box display='flex' gap={1} flexDirection='row'>
             <Typography variant="body2" color="text.secondary" fontWeight={600}>Remarks:</Typography>
-            <Typography variant="body2"> {i?.Remarks}</Typography>
+            <Typography variant="body2"> {i?.LandRemarks}</Typography>
             </Box>
 
              <Typography variant="h6" color="#84cb25" fontWeight={600}>Investment Information</Typography>

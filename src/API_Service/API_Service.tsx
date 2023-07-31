@@ -5,43 +5,43 @@ const baseApiurl: string =  `https://gogreenverz.in/api/`;
 
 
 // File Path For User's Profile image:
-const ProfilePic: string =  `https://gogreenverz.in/api/uploading_files/user_image/`
+const ProfilePic: string =  `${baseApiurl}uploading_files/user_image/`
 
 
 // File Path For LandOwner:
-const LandOwnerFiles: string =  `https://gogreenverz.in/api/uploading_files/land_owner/`
+const LandOwnerFiles: string =  `${baseApiurl}uploading_files/land_owner/`
 
 
 // File Path For Investor:
-const InvestorFiles: string =  `https://gogreenverz.in/api/uploading_files/investor/`
+const InvestorFiles: string =  `${baseApiurl}uploading_files/investor/`
 
 
 // File Path For Project Developer:
-const ProjectDeveloperFiles: string =`https://gogreenverz.in/api/uploading_files/project_developer/`
+const ProjectDeveloperFiles: string =`${baseApiurl}uploading_files/project_developer/`
 
 
 // File Path For Plantation Partner:
-const PlantationFiles: string = `https://gogreenverz.in/api/uploading_files/plantation_partner/`
+const PlantationFiles: string = `${baseApiurl}uploading_files/plantation_partner/`
 
 
 // File Path For Verification and Validation Body:
-const VVBFiles: string = `https://gogreenverz.in/api/uploading_files/vvb/`
+const VVBFiles: string = `${baseApiurl}uploading_files/vvb/`
 
 
 // File Path For Carbon Registry of India:
-const CRIFiles: string = `https://gogreenverz.in/api/uploading_files/cri/`
+const CRIFiles: string = `${baseApiurl}uploading_files/cri/`
 
 
 // File Path For Government Agencies:
-const GOVTFiles: string = `https://gogreenverz.in/api/uploading_files/government_agency/`
+const GOVTFiles: string = `${baseApiurl}uploading_files/government_agency/`
 
 
 // File Path For Admin:
-const AdminFiles: string  = `https://gogreenverz.in/api/uploading_files/admin_profile/`
+const AdminFiles: string  = `${baseApiurl}uploading_files/admin_profile/`
 
 
 // File Path For Buyer:
-const BuyerFiles: string  =  `https://gogreenverz.in/api/uploading_files/buyer/`
+const BuyerFiles: string  =  `${baseApiurl}uploading_files/buyer/`
 
 
 // get method
@@ -129,8 +129,20 @@ const get_city: string = `${baseApiurl}get_city`;
 
 const forgot_password: string = `${baseApiurl}forgot_password`;
 
+const get_land_details: string = `${baseApiurl}get_land_details`; 
+
+const get_land_by_profile_users: string = `${baseApiurl}get_land_by_profile_users`; 
+
+const get_user_status_count: string = `${baseApiurl}get_user_status_count`; 
+
+const update_user: string = `${baseApiurl}update_user`; 
+
 export {
     get_all_user_profile_type,
+    update_user,
+    get_user_status_count,
+    get_land_by_profile_users,
+    get_land_details,
     forgot_password,
     get_afforestation,
     update_afforestation,

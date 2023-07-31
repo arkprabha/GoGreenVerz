@@ -8,7 +8,7 @@ TablePagination, Autocomplete } from '@mui/material';
 import { useState } from 'react';
 import { Box , Container} from '@mui/material';
 import axios from 'axios';
-import { LandOwnerFiles, get_all_land_owner, get_land_owner, get_state, methodGet, methodPost } from '../../../API_Service/API_Service';
+import {get_land_by_profile_users, get_land_details, get_state, methodGet, methodPost } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -20,7 +20,7 @@ import LandDataDialog from './LandDataDialog';
 import SnackBar from '../../SnackBar/SnackBar';
 
 interface LandItem {
-  LandOwnerId: string;
+  LandId: string;
   VirtualVideo: string;
   Longitude: string;
   Latitude: string;
@@ -35,7 +35,7 @@ interface LandItem {
   CreationDate: string;
   ProjectCommenceDate: string;
   LandStatus: string;
-  Remarks: string;
+  LandRemarks: string;
 }
 
 
@@ -68,6 +68,7 @@ const ListedLands: React.FC = () => {
   const [inputKey, setInputKey] = useState<number>(0);
   const navigate = useNavigate();
   const UserId: string | null = localStorage.getItem('UserId') ?? '';
+  const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
 
       useEffect(() => {
         const storedRecentSearch = localStorage.getItem('RecentSearch');
@@ -107,9 +108,12 @@ const ListedLands: React.FC = () => {
 
    useEffect(()=>{
     if(UserType !== 'Land owner'){
+      const lData = new FormData()
+      lData.append('UserProfileTypeId', UserProfileTypeId);
        axios({
-           method: 'GET',
-           url: get_all_land_owner,
+           method: 'POST',
+            url: get_land_details,
+            data: lData,
            headers: {
                'Authorization': `Bearer ${UserToken}`,
            }
@@ -130,9 +134,10 @@ const ListedLands: React.FC = () => {
       else {
       const lData = new FormData()
       lData.append('UserId', UserId);
+      lData.append('UserProfileTypeId', UserProfileTypeId);
       axios({
         method: methodPost,
-        url: get_land_owner,
+        url: get_land_by_profile_users,
         data: lData,
         headers: {
           'Authorization': `Bearer ${UserToken}`,
@@ -158,7 +163,6 @@ const ListedLands: React.FC = () => {
     setSelectedItem(item);
     setOpenDialog(true);
   };
-
 
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number,) => {
@@ -189,7 +193,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
     localStorage.setItem('RecentSearch', JSON.stringify(recentSearch));
     setShowFilterList(true);
     const filteredProducts = data && data.filter((i) => {
-    const {LandAddress1, LandAddress2 ,LandOwnerId, LandCity, LandState, LandCountry, Latitude, Longitude } = i;
+    const {LandAddress1, LandAddress2 ,LandId, LandCity, LandState, LandCountry, Latitude, Longitude } = i;
       // Apply the search logic based on your requirements
       const matchesCity = LandCity.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesState = LandState.toLowerCase().includes(searchQuery.toLowerCase());
@@ -197,7 +201,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
       const matchesAddress2 = LandAddress2.toString().includes(searchQuery.toLowerCase());
       const matchesLandCountry = LandCountry.toString().includes(searchQuery.toLowerCase());
       const matchesLongitude = Longitude.toString().includes(searchQuery);
-      const matchesLandOwnerId = LandOwnerId.toString().includes(searchQuery);
+      const matchesLandId = LandId.toString().includes(searchQuery);
       const matchesLatitude = Latitude.toString().includes(searchQuery);
 
       return (
@@ -206,7 +210,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         matchesAddress1 ||
         matchesAddress2 ||
         matchesLandCountry ||
-        matchesLandOwnerId ||
+        matchesLandId ||
         matchesLatitude ||
         matchesLongitude
       );
@@ -362,7 +366,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             component="video"
             height="170"
             width='100%'
-            src={`${LandOwnerFiles}${i.VirtualVideo}`}
+            src={i.VirtualVideo}
             controls
             />
       )}
@@ -375,7 +379,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         ) : (
           <>
             <Typography gutterBottom variant="h5" component="div" textAlign='left'>
-            {i.LandOwnerId}
+            {i.LandId}
             </Typography>
             <Stack spacing={1}>
             <Box display='flex' gap={1} flexDirection='row'>
@@ -403,35 +407,35 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
            <Box display='flex' justifyContent='space-between' flexDirection='row'>
             {
             UserType === 'Investor' &&  
-            <Button size="small" color="primary" onClick={() => handleClickOpenInvestor(i.LandOwnerId)}>Invest</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenInvestor(i.LandId)}>Invest</Button>
             }
             {
             UserType === 'GoGreenverz or Project Developer' &&
-            <Button size="small" color="primary" onClick={() => handleClickOpenProjectDev(i.LandOwnerId)}> GoProject Dev Form</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenProjectDev(i.LandId)}> GoProject Dev Form</Button>
             }
             {
             UserType === 'Plantation Partner' && 
-            <Button size="small" color="primary" onClick={() => handleClickOpenPlantation(i.LandOwnerId)}>Add Plantation</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenPlantation(i.LandId)}>Add Plantation</Button>
             }
             {
             UserType === 'Verification and Validation Body' && 
-           <Button size="small" color="primary" onClick={() => handleClickOpenVVB(i.LandOwnerId)}>VVB Form</Button>
+           <Button size="small" color="primary" onClick={() => handleClickOpenVVB(i.LandId)}>VVB Form</Button>
             }
             {
             UserType === 'Carbon Registry of India' && 
-            <Button size="small" color="primary" onClick={() => handleClickOpenCRI(i.LandOwnerId)}>CRI Form</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenCRI(i.LandId)}>CRI Form</Button>
             }
             {
             UserType === 'Government Agencies' && 
-            <Button size="small" color="primary" onClick={() => handleClickOpenGovt(i.LandOwnerId)}>Govt Agency Form</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenGovt(i.LandId)}>Govt Agency Form</Button>
             }
             {
             UserType === 'Admin' &&
-            <Button size="small" color="primary" onClick={() => handleClickOpenAdmin(i.LandOwnerId)}>Admin Form</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenAdmin(i.LandId)}>Admin Form</Button>
             }
             {
             UserType === 'Buyers' &&
-            <Button size="small" color="primary" onClick={() => handleClickOpenBuyer(i.LandOwnerId)}>Buy Land</Button>
+            <Button size="small" color="primary" onClick={() => handleClickOpenBuyer(i.LandId)}>Buy Land</Button>
             }
               
             <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
@@ -445,7 +449,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             </Button>
          
 
-            <Button size="small" color="primary" onClick={()=>movedtoEditPage(i.LandOwnerId)}>
+            <Button size="small" color="primary" onClick={()=>movedtoEditPage(i.LandId)}>
              Update
             </Button>
             </Box>
@@ -482,7 +486,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             component="video"
             height="170"
             width='100%'
-            src={`${LandOwnerFiles}${i.VirtualVideo}`}
+            src={i.VirtualVideo}
             controls
             />
       )}
@@ -495,7 +499,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         ) : (
           <>
             <Typography gutterBottom variant="h5" component="div" textAlign='left'>
-            {i.LandOwnerId}
+            {i.LandId}
             </Typography>
             <Stack spacing={1}>
             <Box display='flex' gap={1} flexDirection='row'>
@@ -523,35 +527,35 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
               <Box display='flex' justifyContent='space-between' flexDirection='row'>
                 {
                   UserType === 'Investor' &&
-                  <Button size="small" color="primary" onClick={() => handleClickOpenInvestor(i.LandOwnerId)}>Invest</Button>
+                  <Button size="small" color="primary" onClick={() => handleClickOpenInvestor(i.LandId)}>Invest</Button>
                 }
                 {
                   UserType === 'GoGreenverz or Project Developer' &&
-                  <Button size="small" color="primary" onClick={() => handleClickOpenProjectDev(i.LandOwnerId)}> GoProject Dev Form</Button>
+                  <Button size="small" color="primary" onClick={() => handleClickOpenProjectDev(i.LandId)}> GoProject Dev Form</Button>
                 }
                 {
                   UserType === 'Plantation Partner' &&
-                  <Button size="small" color="primary" onClick={() => handleClickOpenPlantation(i.LandOwnerId)}>Add Plantation</Button>
+                  <Button size="small" color="primary" onClick={() => handleClickOpenPlantation(i.LandId)}>Add Plantation</Button>
                 }
                 {
                   UserType === 'Verification and Validation Body' &&
-                  <Button size="small" color="primary" onClick={() => handleClickOpenVVB(i.LandOwnerId)}>VVB Form</Button>
+                  <Button size="small" color="primary" onClick={() => handleClickOpenVVB(i.LandId)}>VVB Form</Button>
                 }
                 {
                   UserType === 'Carbon Registry of India' &&
-                  <Button size="small" color="primary" onClick={() => handleClickOpenCRI(i.LandOwnerId)}>CRI Form</Button>
+                  <Button size="small" color="primary" onClick={() => handleClickOpenCRI(i.LandId)}>CRI Form</Button>
                 }
                 {
                   UserType === 'Government Agencies' &&
-                  <Button size="small" color="primary" onClick={() => handleClickOpenGovt(i.LandOwnerId)}>Govt Agency Form</Button>
+                  <Button size="small" color="primary" onClick={() => handleClickOpenGovt(i.LandId)}>Govt Agency Form</Button>
                 }
                 {
                   UserType === 'Admin' &&
-                  <Button size="small" color="primary" onClick={() => handleClickOpenAdmin(i.LandOwnerId)}>Admin Form</Button>
+                  <Button size="small" color="primary" onClick={() => handleClickOpenAdmin(i.LandId)}>Admin Form</Button>
                 }
                 {
                   UserType === 'Buyers' &&
-                  <Button size="small" color="primary" onClick={() => handleClickOpenBuyer(i.LandOwnerId)}>Buy Land</Button>
+                  <Button size="small" color="primary" onClick={() => handleClickOpenBuyer(i.LandId)}>Buy Land</Button>
                 }
 
             <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
@@ -565,7 +569,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             </Button>
 
 
-            <Button size="small" color="primary" onClick={()=>movedtoEditPage(i.LandOwnerId)}>
+            <Button size="small" color="primary" onClick={()=>movedtoEditPage(i.LandId)}>
              Update
             </Button>
             </Box>

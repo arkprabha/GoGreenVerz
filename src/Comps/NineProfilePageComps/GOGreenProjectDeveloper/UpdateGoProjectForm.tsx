@@ -2,7 +2,7 @@ import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Containe
 import Header from "../../../Header";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
-import { get_city, get_project_developer, get_state, methodGet, methodPost, update_project_developer } from "../../../API_Service/API_Service";
+import { get_city, get_land_by_profile_users, get_state, methodGet, methodPost, update_project_developer } from "../../../API_Service/API_Service";
 import axios from "axios";
 import SnackBar from "../../SnackBar/SnackBar";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -74,7 +74,7 @@ export default function UpdateGoProjectForm() {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserId') ?? '';
-
+    const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
     const navigate = useNavigate();
     const location = useLocation();
     const {id} = location.state;
@@ -151,9 +151,11 @@ export default function UpdateGoProjectForm() {
         if(id !== ''){
             const lData = new FormData()
             lData.append('DeveloperId', id);
+            lData.append('UserId', UserId);
+            lData.append('UserProfileTypeId', UserProfileTypeId);
             axios({
                 method: methodPost,
-                url: get_project_developer,
+                url: get_land_by_profile_users,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,

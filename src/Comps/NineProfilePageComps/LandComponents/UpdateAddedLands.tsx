@@ -2,7 +2,7 @@ import { Box, Button, Grid, TextField, Autocomplete, Stack, Typography, Containe
 import Header from "../../../Header";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
-import {get_city, get_land_owner, get_state, methodGet, methodPost, update_land_owner } from "../../../API_Service/API_Service";
+import {get_city, get_land_by_profile_users, get_state, methodGet, methodPost, update_land_owner } from "../../../API_Service/API_Service";
 import axios from "axios";
 import { useLocation, useNavigate} from "react-router-dom";
 import SnackBar from "../../SnackBar/SnackBar";
@@ -28,8 +28,8 @@ interface LandOwnerData {
     LandStatus: string;
     VirtualVideo: File | null;
     TermsAndConditionsFile: File | null;
-    Remarks: string;
-    LandOwnerId:string;
+    LandRemarks: string;
+    LandId:string;
 }
 
 interface State {
@@ -76,7 +76,7 @@ export default function UpdateAddedLands() {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserId') ?? '';
-
+    const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
     const location = useLocation();
     const {id} = location.state;
 
@@ -148,10 +148,12 @@ export default function UpdateAddedLands() {
     useEffect(() => {
         if(id !== ''){
             const lData = new FormData()
-            lData.append('LandOwnerId', id);
+            lData.append('LandId', id);
+            lData.append('UserId', UserId);
+            lData.append('UserProfileTypeId', UserProfileTypeId);
             axios({
                 method: methodPost,
-                url: get_land_owner,
+                url: get_land_by_profile_users,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -199,7 +201,7 @@ export default function UpdateAddedLands() {
         const obj : LandOwnerData = {
         UserId: UserId,
         LandOwnerName: name,
-        LandOwnerId:id,
+        LandId:id,
         Email: email,
         MobileNum: mobileNum,
         AlternateMobile:alternateMobile,
@@ -218,7 +220,7 @@ export default function UpdateAddedLands() {
         LandStatus: landStatus,
         VirtualVideo:VirtualVideo,
         TermsAndConditionsFile: termsAndConditionsFile,
-        Remarks: Remarks
+        LandRemarks: Remarks
         }
         const sendData = appendData(obj);
         axios({

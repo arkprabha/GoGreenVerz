@@ -25,7 +25,6 @@ import InvesterProfileForm from './Comps/NineProfilePageComps/InvestorComponents
 import PlantationForm from './Comps/NineProfilePageComps/Planatation/PlantationForm';
 import VVBForm from './Comps/NineProfilePageComps/VVB/VVBForm';
 import ProjectionTable from './Comps/RevenueAndExpenseTable/ProjectionTable';
-import UserProfile from './Comps/ProfilePageSection/UserProfilePage/UserProfile';
 import UpdateInvestLands from './Comps/NineProfilePageComps/InvestorComponents/UpdateInvestLands';
 import GovtAgencyForm from './Comps/NineProfilePageComps/GovtAgency/GovtAgencyForm';
 import InvestedLands from './Comps/NineProfilePageComps/InvestorComponents/InvestedLands';
@@ -47,6 +46,9 @@ import UpdateGovtAgencyForm from './Comps/NineProfilePageComps/GovtAgency/Update
 import AfforestTab from './Comps/NineProfilePageComps/Afforestation/AfforestTab';
 import UpdateAfforestForm from './Comps/NineProfilePageComps/Afforestation/UpdateAfforestForm';
 import ViewAfforestion from './Comps/NineProfilePageComps/Afforestation/ViewAfforestation';
+import ProfileUpdateForm from './Comps/ProfilePageSection/UserProfilePage/ProfileUpdateForm';
+import AllUserProfile from './Comps/ProfilePageSection/UserProfilePage/AllUserProfile';
+import ApprovalTab from './Comps/NineProfilePageComps/GOGreenProjectDeveloper/ApprovalTab/ApprovalTab';
 
 
 
@@ -278,8 +280,16 @@ function Routes() {
 
         {
             path: 'profile',
-            element: <UserProfile />,
+            element: <AllUserProfile />,
         },
+        {
+            path: 'editprofile',
+            element: <ProfileUpdateForm />,
+        },
+        {
+            path:'aprrovaltab',
+            element: <ApprovalTab />,
+        }
         ]
         : [
         {

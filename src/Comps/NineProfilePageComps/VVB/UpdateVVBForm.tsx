@@ -1,6 +1,6 @@
 import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Container } from "@mui/material";
 import Header from '../../../Header';
-import {get_city, get_state, get_vvb, methodGet, methodPost, update_vvb } from "../../../API_Service/API_Service";
+import { get_city, get_state, get_land_by_profile_users, methodGet, methodPost, update_vvb } from "../../../API_Service/API_Service";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
 import axios from "axios";
@@ -77,6 +77,7 @@ export default function UpdateVVBForm() {
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserId') ?? '';
+    const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
     const location = useLocation();
     const {id} = location.state;
     const navigate = useNavigate();
@@ -153,9 +154,11 @@ export default function UpdateVVBForm() {
         if(id !== ''){
             const lData = new FormData()
             lData.append('VVBId', id);
+            lData.append('UserId', UserId);
+            lData.append('UserProfileTypeId', UserProfileTypeId);
             axios({
                 method: methodPost,
-                url: get_vvb,
+                url: get_land_by_profile_users,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,

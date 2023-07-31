@@ -8,7 +8,7 @@ TablePagination, Autocomplete , Container } from '@mui/material';
 import { useState } from 'react';
 import { Box} from '@mui/material';
 import axios from 'axios';
-import { LandOwnerFiles, get_state, get_vvb, methodGet } from '../../../API_Service/API_Service';
+import {get_state, get_land_by_profile_users, methodGet } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -62,6 +62,7 @@ const VVBUpdatedLands: React.FC = () => {
   const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
   const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
   const UserId: string | null = localStorage.getItem('UserId') ?? '';
+  const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<VVBData | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -110,10 +111,11 @@ const VVBUpdatedLands: React.FC = () => {
 
    useEffect(()=>{
         const lData = new FormData()
-        lData.append('UserId', UserId);
+     lData.append('UserId', UserId);
+     lData.append('UserProfileTypeId', UserProfileTypeId);
        axios({
            method: 'POST',
-           url: get_vvb,
+         url: get_land_by_profile_users,
            data:lData,
            headers: {
                'Authorization': `Bearer ${UserToken}`,
@@ -315,7 +317,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             component="video"
             height="170"
             width='100%'
-            src={`${LandOwnerFiles}${i.VirtualVideo}`}
+            src={i.VirtualVideo}
             controls
             />
       )}
@@ -391,7 +393,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             component="video"
             height="170"
             width='100%'
-            src={`${LandOwnerFiles}${i.VirtualVideo}`}
+            src={i.VirtualVideo}
             controls
             />
       )}

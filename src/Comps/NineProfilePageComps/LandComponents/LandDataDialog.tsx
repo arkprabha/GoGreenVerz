@@ -3,10 +3,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Box } from '@mui/material';
-import { LandOwnerFiles } from '../../../API_Service/API_Service';
-
 interface LandItem {
-  LandOwnerId: string;
+  LandId: string;
   VirtualVideo: string;
   Longitude: string;
   Latitude: string;
@@ -21,7 +19,7 @@ interface LandItem {
   CreationDate: string;
   ProjectCommenceDate: string;
   LandStatus: string;
-  Remarks: string;
+  LandRemarks: string;
 }
 
 
@@ -40,11 +38,11 @@ const LandDataDialog = ({ openDialog, setOpenDialog, i } : LandDataDialogProps) 
   return (
     <Box>
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
-        <DialogTitle>{i?.LandOwnerId}</DialogTitle>
+        <DialogTitle>{i?.LandId}</DialogTitle>
         <DialogContent>
           <Box display="flex" justifyContent="center">
             <Card sx={{ maxWidth: 600 }}>
-              <CardMedia component="video" height="400" src={`${LandOwnerFiles}${i?.VirtualVideo}`} controls />
+              <CardMedia component="video" height="400" src={i?.VirtualVideo} controls />
               <CardContent>
                 <Stack spacing={1}>
                   <Typography variant="h6" color="#84cb25" fontWeight={600} sx={{ marginTop: 2 }}>
@@ -54,7 +52,7 @@ const LandDataDialog = ({ openDialog, setOpenDialog, i } : LandDataDialogProps) 
                     <Typography variant="body2" color="text.secondary" fontWeight={600}>
                       Land ID:
                     </Typography>
-                    <Typography variant="body2">{i?.LandOwnerId}</Typography>
+                    <Typography variant="body2">{i?.LandId}</Typography>
                   </Box>
                   <Box display="flex" gap={1} flexDirection="row">
                     <Typography variant="body2" color="text.secondary" fontWeight={600}>
@@ -123,7 +121,7 @@ const LandDataDialog = ({ openDialog, setOpenDialog, i } : LandDataDialogProps) 
                     <Typography variant="body2" color="text.secondary" fontWeight={600}>
                       Remarks:
                     </Typography>
-                    <Typography variant="body2"> {i?.Remarks}</Typography>
+                    <Typography variant="body2"> {i?.LandRemarks}</Typography>
                   </Box>
                 </Stack>
               </CardContent>

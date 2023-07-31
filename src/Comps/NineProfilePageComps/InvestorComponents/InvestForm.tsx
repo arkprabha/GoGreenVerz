@@ -2,7 +2,7 @@ import { Box, Button, Grid, TextField, Stack, Autocomplete, Typography, Containe
 import Header from "../../../Header";
 import { useEffect, useState } from "react";
 import { appendData } from "../../../Variables/ProcessVariable";
-import {add_investor, get_land_owner } from "../../../API_Service/API_Service";
+import { add_investor, get_land_by_profile_users } from "../../../API_Service/API_Service";
 import axios from "axios";
 import { get_city, get_state, methodGet, methodPost } from "../../../API_Service/API_Service";
 import SnackBar from "../../SnackBar/SnackBar";
@@ -20,8 +20,6 @@ interface InvestorData {
             InvestorState:any;
             InvestorPostalCode: string;
             InvestorCountry: string;
-            Latitude: string;
-            Longitude: string;
             CreationDate: string;
             ProjectCommenceDate: string;
             InvestorStatus: string;
@@ -29,11 +27,6 @@ interface InvestorData {
             ProgressTracking:string;
             ProgressTrackingFile: File | null;
             InvestmentPortfolioFile:  File | null;
-            VirtualVideo:  File | null;
-            TermsAndConditionsFile:  File | null;
-            Remarks: string;
-            TermsAndConditions:string;
-            LandSize:string;
             LandId:string;
 }
 
@@ -64,16 +57,17 @@ export default function InvestForm() {
     const [InvestorCountry, setInvestorCountry] =  useState<string>('');
     const [latitude, setLatitude] =  useState<string>('');
     const [longitude, setLongitude] =  useState<string>('');
-    const [creationDate, setCreationDate] =  useState<string>('');
-    const [projectCommenceDate, setProjectCommenceDate] =  useState<string>('');
+    const [LandcreationDate, setLandCreationDate] =  useState<string>('');
+    const [LandprojectCommenceDate, setLandProjectCommenceDate] =  useState<string>('');
+    const [creationDate, setCreationDate] = useState<string>('');
+    const [projectCommenceDate, setProjectCommenceDate] = useState<string>('');
     const [InvestorStatus, setInvestorStatus] =  useState<string>('');
     const [InvestmentPortfolio, setInvestmentPortfolio] =  useState<string>('');
     const [ProgressTracking, setProgressTracking] =  useState<string>('');
     const [ProgressTrackingFile, setProgressTrackingFile] = useState<File | null>(null);
     const [InvestmentPortfolioFile, setInvestmentPortfolioFile] =  useState<File | null>(null);
-    const [VirtualVideo, setVirtualVideo] = useState<File | null>(null);
     const [termsAndConditions, setTermsAndConditions] =  useState<string>('');
-    const [termsAndConditionsFile, setTermsAndConditionsFile] = useState<File | null>(null);
+    const [termsAndConditionsFile, setTermsAndConditionsFile] = useState<string>('');
     const [landSize, setLandSize] =  useState<string>('');
     const [state, setState] = useState<State[]>([]);
     const [CityList, setCityList] = useState<City[]>([]);
@@ -90,7 +84,7 @@ export default function InvestForm() {
     const location = useLocation();
     const locationState = location.state as LocationState;
     const { id } = locationState;
-
+    const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
 
  useEffect(() => {
             axios({
@@ -159,10 +153,12 @@ export default function InvestForm() {
         useEffect(() => {
         if(id !== ''){
             const lData = new FormData()
-            lData.append('LandOwnerId', id);
+            lData.append('LandId', id);
+            lData.append('UserId', UserId);
+            lData.append('UserProfileTypeId', UserProfileTypeId);
             axios({
                 method: methodPost,
-                url: get_land_owner,
+                url: get_land_by_profile_users,
                 data: lData,
                 headers: {
                 'Authorization': `Bearer ${UserToken}`,
@@ -179,11 +175,12 @@ export default function InvestForm() {
                     setLatitude(res.data.data.Latitude);
                     setLongitude(res.data.data.Longitude);
                     setTermsAndConditions(res.data.data.TermsAndConditions);
-                    setCreationDate(res.data.data.CreationDate);
-                    setProjectCommenceDate(res.data.data.ProjectCommenceDate);
+                    setLandCreationDate(res.data.data.CreationDate);
+                    setLandProjectCommenceDate(res.data.data.ProjectCommenceDate);
                     setLandStatus(res.data.data.LandStatus);
                     setInvestorStatus(res.data.data.InvestorStatus);
-                    setRemarks(res.data.data.Remarks);
+                    setTermsAndConditionsFile(res.data.data.TermsAndConditionsFile)
+                    setRemarks(res.data.data.LandRemarks);
                     setOpen(true)
                     setStatus(true)
                     setColor(true)
@@ -214,20 +211,13 @@ export default function InvestForm() {
             InvestorState: InvestorState?.StateName,
             InvestorPostalCode: InvestorPostalCode,
             InvestorCountry: InvestorCountry,
-            Latitude: latitude,
-            Longitude: longitude,
             CreationDate: creationDate,
             ProjectCommenceDate: projectCommenceDate,
             InvestorStatus: InvestorStatus,
             InvestmentPortfolio: InvestmentPortfolio,
-            ProgressTracking: ProgressTracking,
             ProgressTrackingFile: ProgressTrackingFile,
             InvestmentPortfolioFile: InvestmentPortfolioFile,
-            VirtualVideo: VirtualVideo,
-            TermsAndConditionsFile: termsAndConditionsFile,
-            Remarks: Remarks,
-            TermsAndConditions: termsAndConditions,
-            LandSize: landSize,
+            ProgressTracking: ProgressTracking,
             LandId:id,
         }
 
@@ -498,6 +488,40 @@ export default function InvestForm() {
                                         />
                                     </Grid>
 
+                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                        <TextField
+                                            fullWidth
+                                            id="Creation Date"
+                                            label="Creation Date"
+                                            variant="outlined"
+                                            type='date'
+                                            size='small'
+                                            value={creationDate}
+                                             onChange={(e) => setCreationDate(e.target.value)}
+                                            color='secondary'
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                        <TextField
+                                            fullWidth
+                                            id="Project Commence Date"
+                                            label="Project Commence Date"
+                                            variant="outlined"
+                                            type='date'
+                                            size='small'
+                                            color='secondary'
+                                             onChange={(e) => setProjectCommenceDate(e.target.value)}
+                                            value={projectCommenceDate}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
+                                    </Grid>
+
 
                                     <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                         <Autocomplete
@@ -589,50 +613,12 @@ export default function InvestForm() {
                                         <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
                                             <TextField
                                                 fullWidth
-                                                id="Lease Terms & Conditions"
-                                                label="Lease Terms & Conditions"
-                                                variant="outlined"
-                                                size="small"
-                                                color="secondary"
-                                                type="file"
-                                                onChange={(e) => {
-                                                const file = (e.target as HTMLInputElement).files?.[0];
-                                                setTermsAndConditionsFile(file || null);
-                                            }}
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                            />
-                                        </Grid>
-
-                                        <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
-                                            <TextField
-                                                fullWidth
-                                                id="Video"
-                                                label="Virtual Tour/Video "
-                                                variant="outlined"
-                                                size="small"
-                                                color="secondary"
-                                                type="file"
-                                                onChange={(e) => {
-                                                const file = (e.target as HTMLInputElement).files?.[0];
-                                                setVirtualVideo(file || null);
-                                            }}
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                            />
-                                        </Grid>
-
-                                        <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
-                                            <TextField
-                                                fullWidth
                                                 id="Creation Date"
                                                 label="Creation Date"
                                                 variant="outlined"
                                                 type='date'
                                                 size='small'
-                                                value={creationDate}
+                                               value={LandcreationDate}
                                                 // onChange={(e) => setCreationDate(e.target.value)}
                                                 color='secondary'
                                                 InputLabelProps={{
@@ -650,12 +636,30 @@ export default function InvestForm() {
                                                 type='date'
                                                 size='small'
                                                 color='secondary'
-                                                value={projectCommenceDate}
+                                               value={LandprojectCommenceDate}
                                                 // onChange={(e) => setProjectCommenceDate(e.target.value)}
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
                                             />
+                                        </Grid>
+
+
+                                        <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
+                                        <Box>
+                                            <Typography>Terms & Conditions</Typography>
+                                            {termsAndConditionsFile ? (
+                                                <a href={termsAndConditionsFile} target="_blank" rel="noopener noreferrer">
+                                                    <Typography variant="subtitle2" sx={{ wordWrap: 'break-word' }}>
+                                                        {termsAndConditionsFile}
+                                                    </Typography>
+                                                </a>
+                                            ) : (
+                                                <Typography variant="subtitle2" sx={{ wordWrap: 'break-word' }}>
+                                                    No file available
+                                                </Typography>
+                                            )}
+                                        </Box>
                                         </Grid>
 
                                         <Grid item xl={3} lg={3} md={3} sm={6} xs={12} sx={{ py: 1 }}  >
