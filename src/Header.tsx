@@ -91,6 +91,10 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
                   <MenuItem onClick={() => handleOpenPage('trackproject')} sx={{ fontSize: 16 }}>Project Tracking</MenuItem>
                   <MenuItem onClick={() => handleOpenPage('offset')} sx={{ fontSize: 16 }}>Carbon Offset</MenuItem>
                   <MenuItem onClick={() => handleOpenPage('mrv')} sx={{ fontSize: 16 }}>Renewal</MenuItem>
+                  {
+                    UserProfileType === 'GoGreenverz or Project Developer' &&
+                    <MenuItem onClick={() => handleOpenPage('afforestation')} sx={{ fontSize: 16 }}>Afforestation</MenuItem>
+                  }
                 </Menu>
               </Box>
               <Typography className="home-VSe" onClick={() => handleOpenPage('listedlands')}>Listed Lands</Typography>
@@ -121,7 +125,13 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
               {
               UserProfileType === 'Buyers' && <Typography className="home-VSe" onClick={() => handleOpenPage('yourlands')}>Your Lands</Typography>
               }
+
+              {
+                UserProfileType === 'GoGreenverz or Project Developer' ? <Typography className="home-VSe" onClick={() => handleOpenPage('approvaltab')}>Approval</Typography>
+                :
               <Typography className="home-VSe" onClick={() => handleOpenPage('afforestation')}>Afforestation</Typography>
+              }
+             
               <Typography className="home-VSe" onClick={() => handleOpenPage('profile')}>Profile</Typography>
               <Typography className="home-VSe" onClick={Logout}><PowerSettingsNewIcon  sx={{verticalAlign:'middle'}}/></Typography>
               </Box>
