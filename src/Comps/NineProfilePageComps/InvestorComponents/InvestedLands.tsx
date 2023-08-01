@@ -171,7 +171,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
  
     setShowFilterList(true);
     const filteredProducts = data && data.filter((i) => {
-    const {InvestorAddress1, InvestorAddress2 ,InvestorOwnerId, InvestorCity, InvestorState, InvestorCountry, Latitude, Longitude } = i;
+    const {InvestorAddress1, InvestorAddress2 ,InvestorId, InvestorCity, InvestorState, InvestorCountry, Latitude, Longitude } = i;
       // Apply the search logic based on your requirements
       const matchesCity = InvestorCity.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesState = InvestorState.toLowerCase().includes(searchQuery.toLowerCase());
@@ -179,7 +179,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
       const matchesAddress2 = InvestorAddress2.toString().includes(searchQuery.toLowerCase());
       const matchesInvestorCountry = InvestorCountry.toString().includes(searchQuery.toLowerCase());
       const matchesLongitude = Longitude.toString().includes(searchQuery);
-      const matchesInvestorOwnerId = InvestorOwnerId.toString().includes(searchQuery);
+      const matchesInvestorOwnerId = InvestorId.toString().includes(searchQuery);
       const matchesLatitude = Latitude.toString().includes(searchQuery);
 
       return (
@@ -381,7 +381,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
          :
         <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
           {slicedData.map((i) => (
-          <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
+            <Grid item xs={12} sm={6} md={4} lg={4} key={i.InvestorId} my={3}>
            <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
             <CardActionArea>
         {Loading ? (

@@ -27,7 +27,8 @@ interface BuyerData {
     Remarks: string;
     CreationDate: string;
     ProjectCommenceDate: string;
-    BuyerStatus: String;
+    BuyerStatus: string;
+    LandId: string;
 }
 
 const BuyerLandDialog = ({ openDialog, setOpenDialog, i }: BuyerDialogProps) => {

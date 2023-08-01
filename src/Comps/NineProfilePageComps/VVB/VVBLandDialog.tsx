@@ -28,6 +28,7 @@ interface VVBData {
   CreationDate: string;
   ProjectCommenceDate: string;
   VVBStatus:String;
+  LandId: string;
 }
 
 const VVBLandDialog = ({ openDialog, setOpenDialog, i } : VVBDialogProps) => {

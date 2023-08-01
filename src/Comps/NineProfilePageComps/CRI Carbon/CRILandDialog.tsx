@@ -34,7 +34,8 @@ interface CRIData {
   Remarks: string;
   CreationDate: string;
   ProjectCommenceDate: string;
-  CRIStatus: String;
+  CRIStatus: string;
+  LandId:string;
 }
 
 const CRILandDialog = ({ openDialog, setOpenDialog, i }: CRIDialogProps) => {

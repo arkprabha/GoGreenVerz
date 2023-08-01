@@ -18,6 +18,14 @@ import Skeleton from '@mui/material/Skeleton';
 import CloseIcon from '@mui/icons-material/Close';
 import LandDataDialog from './LandDataDialog';
 import SnackBar from '../../SnackBar/SnackBar';
+import GoProjectLandDialog from '../GOGreenProjectDeveloper/GoProjectLandDialog';
+import PlantationLandDialog from '../Planatation/PlantationLandDialog';
+import VVBLandDialog from '../VVB/VVBLandDialog';
+import CRILandDialog from '../CRI Carbon/CRILandDialog';
+import GovtAgencyLandDialog from '../GovtAgency/GovtAgencyLandDialog';
+import AdminLandDialog from '../Admin/AdminLandDialog';
+// import BuyerLandDialog from '../Buyer/BuyerLandDialog';
+import InvestorDataDialog from '../InvestorComponents/InvestorLandDialog';
 
 interface LandItem {
   LandId: string;
@@ -37,6 +45,173 @@ interface LandItem {
   LandStatus: string;
   LandRemarks: string;
 }
+interface AdminData {
+  AdminId: string;
+  AdminName: string;
+  AdminAddress1: string;
+  AdminAddress2: string;
+  AdminCity: string;
+  AdminState: string;
+  AdminPostalCode: string;
+  AdminCountry: string;
+  MobileNum: string;
+  Longitude: string;
+  Latitude: string;
+  LandSize: string;
+  VirtualVideo: string;
+  Remarks: string;
+  CreationDate: string;
+  ProjectCommenceDate: string;
+  AdminStatus: string;
+  LandId: string;
+}
+
+interface GovAgencyData {
+  GovAgencyId: string;
+  GovAgencyName: string;
+  GovAgencyAddress1: string;
+  GovAgencyAddress2: string;
+  GovAgencyCity: string;
+  GovAgencyState: string;
+  GovAgencyPostalCode: string;
+  GovAgencyCountry: string;
+  MobileNum: string;
+  Longitude: string;
+  Latitude: string;
+  LandSize: string;
+  VirtualVideo: string;
+  Remarks: string;
+  CreationDate: string;
+  ProjectCommenceDate: string;
+  GovAgencyStatus: string;
+  LandId: string;
+}
+// interface BuyerData {
+//   BuyerId: string;
+//   BuyerName: string;
+//   BuyerAddress1: string;
+//   BuyerAddress2: string;
+//   BuyerCity: string;
+//   BuyerState: string;
+//   BuyerPostalCode: string;
+//   BuyerCountry: string;
+//   MobileNum: string;
+//   Longitude: string;
+//   Latitude: string;
+//   LandSize: string;
+//   VirtualVideo: string;
+//   Remarks: string;
+//   CreationDate: string;
+//   ProjectCommenceDate: string;
+//   BuyerStatus: String;
+// }
+
+interface CRIData {
+  CRIId: string;
+  CRIName: string;
+  CRIAddress1: string;
+  CRIAddress2: string;
+  CRICity: string;
+  CRIState: string;
+  CRIPostalCode: string;
+  CRICountry: string;
+  MobileNum: string;
+  Longitude: string;
+  Latitude: string;
+  LandSize: string;
+  VirtualVideo: string;
+  Remarks: string;
+  CreationDate: string;
+  ProjectCommenceDate: string;
+  CRIStatus: string;
+  LandId:string;
+}
+
+interface GoProjectData {
+  DeveloperId: string;
+  DeveloperName: string;
+  DeveloperAddress1: string;
+  DeveloperAddress2: string;
+  DeveloperCity: string;
+  DeveloperState: string;
+  DeveloperPostalCode: string;
+  DeveloperCountry: string;
+  MobileNum: string;
+  Longitude: string;
+  Latitude: string;
+  LandSize: string;
+  VirtualVideo: string;
+  Remarks: string;
+  CreationDate: string;
+  ProjectCommenceDate: string;
+  DeveloperStatus: String;
+  LandId: string;
+}
+
+interface InvestorData {
+  InvestorId: string;
+  VirtualVideo: string;
+  InvestorName: string;
+  InvestorAddress1: string;
+  InvestorAddress2: string;
+  InvestorCity: string;
+  InvestorState: string;
+  InvestorCountry: string;
+  MobileNum: string;
+  Longitude: string;
+  Latitude: string;
+  LandSize: string;
+  LandRemarks: string;
+  CreationDate: string;
+  ProjectCommenceDate: string;
+  InvestorStatus: string;
+  LandId: string;
+}
+
+
+interface PlantationData {
+  PlantationPartnerId: string;
+  PlantationPartnerName: string;
+  PlantationPartnerAddress1: string;
+  PlantationPartnerAddress2: string;
+  PlantationPartnerCity: string;
+  PlantationPartnerState: string;
+  PlantationPartnerPostalCode: string;
+  PlantationPartnerCountry: string;
+  MobileNum: string;
+  Longitude: string;
+  Latitude: string;
+  LandSize: string;
+  VirtualVideo: string;
+  Remarks: string;
+  CreationDate: string;
+  ProjectCommenceDate: string;
+  PlantationPartnerStatus: string;
+  LandId: string;
+}
+
+interface VVBData {
+  VVBId: string;
+  VVBName: string;
+  VVBAddress1: string;
+  VVBAddress2: string;
+  VVBCity: string;
+  VVBState: string;
+  VVBPostalCode: string;
+  VVBCountry: string;
+  MobileNum: string;
+  Longitude: string;
+  Latitude: string;
+  LandSize: string;
+  VirtualVideo: string;
+  Remarks: string;
+  CreationDate: string;
+  ProjectCommenceDate: string;
+  VVBStatus: string;
+  LandId: string;
+}
+
+
 
 
 interface State {
@@ -58,8 +233,17 @@ const ListedLands: React.FC = () => {
   const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
   // const UserId: string | null = localStorage.getItem('UserId') ?? '';
   const UserType: string | null = localStorage.getItem('UserProfileType') ?? '';
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<LandItem | null>(null);
+
+  const [selectedLandItem, setSelectedLandItem] = useState<LandItem | null>(null);
+  const [selectedAdminItem, setSelectedAdminItem] = useState<AdminData | null>(null);
+  // const [selectedBuyerItem, setSelectedBuyerItem] = useState<BuyerData | null>(null);
+  const [selectedCRIItem, setSelectedCRIItem] = useState<CRIData | null>(null);
+  const [selectedDevItem, setSelectedDevItem] = useState<GoProjectData | null>(null);
+  const [selectedInvestorItem, setSelectedInvestorItem] = useState<InvestorData | null>(null);
+  const [selectedPlantItem, setSelectedPlantItem] = useState<PlantationData | null>(null);
+  const [selectedVVBItem, setSelectedVVBItem] = useState<VVBData | null>(null);
+  const [selectedGovtItem, setSelectedGovtItem] = useState<GovAgencyData | null>(null);
+
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [ShowFilterList, setShowFilterList] = useState<boolean>(false);
@@ -70,6 +254,17 @@ const ListedLands: React.FC = () => {
   const UserId: string | null = localStorage.getItem('UserId') ?? '';
   const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
 
+  // Dialog 
+  const [openLandDialog, setOpenLandDialog] = useState<boolean>(false);
+  const [openInvestorDialog, setOpenInvestorDialog] = useState<boolean>(false);
+  const [openDeveloperDialog, setOpenDeveloperDialog] = useState<boolean>(false);
+  const [openPlantDialog, setOpenPlantDialog] = useState<boolean>(false);
+  const [openVVBDialog, setOpenVVBDialog] = useState<boolean>(false);
+  const [openCRIDialog, setOpenCRIDialog] = useState<boolean>(false);
+  const [openGovtDialog, setOpenGovtDialog] = useState<boolean>(false);
+  const [openAdminDialog, setOpenAdminDialog] = useState<boolean>(false);
+  // const [openBuyerDialog, setOpenBuyerDialog] = useState<boolean>(false);
+
       useEffect(() => {
         const storedRecentSearch = localStorage.getItem('RecentSearch');
         if (storedRecentSearch !== null) {
@@ -79,7 +274,7 @@ const ListedLands: React.FC = () => {
       }, []);
 
 
-           useEffect(() => {
+    useEffect(() => {
             axios({
                 method: methodGet,
                 url: get_state,
@@ -131,13 +326,14 @@ const ListedLands: React.FC = () => {
                alert("Oops something went wrong " + err);
            });
           }
+          // This is for particular Land Owner 
       else {
       const lData = new FormData()
       lData.append('UserId', UserId);
       lData.append('UserProfileTypeId', UserProfileTypeId);
       axios({
         method: methodPost,
-        url: get_land_by_profile_users,
+        url: get_land_by_profile_users,  
         data: lData,
         headers: {
           'Authorization': `Bearer ${UserToken}`,
@@ -159,10 +355,55 @@ const ListedLands: React.FC = () => {
    }, [UserToken])
 
 
-  const handleOpenDialog = (item : LandItem) => {
-    setSelectedItem(item);
-    setOpenDialog(true);
+  const handleLandOpenDialog = (item : LandItem) => {
+    setSelectedLandItem(item);
+    setOpenLandDialog(true);
   };
+
+  const handleOpenInvestorDialog = (item : InvestorData) => {
+    setSelectedInvestorItem(item);
+    setOpenInvestorDialog(true);
+  };
+
+
+  const handleOpenDevDialog = (item : GoProjectData) => {
+    setSelectedDevItem(item);
+    setOpenDeveloperDialog(true);
+  };
+
+
+  const handleOpenPlantDialog = (item : PlantationData) => {
+    setSelectedPlantItem(item);
+    setOpenPlantDialog(true);
+  };
+
+  const handleOpenVVBDialog = (item : VVBData) => {
+    setSelectedVVBItem(item);
+    setOpenVVBDialog(true);
+  };
+
+  const handleOpenCRIDialog = (item : CRIData) => {
+    setSelectedCRIItem(item);
+    setOpenCRIDialog(true);
+  };
+
+  const handleOpenGovtDialog = (item : GovAgencyData) => {
+    setSelectedGovtItem(item);
+    setOpenGovtDialog(true);
+  };
+
+
+  const handleOpenAdminDialog = (item : AdminData) => {
+    setSelectedAdminItem(item);
+    setOpenAdminDialog(true);
+  };
+
+  // const handleOpenBuyerDialog = (item : BuyerData) => {
+  //   setSelectedBuyerItem(item);
+  //   setOpenBuyerDialog(true);
+  // };
+
+
 
 
   const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number,) => {
@@ -277,7 +518,17 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
            <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
              <Header isConnectedWallet={isConnectedWallet} />
             <Box p={1}>
-            <LandDataDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
+
+          <LandDataDialog openDialog={openLandDialog} setOpenDialog={setOpenLandDialog} i={selectedLandItem} />
+          <InvestorDataDialog openDialog={openInvestorDialog} setOpenDialog={setOpenInvestorDialog} i={selectedInvestorItem} />
+          <GoProjectLandDialog openDialog={openDeveloperDialog} setOpenDialog={setOpenDeveloperDialog} i={selectedDevItem} />
+          <PlantationLandDialog openDialog={openPlantDialog} setOpenDialog={setOpenPlantDialog} i={selectedPlantItem} />
+          <VVBLandDialog openDialog={openVVBDialog} setOpenDialog={setOpenVVBDialog} i={selectedVVBItem} />
+          <CRILandDialog openDialog={openCRIDialog} setOpenDialog={setOpenCRIDialog} i={selectedCRIItem} />
+          <GovtAgencyLandDialog openDialog={openGovtDialog} setOpenDialog={setOpenGovtDialog} i={selectedGovtItem} />
+          <AdminLandDialog openDialog={openAdminDialog} setOpenDialog={setOpenAdminDialog} i={selectedAdminItem} />
+          {/* <BuyerLandDialog openDialog={openBuyerDialog} setOpenDialog={setOpenBuyerDialog} i={selectedBuyerItem} /> */}
+
 
           <Container>
             <Box mb={1}>
@@ -405,6 +656,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             {
             UserType !== 'Land owner' ?
            <Box display='flex' justifyContent='space-between' flexDirection='row'>
+  {/* Add Form */}
             {
             UserType === 'Investor' &&  
             <Button size="small" color="primary" onClick={() => handleClickOpenInvestor(i.LandId)}>Invest</Button>
@@ -437,14 +689,46 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
             UserType === 'Buyers' &&
             <Button size="small" color="primary" onClick={() => handleClickOpenBuyer(i.LandId)}>Buy Land</Button>
             }
-              
-            <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
-             View
-            </Button>
+
+
+{/* View Button */}
+            {
+              UserType === 'Investor' &&
+              <Button size="small" color="primary" onClick={() => handleLandOpenDialog(i)}>View</Button>
+            }
+            {
+              UserType === 'GoGreenverz or Project Developer' &&
+              <Button size="small" color="primary" onClick={() => handleOpenInvestorDialog(i)}>View</Button>
+            }
+            {
+              UserType === 'Plantation Partner' &&
+              <Button size="small" color="primary" onClick={() => handleOpenDevDialog(i)}>View</Button>
+            }
+            {
+              UserType === 'Verification and Validation Body' &&
+              <Button size="small" color="primary" onClick={() => handleOpenPlantDialog(i)}>View</Button>
+            }
+            {
+              UserType === 'Carbon Registry of India' &&
+              <Button size="small" color="primary" onClick={() => handleOpenVVBDialog(i)} >View</Button>
+            }
+            {
+              UserType === 'Government Agencies' &&
+              <Button size="small" color="primary" onClick={() => handleOpenCRIDialog(i)} >View</Button>
+            }
+            {
+              UserType === 'Admin' &&
+              <Button size="small" color="primary" onClick={() => handleOpenGovtDialog(i)} >View</Button>
+            }
+            {
+              UserType === 'Buyers' &&
+              <Button size="small" color="primary" onClick={() => handleOpenAdminDialog(i)} >View</Button>
+            }
+
             </Box>
             :
             <Box display='flex' justifyContent='space-between' flexDirection='row'>
-            <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
+            <Button size="small" color="primary" onClick={()=>handleLandOpenDialog(i)}>
             View
             </Button>
          
@@ -558,13 +842,43 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
                   <Button size="small" color="primary" onClick={() => handleClickOpenBuyer(i.LandId)}>Buy Land</Button>
                 }
 
-            <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
-             View
-            </Button>
+{/* View Button */}
+            {
+            UserType === 'Investor' &&
+            <Button size="small" color="primary" onClick={() => handleLandOpenDialog(i)}>View</Button>
+            }
+            {
+            UserType === 'GoGreenverz or Project Developer' &&
+            <Button size="small" color="primary" onClick={() => handleOpenInvestorDialog(i)}>View</Button>
+            }
+            {
+            UserType === 'Plantation Partner' &&
+            <Button size="small" color="primary" onClick={() => handleOpenDevDialog(i)}>View</Button>
+            }
+            {
+            UserType === 'Verification and Validation Body' &&
+             <Button size="small" color="primary" onClick={() => handleOpenPlantDialog(i)}>View</Button>
+            }
+            {
+            UserType === 'Carbon Registry of India' &&
+            <Button size="small" color="primary" onClick={() => handleOpenVVBDialog(i)} >View</Button>
+            }
+            {
+            UserType === 'Government Agencies' &&
+            <Button size="small" color="primary" onClick={() => handleOpenCRIDialog(i)} >View</Button>
+            }
+            {
+            UserType === 'Admin' &&
+            <Button size="small" color="primary" onClick={() => handleOpenGovtDialog(i)} >View</Button>
+            }
+            {
+            UserType === 'Buyers' &&
+            <Button size="small" color="primary" onClick={() => handleOpenAdminDialog(i)} >View</Button>
+            }
             </Box>
             :
             <Box display='flex' justifyContent='space-between' flexDirection='row'>
-            <Button size="small" color="primary" onClick={()=>handleOpenDialog(i)}>
+            <Button size="small" color="primary" onClick={()=>handleLandOpenDialog(i)}>
             View
             </Button>
 

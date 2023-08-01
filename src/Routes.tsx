@@ -287,7 +287,7 @@ function Routes() {
             element: <ProfileUpdateForm />,
         },
         {
-            path:'aprrovaltab',
+            path:'approvaltab',
             element: <ApprovalTab />,
         }
         ]

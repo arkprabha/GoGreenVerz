@@ -48,7 +48,8 @@ interface CRIData {
   Remarks: string;
   CreationDate: string;
   ProjectCommenceDate: string;
-  CRIStatus: String;
+  CRIStatus: string;
+  LandId:string;
 }
 
 interface State {
@@ -183,7 +184,7 @@ const CRIUpdatedLands: React.FC = () => {
           const {
             CRIAddress1,
             CRIAddress2,
-            CRIOwnerId,
+            CRIId,
             CRICity,
             CRIState,
             CRICountry,
@@ -207,7 +208,7 @@ const CRIUpdatedLands: React.FC = () => {
             searchQuery.toLowerCase()
           );
           const matchesLongitude = Longitude.toString().includes(searchQuery);
-          const matchesCRIOwnerId = CRIOwnerId.toString().includes(searchQuery);
+          const matchesCRIOwnerId = CRIId.toString().includes(searchQuery);
           const matchesLatitude = Latitude.toString().includes(searchQuery);
 
           return (
@@ -540,7 +541,7 @@ const CRIUpdatedLands: React.FC = () => {
                 px={3}
               >
                 {slicedData.map((i) => (
-                  <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
+                  <Grid item xs={12} sm={6} md={4} lg={4} key={i.CRIId} my={3}>
                     <Card sx={{ maxWidth: 300, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
                       <CardActionArea>
                         {Loading ? (

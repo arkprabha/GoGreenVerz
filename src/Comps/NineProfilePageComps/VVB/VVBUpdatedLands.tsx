@@ -38,6 +38,7 @@ interface VVBData {
   CreationDate: string;
   ProjectCommenceDate: string;
   VVBStatus:String;
+  LandId: string;
 }
 
 
@@ -171,7 +172,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
     localStorage.setItem('RecentSearch', JSON.stringify(recentSearch));
     setShowFilterList(true);
     const filteredProducts = data && data.filter((i) => {
-    const {VVBAddress1, VVBAddress2 ,VVBOwnerId, VVBCity, VVBState, VVBCountry, Latitude, Longitude } = i;
+    const {VVBAddress1, VVBAddress2 ,VVBId, VVBCity, VVBState, VVBCountry, Latitude, Longitude } = i;
       // Apply the search logic based on your requirements
       const matchesCity = VVBCity.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesState = VVBState.toLowerCase().includes(searchQuery.toLowerCase());
@@ -179,7 +180,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
       const matchesAddress2 = VVBAddress2.toString().includes(searchQuery.toLowerCase());
       const matchesVVBCountry = VVBCountry.toString().includes(searchQuery.toLowerCase());
       const matchesLongitude = Longitude.toString().includes(searchQuery);
-      const matchesVVBOwnerId = VVBOwnerId.toString().includes(searchQuery);
+      const matchesVVBOwnerId = VVBId.toString().includes(searchQuery);
       const matchesLatitude = Latitude.toString().includes(searchQuery);
 
       return (
@@ -307,7 +308,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         }
         <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
           {VVBList.map((i) => (
-          <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
+            <Grid item xs={12} sm={6} md={4} lg={4} key={i.VVBId} my={3}>
            <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
             <CardActionArea>
         {Loading ? (

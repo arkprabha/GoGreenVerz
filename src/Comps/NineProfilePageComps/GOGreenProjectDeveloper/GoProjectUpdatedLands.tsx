@@ -171,7 +171,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
 
     setShowFilterList(true);
     const filteredProducts = data && data.filter((i) => {
-    const {DeveloperAddress1, DeveloperAddress2 ,DeveloperOwnerId, DeveloperCity, DeveloperState, DeveloperCountry, Latitude, Longitude } = i;
+    const {DeveloperAddress1, DeveloperAddress2 ,DeveloperId, DeveloperCity, DeveloperState, DeveloperCountry, Latitude, Longitude } = i;
       // Apply the search logic based on your requirements
       const matchesCity = DeveloperCity.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesState = DeveloperState.toLowerCase().includes(searchQuery.toLowerCase());
@@ -179,7 +179,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
       const matchesAddress2 = DeveloperAddress2.toString().includes(searchQuery.toLowerCase());
       const matchesDeveloperCountry = DeveloperCountry.toString().includes(searchQuery.toLowerCase());
       const matchesLongitude = Longitude.toString().includes(searchQuery);
-      const matchesDeveloperOwnerId = DeveloperOwnerId.toString().includes(searchQuery);
+      const matchesDeveloperOwnerId = DeveloperId.toString().includes(searchQuery);
       const matchesLatitude = Latitude.toString().includes(searchQuery);
 
       return (
@@ -307,7 +307,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         }
         <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
           {DeveloperList.map((i) => (
-          <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
+            <Grid item xs={12} sm={6} md={4} lg={4} key={i.DeveloperId} my={3}>
            <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
             <CardActionArea>
         {Loading ? (
@@ -406,7 +406,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         ) : (
           <>
             <Typography gutterBottom variant="h5" component="div" textAlign='left'>
-            {i.Developer}
+            {i.DeveloperId}
             </Typography>
             <Stack spacing={1}>
             <Box display='flex' gap={1} flexDirection='row'>

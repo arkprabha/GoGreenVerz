@@ -39,7 +39,8 @@ interface GovAgencyData {
   Remarks: string;
   CreationDate: string;
   ProjectCommenceDate: string;
-  GovAgencyStatus: String;
+  GovAgencyStatus: string;
+  LandId: string;
 }
 
 
@@ -174,7 +175,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
   
       setShowFilterList(true);
       const filteredProducts = data && data.filter((i) => {
-        const { GovAgencyAddress1, GovAgencyAddress2, GovAgencyOwnerId, GovAgencyCity, GovAgencyState, GovAgencyCountry, Latitude, Longitude } = i;
+        const { GovAgencyAddress1, GovAgencyAddress2, GovAgencyId, GovAgencyCity, GovAgencyState, GovAgencyCountry, Latitude, Longitude } = i;
         // Apply the search logic based on your requirements
         const matchesCity = GovAgencyCity.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesState = GovAgencyState.toLowerCase().includes(searchQuery.toLowerCase());
@@ -182,7 +183,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
         const matchesAddress2 = GovAgencyAddress2.toString().includes(searchQuery.toLowerCase());
         const matchesGovAgencyCountry = GovAgencyCountry.toString().includes(searchQuery.toLowerCase());
         const matchesLongitude = Longitude.toString().includes(searchQuery);
-        const matchesGovAgencyOwnerId = GovAgencyOwnerId.toString().includes(searchQuery);
+        const matchesGovAgencyOwnerId = GovAgencyId.toString().includes(searchQuery);
         const matchesLatitude = Latitude.toString().includes(searchQuery);
 
         return (
@@ -308,7 +309,7 @@ const GovtAgencyUpdatedLands: React.FC = () => {
                   }
                   <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
                     {GovAgencyList.map((i) => (
-                      <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
+                      <Grid item xs={12} sm={6} md={4} lg={4} key={i.GovAgencyId} my={3}>
                          <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
                           <CardActionArea>
                             {Loading ? (

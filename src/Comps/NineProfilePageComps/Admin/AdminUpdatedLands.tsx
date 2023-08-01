@@ -39,7 +39,8 @@ interface AdminData {
     Remarks: string;
     CreationDate: string;
     ProjectCommenceDate: string;
-    AdminStatus: String;
+    AdminStatus: string;
+    LandId: string;
 }
 
 
@@ -174,7 +175,7 @@ const AdminUpdatedLands: React.FC = () => {
        
             setShowFilterList(true);
             const filteredProducts = data && data.filter((i) => {
-                const { AdminAddress1, AdminAddress2, AdminOwnerId, AdminCity, AdminState, AdminCountry, Latitude, Longitude } = i;
+                const { AdminAddress1, AdminAddress2, AdminId, AdminCity, AdminState, AdminCountry, Latitude, Longitude } = i;
                 // Apply the search logic based on your requirements
                 const matchesCity = AdminCity.toLowerCase().includes(searchQuery.toLowerCase());
                 const matchesState = AdminState.toLowerCase().includes(searchQuery.toLowerCase());
@@ -182,7 +183,7 @@ const AdminUpdatedLands: React.FC = () => {
                 const matchesAddress2 = AdminAddress2.toString().includes(searchQuery.toLowerCase());
                 const matchesAdminCountry = AdminCountry.toString().includes(searchQuery.toLowerCase());
                 const matchesLongitude = Longitude.toString().includes(searchQuery);
-                const matchesAdminOwnerId = AdminOwnerId.toString().includes(searchQuery);
+                const matchesAdminOwnerId = AdminId.toString().includes(searchQuery);
                 const matchesLatitude = Latitude.toString().includes(searchQuery);
 
                 return (
@@ -310,7 +311,7 @@ const AdminUpdatedLands: React.FC = () => {
                                     }
                                     <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
                                         {AdminList.map((i) => (
-                                            <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
+                                            <Grid item xs={12} sm={6} md={4} lg={4} key={i.AdminId} my={3}>
                                                 <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
                                                     <CardActionArea>
                                                         {Loading ? (

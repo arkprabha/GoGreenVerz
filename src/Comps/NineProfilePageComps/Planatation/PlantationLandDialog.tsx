@@ -27,7 +27,8 @@ interface PlantationData {
   Remarks: string;
   CreationDate: string;
   ProjectCommenceDate: string;
-  PlantationPartnerStatus:String;
+  PlantationPartnerStatus:string;
+  LandId: string;
 }
 
 const PlantationLandDialog = ({ openDialog, setOpenDialog, i } : PlanatationDialogProps) => {

@@ -39,7 +39,8 @@ interface BuyerData {
   Remarks: string;
   CreationDate: string;
   ProjectCommenceDate: string;
-  BuyerStatus: String;
+  BuyerStatus: string;
+  LandId: string;
 }
 
 
@@ -174,7 +175,7 @@ const BoughtLands: React.FC = () => {
   
       setShowFilterList(true);
       const filteredProducts = data && data.filter((i) => {
-        const { BuyerAddress1, BuyerAddress2, BuyerOwnerId, BuyerCity, BuyerState, BuyerCountry, Latitude, Longitude } = i;
+        const { BuyerAddress1, BuyerAddress2, BuyerId, BuyerCity, BuyerState, BuyerCountry, Latitude, Longitude } = i;
         // Apply the search logic based on your requirements
         const matchesCity = BuyerCity.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesState = BuyerState.toLowerCase().includes(searchQuery.toLowerCase());
@@ -182,7 +183,7 @@ const BoughtLands: React.FC = () => {
         const matchesAddress2 = BuyerAddress2.toString().includes(searchQuery.toLowerCase());
         const matchesBuyerCountry = BuyerCountry.toString().includes(searchQuery.toLowerCase());
         const matchesLongitude = Longitude.toString().includes(searchQuery);
-        const matchesBuyerOwnerId = BuyerOwnerId.toString().includes(searchQuery);
+        const matchesBuyerOwnerId = BuyerId.toString().includes(searchQuery);
         const matchesLatitude = Latitude.toString().includes(searchQuery);
 
         return (
@@ -309,7 +310,7 @@ const BoughtLands: React.FC = () => {
                   }
                   <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
                     {BuyerList.map((i) => (
-                      <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
+                      <Grid item xs={12} sm={6} md={4} lg={4} key={i.BuyerId} my={3}>
                          <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
                           <CardActionArea>
                             {Loading ? (

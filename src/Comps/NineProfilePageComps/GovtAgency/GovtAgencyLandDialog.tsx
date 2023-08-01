@@ -27,7 +27,8 @@ interface GovAgencyData {
   Remarks: string;
   CreationDate: string;
   ProjectCommenceDate: string;
-  GovAgencyStatus: String;
+  GovAgencyStatus: string;
+  LandId: string;
 }
 
 const GovtAgencyLandDialog = ({ openDialog, setOpenDialog, i }: GovAgencyDialogProps) => {

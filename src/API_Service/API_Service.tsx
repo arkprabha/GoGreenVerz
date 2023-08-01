@@ -137,8 +137,14 @@ const get_user_status_count: string = `${baseApiurl}get_user_status_count`;
 
 const update_user: string = `${baseApiurl}update_user`; 
 
+const get_not_verified_profile_form: string = `${baseApiurl}get_not_verified_profile_form`;
+
+const verify_profile_by_developer: string = `${baseApiurl}verify_profile_by_developer`;
+
 export {
     get_all_user_profile_type,
+    verify_profile_by_developer,
+    get_not_verified_profile_form,
     update_user,
     get_user_status_count,
     get_land_by_profile_users,

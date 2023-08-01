@@ -27,7 +27,8 @@ interface AdminData {
     Remarks: string;
     CreationDate: string;
     ProjectCommenceDate: string;
-    AdminStatus: String;
+    AdminStatus: string;
+    LandId: string;
 }
 
 const AdminLandDialog = ({ openDialog, setOpenDialog, i }: AdminDialogProps) => {

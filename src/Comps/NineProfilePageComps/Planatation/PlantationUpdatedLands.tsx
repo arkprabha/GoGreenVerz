@@ -37,7 +37,8 @@ interface PlantationData {
   Remarks: string;
   CreationDate: string;
   ProjectCommenceDate: string;
-  PlantationPartnerStatus:String;
+  PlantationPartnerStatus:string;
+  LandId: string;
 }
 
 
@@ -171,7 +172,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
 
     setShowFilterList(true);
     const filteredProducts = data && data.filter((i) => {
-    const {PlantationPartnerAddress1, PlantationPartnerAddress2 ,PlantationPartnerOwnerId, PlantationPartnerCity, PlantationPartnerState, PlantationPartnerCountry, Latitude, Longitude } = i;
+    const {PlantationPartnerAddress1, PlantationPartnerAddress2 ,PlantationPartnerId, PlantationPartnerCity, PlantationPartnerState, PlantationPartnerCountry, Latitude, Longitude } = i;
       // Apply the search logic based on your requirements
       const matchesCity = PlantationPartnerCity.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesState = PlantationPartnerState.toLowerCase().includes(searchQuery.toLowerCase());
@@ -179,7 +180,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
       const matchesAddress2 = PlantationPartnerAddress2.toString().includes(searchQuery.toLowerCase());
       const matchesPlantationPartnerCountry = PlantationPartnerCountry.toString().includes(searchQuery.toLowerCase());
       const matchesLongitude = Longitude.toString().includes(searchQuery);
-      const matchesPlantationPartnerOwnerId = PlantationPartnerOwnerId.toString().includes(searchQuery);
+      const matchesPlantationPartnerOwnerId = PlantationPartnerId.toString().includes(searchQuery);
       const matchesLatitude = Latitude.toString().includes(searchQuery);
 
       return (
@@ -245,7 +246,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
 
            <Grid container spacing={2}  display='flex' justifyContent='space-between'>
        
-          <Grid item xs={12} sm={12} md={3} lg={3} height='auto' borderRight={{xs:'none' , sm:'none', md:'1px solid silver'}}>
+          <Grid item xs={12} sm={12} md={3} lg={3} height='auto'>
           <Box p={1}>
           <Box py={3}>
           <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center', }}>
@@ -308,7 +309,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         }
         <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
           {PlantationPartnerList.map((i) => (
-          <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
+          <Grid item xs={12} sm={6} md={4} lg={4} key={i.PlantationPartnerId} my={3}>
            <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
             <CardActionArea>
         {Loading ? (
@@ -407,7 +408,7 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
         ) : (
           <>
             <Typography gutterBottom variant="h5" component="div" textAlign='left'>
-            {i.PlantationPartner}
+            {i.PlantationPartnerId}
             </Typography>
             <Stack spacing={1}>
             <Box display='flex' gap={1} flexDirection='row'>
