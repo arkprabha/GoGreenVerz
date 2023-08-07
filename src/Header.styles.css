@@ -7,7 +7,6 @@ input {
     position: relative;
     align-items: flex-end;
     display: flex;
-    background-color: #ffffee;
 }
 
 .desktop-1-42aa .auto-group-wh57-8wY {
@@ -17,6 +16,7 @@ input {
     flex-shrink: 0;
     flex-direction: row;
     justify-content: space-between;
+    mix-blend-mode: multiply;
 }
 
 .desktop-1-42aa .auto-group-wh57-8wY .removebg-preview-1-FoC {
@@ -31,9 +31,9 @@ input {
 
 .desktop-1-42aa .auto-group-wh57-8wY .home-VSe {
     font-size: 1.2rem;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.2125;
-    color: #00674b;
+    color: #455636;
     font-family: Inter, 'Source Sans Pro';
     white-space: nowrap;
     flex-shrink: 0;

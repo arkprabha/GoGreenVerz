@@ -104,7 +104,7 @@ export default function UpdatePlantationForm() {
                 } else {
                     setMessage(res.data.message)
                     setState(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -136,7 +136,7 @@ export default function UpdatePlantationForm() {
                 } else {
                     setMessage(res.data.message)
                     setCityList(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -196,7 +196,7 @@ export default function UpdatePlantationForm() {
                     setTotalLand(res.data.data.TotalLand);
                     setRecommendation(res.data.data.Recommendation);
                     setPlantationPartnerStatus(res.data.data.PlantationPartnerStatus);
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
                 

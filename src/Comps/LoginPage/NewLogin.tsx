@@ -28,7 +28,7 @@ export default function NewLoginPage() {
         return (
             <Typography variant="body2" color="text.secondary" align="center" {...props}>
                 Wanna Plant a Tree?
-                <Link color="inherit" style={{ marginLeft: 2 }} to="/signup">
+                <Link color="inherit" style={{ marginLeft: 3 }} to="/signup">
                     Sign up
                 </Link>{' '}
             </Typography>

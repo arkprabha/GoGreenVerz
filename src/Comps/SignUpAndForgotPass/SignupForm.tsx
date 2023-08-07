@@ -302,9 +302,9 @@ export default function SignUpForm() {
                             Sign Up
                         </Button>
                         <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                <Link href="#" variant="body2" onClick={()=>navigate('/')}>
-                                    Already have an account? Sign in
+                            <Grid item display='flex' flexDirection='row'>
+                                <Link href="#" style={{textDecoration:'none'}} variant="body2" onClick={()=>navigate('/')}>
+                                Already have an account? <Typography component='span' variant="body2" sx={{marginLeft:1}}> Sign in</Typography>
                                 </Link>
                             </Grid>
                         </Grid>

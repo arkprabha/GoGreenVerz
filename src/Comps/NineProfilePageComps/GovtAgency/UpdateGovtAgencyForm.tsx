@@ -100,7 +100,7 @@ export default function UpdateGovtAgencyForm() {
                 } else {
                     setMessage(res.data.message)
                     setState(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -132,7 +132,7 @@ export default function UpdateGovtAgencyForm() {
                 } else {
                     setMessage(res.data.message)
                     setCityList(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -186,7 +186,7 @@ export default function UpdateGovtAgencyForm() {
                     setAuditReport(res.data.data.AuditReport);
                     setComplianceRecord(res.data.data.ComplianceRecord);
                     setGovAgencyStatus(res.data.data.GovAgencyStatus);
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
                 

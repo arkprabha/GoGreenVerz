@@ -105,7 +105,7 @@ const CRIUpdatedLands: React.FC = () => {
         } else {
           setMessage(res.data.message);
           setState(res.data.data);
-          setOpen(true);
+          setOpen(false)
           setStatus(true);
           setColor(true);
         }

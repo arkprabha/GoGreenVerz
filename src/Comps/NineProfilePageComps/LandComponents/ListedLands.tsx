@@ -290,7 +290,7 @@ const ListedLands: React.FC = () => {
                 } else {
                     setMessage(res.data.message)
                     setState(res.data.data)
-                    setOpen(true)
+                  setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -511,6 +511,18 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
     navigate('/govtagencyform', { state: { id: id } })
   }
 
+  const profileTypeNames = {
+    'Land owner': 'Listed Lands',
+    'Investor': 'Listed Lands',
+    'GoGreenverz or Project Developer': 'Invested Lands',
+    'Plantation Partner': 'GGV Approved',
+    'Verification and Validation Body': 'Plantation Filled',
+    'Carbon Registry of India': 'VVB Filled',
+    'Government Agencies': 'CRI Filled',
+    'Admin': 'GA Approved',
+    'Buyers': 'Listed Lands'
+  };
+
 
 
     return (
@@ -535,7 +547,9 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
               <Grid container>
                 <Grid item xs={12} md={12} lg={12} xl={12}>
               <Box width='100%' textAlign='center' py={2} className="text-container">
-                    <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem'}} > Listed Lands</Typography> </Box>
+                    <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem'}} >
+                      {profileTypeNames[UserType as keyof typeof profileTypeNames]}
+                </Typography></Box>
                 </Grid>
               </Grid>
             </Box>

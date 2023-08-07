@@ -22,25 +22,24 @@ interface PropType {
     setStatus: (open: boolean) => void;
     setColor: (open: boolean) => void;
     LandId:string,
+    UserProfileTypeId: string;
 }
 
 
 
-export default function VerifyDialog({LandId, openVerifyDialog,  setMessage, setOpen, setStatus, setColor, setOpenVerifyDialog, options, selectedStatus, setSelectedStatus } : PropType) {
+export default function VerifyDialog({UserProfileTypeId , LandId, openVerifyDialog,  setMessage, setOpen, setStatus, setColor, setOpenVerifyDialog, options, selectedStatus, setSelectedStatus } : PropType) {
 
     const handleClose = () => {
         setOpenVerifyDialog(false);
     };
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserId') ?? '';
-    const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
 
     const handleSubmit = () => {
         const obj = {
             LandId: LandId,
             UserProfileTypeId: UserProfileTypeId,
-            DeveloperId:UserId,
-            Status:selectedStatus,
+            UserId:UserId,
             IsGGVVerify: selectedStatus === 'GGV Verified' ? '1' : '0',
         }
 

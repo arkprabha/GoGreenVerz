@@ -113,7 +113,7 @@ export default function UpdateAfforestForm() {
       } else {
         setMessage(res.data.message)
         setState(res.data.data)
-        setOpen(true)
+        setOpen(false)
         setStatus(true)
         setColor(true)
 
@@ -147,7 +147,7 @@ export default function UpdateAfforestForm() {
         } else {
           setMessage(res.data.message)
           setDistrictList(res.data.data)
-          setOpen(true)
+          setOpen(false)
           setStatus(true)
           setColor(true)
 
@@ -183,7 +183,7 @@ export default function UpdateAfforestForm() {
           setColor(false)
         } else {
           setMessage(res.data.message)
-          setOpen(true)
+          setOpen(false)
           setStatus(true)
           setColor(true)
           setVillageList(res.data.data)
@@ -214,7 +214,7 @@ export default function UpdateAfforestForm() {
         setColor(false)
       } else {
         setMessage(res.data.message)
-        setOpen(true)
+        setOpen(false)
         setStatus(true)
         setColor(true)
         setCompanyName(res.data.data.CompanyName)

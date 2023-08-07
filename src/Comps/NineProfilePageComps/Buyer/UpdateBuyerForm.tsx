@@ -101,7 +101,7 @@ export default function UpdateBuyerForm() {
                 } else {
                     setMessage(res.data.message)
                     setState(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -133,7 +133,7 @@ export default function UpdateBuyerForm() {
                 } else {
                     setMessage(res.data.message)
                     setCityList(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -189,7 +189,7 @@ export default function UpdateBuyerForm() {
                     setPaymentHistory(res.data.data.PaymentHistory);
                     setBuyerStatus(res.data.data.BuyerStatus);
                     setRemarks(res.data.data.Remarks);
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
                 

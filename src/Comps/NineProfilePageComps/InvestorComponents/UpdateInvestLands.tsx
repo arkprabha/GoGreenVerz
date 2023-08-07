@@ -101,7 +101,7 @@ export default function UpdateInvestLands() {
                 } else {
                     setMessage(res.data.message)
                     setState(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -133,7 +133,7 @@ export default function UpdateInvestLands() {
                 } else {
                     setMessage(res.data.message)
                     setCityList(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -192,7 +192,7 @@ export default function UpdateInvestLands() {
                     setTermsAndConditionsFile(res.data.data.TermsAndConditionsFile)
                     setLandSize(res.data.data.LandSize);
                     setLandId(res.data.data.LandSize);
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
                 

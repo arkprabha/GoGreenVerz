@@ -59,6 +59,7 @@ export default function LandQueue({data , Loading} : PropType) {
   const [color, setColor] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
+  const UserProfileTypeId: string = '1';
   const [openLandDialog, setOpenLandDialog] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<LandItem | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -96,7 +97,7 @@ export default function LandQueue({data , Loading} : PropType) {
       } else {
         setMessage(res.data.message)
         setState(res.data.data)
-        setOpen(true)
+        setOpen(false)
         setStatus(true)
         setColor(true)
 
@@ -188,7 +189,7 @@ export default function LandQueue({data , Loading} : PropType) {
   }
 
 
-  const options = ['Active', 'In Active', 'Completed', 'GGV Verified'];
+   const options = ['GGV Verified'];
 
 
   return (
@@ -198,7 +199,7 @@ export default function LandQueue({data , Loading} : PropType) {
 
         <LandDataDialog openDialog={openLandDialog} setOpenDialog={setOpenLandDialog} i={selectedItem} />
 
-        <VerifyDialog setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
+        <VerifyDialog UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
 
         <Grid container spacing={2} display='flex' justifyContent='space-between'>
 

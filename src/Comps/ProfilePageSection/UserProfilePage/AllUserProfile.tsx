@@ -65,7 +65,7 @@ export default function AllUserProfile() {
                     setMessage(res.data.message);
                     setUserData(res.data.Data);
                     setStatusData(res.data.Status);
-                    setOpen(true);
+                    setOpen(false)
                     setStatus(true);
                     setColor(true);
                 }
@@ -95,7 +95,7 @@ export default function AllUserProfile() {
                             alignItems="center"
                             display="flex"
                            justifyContent='space-between'
-                            bgcolor='#008080'
+                            bgcolor='#C8CDC2'
                         >
                             <Box
                                 display="flex"
@@ -114,19 +114,19 @@ export default function AllUserProfile() {
                                 />
                            
                             <Box px={2}>
-                                <Typography color="#F9F9F8" fontWeight={600} fontSize={17}>
+                                <Typography color="#455636" fontWeight={600} fontSize={17}>
                                     {userData?.UserName}
                                 </Typography>
-                                <Typography color="#F9F9F8" variant="subtitle1">
+                                <Typography color="#455636" variant="subtitle1">
                                     {UserProfileType}
                                 </Typography>
-                                <Typography color="#ACE1AF" variant="caption">
+                                <Typography color="#D6A31E" variant="caption">
                                     Customer Id : {userData?.UserUniqueId}
                                 </Typography>
                             </Box>
                             </Box>
                             <Box alignSelf="start">
-                                <AccountBoxIcon sx={{ color: '#F9F9F8' }} fontSize="large" />
+                                <AccountBoxIcon sx={{ color: '#455636' }} fontSize="large" />
                             </Box>
                         </Box>
                         <Box
@@ -138,16 +138,16 @@ export default function AllUserProfile() {
                             display="flex"
                             justifyContent="space-between"
                             flexDirection="column"
-                            bgcolor='#008080'
+                            bgcolor='#C8CDC2'
                         >
                             <Box
                                 display="flex"
                                 justifyContent="space-between"
                                 flexDirection="row"
                             >
-                                <Typography color="#F9F9F8" fontWeight={600}>Status</Typography>
+                                <Typography color="#455636" fontWeight={600}>Status</Typography>
                                 <Box alignSelf="center">
-                                    <LandscapeIcon sx={{ color: '#F9F9F8' }} fontSize="large" />
+                                    <LandscapeIcon sx={{ color: '#455636' }} fontSize="large" />
                                 </Box>
                             </Box>
                             <Box
@@ -158,8 +158,8 @@ export default function AllUserProfile() {
                             >
                                 {Object.keys(StatusData).map((key) => (
                                     <Box textAlign="center" key={key}>
-                                    <Typography color="#F9F9F8">{key}</Typography>
-                                    <Typography color={key !== 'Expired' ? "#ACE1AF" : "#c2312f" }>{StatusData[key].length}</Typography>
+                                    <Typography color="#455636">{key}</Typography>
+                                    <Typography color={key !== 'Expired' ? "#D6A31E" : "#c2312f" }>{StatusData[key].length}</Typography>
                                     </Box>
                                 ))}
                             </Box>
@@ -174,17 +174,17 @@ export default function AllUserProfile() {
                             display="flex"
                             justifyContent="space-between"
                             flexDirection="column"
-                            bgcolor='#008080'
+                            bgcolor='#C8CDC2'
                         >
                             <Box
                                 display="flex"
                                 justifyContent="space-between"
                                 flexDirection="row"
                             >
-                                <Typography fontWeight={600} color="#F9F9F8">Work</Typography>
+                                <Typography fontWeight={600} color="#455636">Work</Typography>
                                 <Box alignSelf="center">
                                     <FormatListBulletedIcon
-                                        sx={{ color: '#F9F9F8' }}
+                                        sx={{ color: '#455636' }}
                                         fontSize="large"
                                     />
                                 </Box>
@@ -201,16 +201,16 @@ export default function AllUserProfile() {
                             display="flex"
                             justifyContent="space-between"
                             flexDirection="column"
-                            bgcolor='#008080'
+                            bgcolor='#C8CDC2'
                         >
                             <Box
                                 display="flex"
                                 justifyContent="space-between"
                                 flexDirection="row"
                             >
-                                <Typography fontWeight={600} color="#F9F9F8">Contact</Typography>
+                                <Typography fontWeight={600} color="#455636">Contact</Typography>
                                 <Box alignSelf="center">
-                                    <ContactsIcon sx={{ color: '#F9F9F8' }} fontSize="large" />
+                                    <ContactsIcon sx={{ color: '#455636' }} fontSize="large" />
                                 </Box>
                             </Box>
                             <Box mt={5}>
@@ -223,24 +223,24 @@ export default function AllUserProfile() {
                                 >
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
                                         <Box textAlign="center" display="flex" flexDirection="column" >
-                                            <Typography color="#F9F9F8">Phone Number</Typography>
-                                            <Typography color="#ACE1AF" variant="subtitle2">
+                                            <Typography color="#455636">Phone Number</Typography>
+                                            <Typography color="#D6A31E" variant="subtitle2">
                                                 {userData?.UserMobile}
                                             </Typography>
                                         </Box>
                                     </Grid>
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
                                         <Box textAlign="center" display="flex" flexDirection="column">
-                                            <Typography color="#F9F9F8">Email</Typography>
-                                            <Typography color="#ACE1AF" variant="subtitle2">
+                                            <Typography color="#455636">Email</Typography>
+                                            <Typography color="#D6A31E" variant="subtitle2">
                                                 {userData?.UserEmail}
                                             </Typography>
                                         </Box>
                                     </Grid>
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
                                         <Box textAlign="center" display="flex" flexDirection="column">
-                                            <Typography color="#F9F9F8">Address</Typography>
-                                            <Typography color="#ACE1AF" variant="subtitle2">
+                                            <Typography color="#455636">Address</Typography>
+                                            <Typography color="#D6A31E" variant="subtitle2">
                                                 {userData?.UserCity}, {userData?.UserState}
                                             </Typography>
                                         </Box>

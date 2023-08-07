@@ -100,7 +100,7 @@ export default function UpdateAdminForm() {
                 } else {
                     setMessage(res.data.message)
                     setState(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -133,7 +133,7 @@ export default function UpdateAdminForm() {
                 } else {
                     setMessage(res.data.message)
                     setCityList(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -188,7 +188,7 @@ export default function UpdateAdminForm() {
                     setDataAnalytics(res.data.data.DataAnalytics);
                     setAdminStatus(res.data.data.AdminStatus);
                     setRemarks(res.data.data.Remarks);
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
                 

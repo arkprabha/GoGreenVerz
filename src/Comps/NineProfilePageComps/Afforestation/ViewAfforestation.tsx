@@ -75,7 +75,7 @@ export default function ViewAfforestion() {
             } else {
                 setMessage(res.data.message)
                 setState(res.data.data)
-                setOpen(true)
+                setOpen(false)
                 setStatus(true)
                 setColor(true)
 
@@ -107,7 +107,7 @@ export default function ViewAfforestion() {
                 } else {
                     setMessage(res.data.message)
                     setDistrictList(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -143,7 +143,7 @@ export default function ViewAfforestion() {
                     setColor(false)
                 } else {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
                     setCompanyName(res.data.data.CompanyName)

@@ -75,7 +75,7 @@ export default function ProfileUpdateForm() {
                     setColor(false);
                 } else {
                     setMessage(res.data.message);
-                    setOpen(true);
+                  setOpen(false)
                     setStatus(true);
                     setColor(true);
                   setUserName(res.data.Data.UserName)

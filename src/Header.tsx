@@ -1,6 +1,6 @@
 import { Box, Typography, Grid , MenuItem, Menu} from '@mui/material';
 import { useNavigate} from 'react-router-dom';
-import RemoveBg from './assets/NewLogo.png';
+import RemoveBg from './assets/unnamed-removebg-preview.png';
 import './Header.styles.css';
 import {useState} from "react";
 import Snackbar from '@mui/material/Snackbar';
@@ -38,7 +38,11 @@ export default function Header({ isConnectedWallet} : HeaderProps) {
 
 
   const handleOpenPage = (item: string) => {
-    if (isConnectedWallet === 'true') { 
+      navigate(`/${item}`);
+  };
+
+  const handleMenuOpenPage = (item: string) => {
+    if (isConnectedWallet === 'true') {
       setIsSnackbarOpen(false);
       navigate(`/${item}`);
     } else {
@@ -46,12 +50,10 @@ export default function Header({ isConnectedWallet} : HeaderProps) {
     }
   };
 
-
 const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
   if (reason === 'clickaway') {
     return;
   }
-
   setIsSnackbarOpen(false);
 };
 
@@ -63,6 +65,18 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
 
   const  UserProfileType: string | null = localStorage.getItem('UserProfileType') ?? '';
 
+  const profileTypeNames = {
+    'Land owner': 'Listed Lands',
+    'Investor': 'Listed Lands',
+    'GoGreenverz or Project Developer': 'Invested Lands',
+    'Plantation Partner': 'GGV Approved',
+    'Verification and Validation Body': 'Plantation Filled',
+    'Carbon Registry of India': 'VVB Filled',
+    'Government Agencies': 'CRI Filled',
+    'Admin': 'GA Approved',
+    'Buyers': 'Listed Lands'
+  };
+
   return (
     <div className="desktop-1-42aa" style={{boxShadow:'10px'}}>
     <Grid container spacing={2}>
@@ -73,7 +87,7 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
                 </Box>
               <Box display='flex' flexDirection='row'>
               <Typography className="home-VSe" onClick={() =>navigate('/home')}>Home</Typography>
-              <Typography className="home-VSe" onClick={handleClick}>Menu</Typography>
+              <Typography className="home-VSe" onClick={handleClick}>NFT</Typography>
               <Box>
                 <Menu
                   className="home-VSe"
@@ -86,18 +100,24 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
                   }}
                   sx={{ padding: 2, marginTop: 1 }}
                 >
-                  <MenuItem onClick={() => handleOpenPage('contribution')} sx={{ fontSize: 16 }}>Contribution</MenuItem>
-                  <MenuItem onClick={() => handleOpenPage('footprint')} sx={{ fontSize: 16 }}>Carbon Footprint</MenuItem>
-                  <MenuItem onClick={() => handleOpenPage('trackproject')} sx={{ fontSize: 16 }}>Project Tracking</MenuItem>
-                  <MenuItem onClick={() => handleOpenPage('offset')} sx={{ fontSize: 16 }}>Carbon Offset</MenuItem>
-                  <MenuItem onClick={() => handleOpenPage('mrv')} sx={{ fontSize: 16 }}>Renewal</MenuItem>
+                  <MenuItem onClick={() => handleMenuOpenPage('contribution')} sx={{ fontSize: 16 }}>Contribution</MenuItem>
+                  <MenuItem onClick={() => handleMenuOpenPage('footprint')} sx={{ fontSize: 16 }}>Carbon Footprint</MenuItem>
+                  <MenuItem onClick={() => handleMenuOpenPage('trackproject')} sx={{ fontSize: 16 }}>Project Tracking</MenuItem>
+                  <MenuItem onClick={() => handleMenuOpenPage('offset')} sx={{ fontSize: 16 }}>Carbon Offset</MenuItem>
+                  <MenuItem onClick={() => handleMenuOpenPage('mrv')} sx={{ fontSize: 16 }}>Renewal</MenuItem>
                   {
                     UserProfileType === 'GoGreenverz or Project Developer' &&
                     <MenuItem onClick={() => handleOpenPage('afforestation')} sx={{ fontSize: 16 }}>Afforestation</MenuItem>
                   }
                 </Menu>
               </Box>
-              <Typography className="home-VSe" onClick={() => handleOpenPage('listedlands')}>Listed Lands</Typography>
+                {
+                  UserProfileType && (
+                  <Typography className="home-VSe" onClick={() => handleOpenPage('listedlands')}>
+                      {profileTypeNames[UserProfileType as keyof typeof profileTypeNames]}
+                    </Typography>
+                  )
+                }
               {
               UserProfileType === 'Land owner' && <Typography className="home-VSe" onClick={() => handleOpenPage('addyourlands')}>Add Lands</Typography>
               }
@@ -105,7 +125,7 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
               UserProfileType === 'Investor' &&  <Typography className="home-VSe" onClick={() => handleOpenPage('investedlands')}>Invested Lands</Typography>
               }
               {
-              UserProfileType === 'GoGreenverz or Project Developer' && <Typography className="home-VSe" onClick={() => handleOpenPage('devsubmittedlands')}>Submitted Lands</Typography>
+              UserProfileType === 'GoGreenverz or Project Developer' && <Typography className="home-VSe" onClick={() => handleOpenPage('devsubmittedlands')}>Approved Lands</Typography>
               }
               {
               UserProfileType === 'Plantation Partner' && <Typography className="home-VSe" onClick={() => handleOpenPage('myfilledlands')}>My Filled Lands</Typography>
@@ -127,7 +147,7 @@ const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
               }
 
               {
-                UserProfileType === 'GoGreenverz or Project Developer' ? <Typography className="home-VSe" onClick={() => handleOpenPage('approvaltab')}>Approval</Typography>
+                UserProfileType === 'GoGreenverz or Project Developer' ? <Typography className="home-VSe" onClick={() => handleOpenPage('approvaltab')}>Dashboard</Typography>
                 :
               <Typography className="home-VSe" onClick={() => handleOpenPage('afforestation')}>Afforestation</Typography>
               }

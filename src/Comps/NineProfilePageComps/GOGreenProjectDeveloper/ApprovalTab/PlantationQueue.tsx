@@ -68,7 +68,7 @@ export default function PlantationQueue({ data , Loading}: PropType) {
   const [message, setMessage] = useState<string>('');
   const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
   // const UserId: string | null = localStorage.getItem('UserId') ?? '';
-  // const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
+  const UserProfileTypeId: string = '4';
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<PlantationData | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -106,7 +106,7 @@ export default function PlantationQueue({ data , Loading}: PropType) {
       } else {
         setMessage(res.data.message)
         setState(res.data.data)
-        setOpen(true)
+        setOpen(false)
         setStatus(true)
         setColor(true)
 
@@ -203,7 +203,7 @@ export default function PlantationQueue({ data , Loading}: PropType) {
   }
 
 
-  const options = ['Active', 'In Active', 'Completed', 'GGV Verified'];
+   const options = ['GGV Verified'];
 
 
 
@@ -215,7 +215,7 @@ export default function PlantationQueue({ data , Loading}: PropType) {
       <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
       <Box p={1}>
         <PlantationLandDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
-        <VerifyDialog setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
+        <VerifyDialog UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
 
         <Grid container spacing={2} display='flex' justifyContent='space-between'>
 

@@ -24,7 +24,7 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     mt={3}
                     justifyContent="space-around"
                 >
-                    <Box textAlign="center">
+                    <Box textAlign="center" onClick={() => navigate('/listedlands')}>
                         <Typography color="#F9F9F8">Added Lands</Typography>
                             <Typography color="#ACE1AF">{totalFormCount}</Typography>
                     </Box>
@@ -32,7 +32,7 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                         <Typography color="#F9F9F8">New Land</Typography>
                         <Typography color="#ACE1AF">
                             <AddCircleOutlineIcon
-                                onClick={() => navigate('/listedlands')}
+                            onClick={() => navigate('/addyourlands')}
                             />
                         </Typography>
                     </Box>
@@ -90,7 +90,7 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8" onClick={() => navigate('/listedlands')}>Listed Lands</Typography>
+                    <Typography color="#F9F9F8" onClick={() => navigate('/devsubmittedlands')}>GGV Dev Form Filled</Typography>
                         <Typography color="#ACE1AF">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
@@ -121,8 +121,8 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     mt={3}
                     justifyContent="space-around"
                 >
-                    <Box textAlign="center" onClick={() => navigate('/listedlands')}>
-                        <Typography color="#F9F9F8">Listed Lands</Typography>
+                        <Box textAlign="center" onClick={() => navigate('/myfilledlands')}>
+                        <Typography color="#F9F9F8">Plantation Form Filled</Typography>
                         <Typography color="#ACE1AF">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
@@ -153,8 +153,8 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     mt={3}
                     justifyContent="space-around"
                 >
-                    <Box textAlign="center" onClick={() => navigate('/listedlands')}>
-                        <Typography color="#F9F9F8">Listed Lands</Typography>
+                        <Box textAlign="center" onClick={() => navigate('/vvblandsubmissions')}>
+                            <Typography color="#F9F9F8">VVB Form Filled</Typography>
                         <Typography color="#ACE1AF">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
@@ -185,8 +185,8 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     mt={3}
                     justifyContent="space-around"
                 >
-                    <Box textAlign="center" onClick={() => navigate('/listedlands')}>
-                        <Typography color="#F9F9F8" >Listed Lands</Typography>
+                        <Box textAlign="center" onClick={() => navigate('/crisubmissions')}>
+                            <Typography color="#F9F9F8" >CRI Form Filled</Typography>
                         <Typography color="#ACE1AF">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
@@ -218,7 +218,7 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8" onClick={() => navigate('/listedlands')}>Listed Lands</Typography>
+                    <Typography color="#F9F9F8" onClick={() => navigate('/govtsubmissions')}>GovtAgency Form Filled</Typography>
                         <Typography color="#ACE1AF">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
@@ -249,8 +249,8 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     mt={3}
                     justifyContent="space-around"
                 >
-                    <Box textAlign="center" onClick={() => navigate('/listedlands')}>
-                        <Typography color="#F9F9F8">Listed Lands</Typography>
+                        <Box textAlign="center" onClick={() => navigate('/adminsubmittedlands')}>
+                            <Typography color="#F9F9F8">Admin Form Filled</Typography>
                         <Typography color="#ACE1AF">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
@@ -281,15 +281,15 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     mt={3}
                     justifyContent="space-around"
                 >
-                    <Box textAlign="center" onClick={() => navigate('/listedlands')}>
-                        <Typography color="#F9F9F8">Listed Lands</Typography>
+                        <Box textAlign="center" onClick={() => navigate('/yourlands')}>
+                        <Typography color="#F9F9F8">Bought Lands</Typography>
                         <Typography color="#ACE1AF">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">Your Lands</Typography>
+                        <Typography color="#F9F9F8">Buy Lands</Typography>
                         <Typography color="#ACE1AF">
                             <AddCircleOutlineIcon
-                                onClick={() => navigate('/yourlands')}
+                                    onClick={() => navigate('/listedlands')}
                             />
                         </Typography>
                     </Box>

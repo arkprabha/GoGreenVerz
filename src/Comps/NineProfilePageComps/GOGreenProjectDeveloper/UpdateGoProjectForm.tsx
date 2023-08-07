@@ -96,7 +96,7 @@ export default function UpdateGoProjectForm() {
                 } else {
                     setMessage(res.data.message)
                     setState(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -128,7 +128,7 @@ export default function UpdateGoProjectForm() {
                 } else {
                     setMessage(res.data.message)
                     setCityList(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -185,7 +185,7 @@ export default function UpdateGoProjectForm() {
                     setDevelopmentReport(res.data.data.DevelopmentReport);
                     setDeveloperStatus(res.data.data.DeveloperStatus);
                     setRemarks(res.data.data.Remarks);
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
                 

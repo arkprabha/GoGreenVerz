@@ -19,7 +19,7 @@ const SnackBar = ({ open, message, setOpen, status, color } : SnackBarProps) => 
         <Snackbar
             open={open}
             autoHideDuration={1500}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left'}}
             onClose={() => setOpen(false)}
             TransitionComponent={GrowTransition}
         >

@@ -48,7 +48,7 @@ export default function AfforestationDoneLands() {
         setColor(false)
       } else {
         setMessage(res.data.message)
-        setOpen(true)
+        setOpen(false)
         setStatus(true)
         setColor(true)
         setData(res.data.data);

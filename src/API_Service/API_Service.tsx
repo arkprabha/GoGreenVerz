@@ -1,7 +1,11 @@
 // this is for common path for api
 
 // this is for development server 
-const baseApiurl: string =  `https://gogreenverz.in/api/`;
+// const baseApiurl: string =  `https://gogreenverz.in/api/`;
+
+
+// this is for development server 2
+const baseApiurl: string = `https://gogreenverz.in/api/uat/`;
 
 
 // File Path For User's Profile image:

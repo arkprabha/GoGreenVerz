@@ -98,7 +98,7 @@ export default function UpdateCRICarbonForm() {
                 } else {
                     setMessage(res.data.message)
                     setState(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -130,7 +130,7 @@ export default function UpdateCRICarbonForm() {
                 } else {
                     setMessage(res.data.message)
                     setCityList(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -185,7 +185,7 @@ export default function UpdateCRICarbonForm() {
                     setCCReport(res.data.data.CCReport);
                     setCCTradingHistory(res.data.data.CCTradingHistory);
                     setCRIStatus(res.data.data.CRIStatus);
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
                 

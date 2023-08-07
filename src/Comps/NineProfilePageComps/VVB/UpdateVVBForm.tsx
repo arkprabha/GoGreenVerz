@@ -99,7 +99,7 @@ export default function UpdateVVBForm() {
                 } else {
                     setMessage(res.data.message)
                     setState(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -131,7 +131,7 @@ export default function UpdateVVBForm() {
                 } else {
                     setMessage(res.data.message)
                     setCityList(res.data.data)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
 
@@ -188,7 +188,7 @@ export default function UpdateVVBForm() {
                     setInspectionFindings(res.data.data.InspectionFindings);
                     setCarbonCredit(res.data.data.CarbonCredit);
                     setVVBStatus(res.data.data.VVBStatus);
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(true)
                     setColor(true)
                 
