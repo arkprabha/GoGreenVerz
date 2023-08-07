@@ -91,7 +91,7 @@ export default function AllUserProfile() {
                         <Box
                             component={Card}
                             p={4}
-                            boxShadow={5}
+                            boxShadow={8}
                             alignItems="center"
                             display="flex"
                            justifyContent='space-between'
@@ -120,7 +120,7 @@ export default function AllUserProfile() {
                                 <Typography color="#455636" variant="subtitle1">
                                     {UserProfileType}
                                 </Typography>
-                                <Typography color="#D6A31E" variant="caption">
+                                <Typography color="#808000" variant="caption">
                                     Customer Id : {userData?.UserUniqueId}
                                 </Typography>
                             </Box>
@@ -133,7 +133,7 @@ export default function AllUserProfile() {
                             mt={1}
                             mb={2}
                             component={Card}
-                            boxShadow={5}
+                            boxShadow={8}
                             p={2}
                             display="flex"
                             justifyContent="space-between"
@@ -159,7 +159,7 @@ export default function AllUserProfile() {
                                 {Object.keys(StatusData).map((key) => (
                                     <Box textAlign="center" key={key}>
                                     <Typography color="#455636">{key}</Typography>
-                                    <Typography color={key !== 'Expired' ? "#D6A31E" : "#c2312f" }>{StatusData[key].length}</Typography>
+                                    <Typography color={key !== 'Expired' ? "#808000" : "#c2312f" }>{StatusData[key].length}</Typography>
                                     </Box>
                                 ))}
                             </Box>
@@ -169,7 +169,7 @@ export default function AllUserProfile() {
                     <Grid item xs={6} sm={6} md={6} lg={6}>
                         <Box
                             component={Card}
-                            boxShadow={5}
+                            boxShadow={8}
                             p={3}
                             display="flex"
                             justifyContent="space-between"
@@ -196,7 +196,7 @@ export default function AllUserProfile() {
                             mt={1}
                             mb={2}
                             component={Card}
-                            boxShadow={5}
+                            boxShadow={8}
                             p={2}
                             display="flex"
                             justifyContent="space-between"
@@ -224,7 +224,7 @@ export default function AllUserProfile() {
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
                                         <Box textAlign="center" display="flex" flexDirection="column" >
                                             <Typography color="#455636">Phone Number</Typography>
-                                            <Typography color="#D6A31E" variant="subtitle2">
+                                            <Typography color="#808000" variant="subtitle2">
                                                 {userData?.UserMobile}
                                             </Typography>
                                         </Box>
@@ -232,7 +232,7 @@ export default function AllUserProfile() {
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
                                         <Box textAlign="center" display="flex" flexDirection="column">
                                             <Typography color="#455636">Email</Typography>
-                                            <Typography color="#D6A31E" variant="subtitle2">
+                                            <Typography color="#808000" variant="subtitle2">
                                                 {userData?.UserEmail}
                                             </Typography>
                                         </Box>
@@ -240,7 +240,7 @@ export default function AllUserProfile() {
                                     <Grid item xs={4} sm={4} md={4} lg={4}>
                                         <Box textAlign="center" display="flex" flexDirection="column">
                                             <Typography color="#455636">Address</Typography>
-                                            <Typography color="#D6A31E" variant="subtitle2">
+                                            <Typography color="#808000" variant="subtitle2">
                                                 {userData?.UserCity}, {userData?.UserState}
                                             </Typography>
                                         </Box>

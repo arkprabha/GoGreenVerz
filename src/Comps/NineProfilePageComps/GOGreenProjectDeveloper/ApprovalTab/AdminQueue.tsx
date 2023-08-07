@@ -52,11 +52,12 @@ interface State {
 interface PropType {
   data: AdminData[];
   Loading: boolean;
+  getNotVerifiedLands:()=>void;
 }
 
 
 
-export default function AdminQueue({ data, Loading }: PropType) {
+export default function AdminQueue({ data, Loading, getNotVerifiedLands }: PropType) {
 
   const [state, setState] = useState<any[]>([]);
   const [page, setPage] = useState<number>(0);
@@ -213,7 +214,7 @@ export default function AdminQueue({ data, Loading }: PropType) {
       <Box p={1}>
         <AdminLandDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
 
-        <VerifyDialog UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
+        <VerifyDialog getNotVerifiedLands={getNotVerifiedLands} UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
 
 
         <Grid container spacing={2} display='flex' justifyContent='space-between'>

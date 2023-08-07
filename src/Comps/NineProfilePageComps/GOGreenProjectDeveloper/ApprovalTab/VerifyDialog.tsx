@@ -23,14 +23,17 @@ interface PropType {
     setColor: (open: boolean) => void;
     LandId:string,
     UserProfileTypeId: string;
+    getNotVerifiedLands: () => void;
 }
 
 
 
-export default function VerifyDialog({UserProfileTypeId , LandId, openVerifyDialog,  setMessage, setOpen, setStatus, setColor, setOpenVerifyDialog, options, selectedStatus, setSelectedStatus } : PropType) {
+export default function VerifyDialog({ getNotVerifiedLands , UserProfileTypeId , LandId, openVerifyDialog,  setMessage, setOpen, setStatus, setColor, setOpenVerifyDialog, options, selectedStatus, setSelectedStatus } : PropType) {
 
     const handleClose = () => {
         setOpenVerifyDialog(false);
+        getNotVerifiedLands();
+        setSelectedStatus('');
     };
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserId') ?? '';
@@ -63,7 +66,7 @@ export default function VerifyDialog({UserProfileTypeId , LandId, openVerifyDial
                     setOpen(true);
                     setStatus(true);
                     setColor(true);
-              
+                    handleClose();
                 }
             })
             .catch((err) => {

@@ -13,6 +13,7 @@ interface TabPanelProps {
     value: number;
 }
 
+
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
 
@@ -50,22 +51,25 @@ export default function AfforestTab() {
     };
 
     return (
-        <Box>
+        <Box position='relative'>
         <Header isConnectedWallet={isConnectedWallet} />
         <Box p={3}>
             <Box>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tabs 
+            value={value} 
+            onChange={handleChange} 
+            aria-label="basic tabs example">
             <Tab 
             label="Afforestation Filled Lands" 
             {...a11yProps(0)} 
             sx={{
             fontWeight: 'bold',
-            color: 'green',
+            color: '#455636',
             }}
             />
             <Tab label="Update Afforestation" {...a11yProps(1)} sx={{
             fontWeight: 'bold',
-            color: 'green',
+            color: '#455636',
             }}
             />
             </Tabs>

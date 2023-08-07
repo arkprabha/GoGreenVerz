@@ -17,7 +17,6 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Skeleton from '@mui/material/Skeleton';
-import CloseIcon from '@mui/icons-material/Close';
 import SnackBar from '../../SnackBar/SnackBar';
 import BuyerLandDialog from './BuyerLandDialog';
 
@@ -210,14 +209,7 @@ const BoughtLands: React.FC = () => {
   const BuyerList = searchResults && searchResults.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
 
-  const removeSearchText = (index: number) => {
-    if (index >= 0 && index < recentSearch.length) {
-      const updatedRecentSearch = [...recentSearch];
-      updatedRecentSearch.splice(index, 1);
-      localStorage.setItem('RecentSearch', JSON.stringify(updatedRecentSearch));
-      setRecentSearch(updatedRecentSearch);
-    }
-  };
+
 
   const resetFilter = () => {
     setShowFilterList(false);
@@ -239,17 +231,10 @@ const BoughtLands: React.FC = () => {
             <Grid container>
               <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box width='100%' textAlign='center' py={2} className="text-container">
-                  <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem' }} >Bought Lands</Typography>                  </Box>
+                  <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.3rem' , textTransform:'uppercase' }} >Bought Lands</Typography>                  </Box>
               </Grid>
-            </Grid>
-          </Box>
-        </Container>
-
-        <Grid container spacing={2} display='flex' justifyContent='space-between'>
-
-          <Grid item xs={12} sm={12} md={3} lg={3} height='auto' >
-            <Box p={1}>
-              <Box py={3}>
+              <Grid item xs={12} md={12} lg={12} xl={12}>
+                <Box display='flex' justifyContent='end'>
                 <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center', }}>
                   <Autocomplete
                     id="combo-box-demo"
@@ -278,19 +263,14 @@ const BoughtLands: React.FC = () => {
                     <SearchIcon />
                   </IconButton>
                 </Paper>
-              </Box>
-              <Box py={3}>
-                <Stack spacing={2}>
-                   <Typography color='#008080' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
-                  {
-                    recentSearch && recentSearch.map((i, index) =>
-                      <Typography sx={{ marginBottom: 1 }} key={index}>{i}<CloseIcon sx={{ verticalAlign: 'middle' }} fontSize='small' onClick={() => removeSearchText(index)} /> </Typography>
-                    )}
-                </Stack>
-              </Box>
-            </Box>
-          </Grid>
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
 
+        <Container>
+        <Grid container spacing={2} display='flex' justifyContent='space-between'>
           <Grid item xs={12} sm={12} md={9} lg={9}>
             {
               ShowFilterList && searchQuery !== '' ?
@@ -461,6 +441,7 @@ const BoughtLands: React.FC = () => {
             }
           </Grid>
         </Grid>
+        </Container>
 
       </Box>
     </Box>

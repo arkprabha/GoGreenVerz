@@ -45,13 +45,14 @@ interface VVBData {
 interface PropType {
   data: VVBData[];
   Loading: boolean;
+  getNotVerifiedLands: () => void;
 }
 
 interface State {
   StateId: string;
   StateName: string;
 }
-export default function VVBQueue({ data, Loading }: PropType) {
+export default function VVBQueue({ data, Loading, getNotVerifiedLands }: PropType) {
   
   const [state, setState] = useState<any[]>([]);
   const [page, setPage] = useState<number>(0);
@@ -200,7 +201,7 @@ export default function VVBQueue({ data, Loading }: PropType) {
       <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
       <Box p={1}>
         <VVBLandDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
-        <VerifyDialog UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
+        <VerifyDialog getNotVerifiedLands={getNotVerifiedLands} UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
 
         <Grid container spacing={2} display='flex' justifyContent='space-between'>
 

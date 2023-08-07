@@ -25,22 +25,22 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                     <Box textAlign="center" onClick={() => navigate('/listedlands')}>
-                        <Typography color="#F9F9F8">Added Lands</Typography>
-                            <Typography color="#ACE1AF">{totalFormCount}</Typography>
+                        <Typography color="#455636">Added Lands</Typography>
+                            <Typography color="#808000">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">New Land</Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#455636">New Land</Typography>
+                        <Typography color="#808000">
                             <AddCircleOutlineIcon
                             onClick={() => navigate('/addyourlands')}
                             />
                         </Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">
+                        <Typography color="#455636">
                             Update Lands
                         </Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             <UpgradeIcon
                                 onClick={() => navigate('/listedlands')}
                             />
@@ -58,22 +58,22 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                     <Box textAlign="center" onClick={() => navigate('/investedlands')}>
-                        <Typography color="#F9F9F8">Invested Lands</Typography>
-                        <Typography color="#ACE1AF">{totalFormCount}</Typography>
+                        <Typography color="#455636">Invested Lands</Typography>
+                        <Typography color="#808000">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">New Invest</Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#455636">New Invest</Typography>
+                        <Typography color="#808000">
                             <AddCircleOutlineIcon
                                 onClick={() => navigate('/listedlands')}
                             />
                         </Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">
+                        <Typography color="#455636">
                             Edit Invest Information
                         </Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             <UpgradeIcon
                                 onClick={() => navigate('/investedlands')}
                             />
@@ -90,22 +90,22 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                     <Box textAlign="center">
-                    <Typography color="#F9F9F8" onClick={() => navigate('/devsubmittedlands')}>GGV Dev Form Filled</Typography>
-                        <Typography color="#ACE1AF">{totalFormCount}</Typography>
+                    <Typography color="#455636" onClick={() => navigate('/devsubmittedlands')}>GGV Dev Form Filled</Typography>
+                        <Typography color="#808000">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">Update GoProject Form</Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#455636">Update GoProject Form</Typography>
+                        <Typography color="#808000">
                             <AddCircleOutlineIcon
                                 onClick={() => navigate('/listedlands')}
                             />
                         </Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">
+                        <Typography color="#455636">
                             Edit Information
                         </Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             <UpgradeIcon
                                 onClick={() => navigate('/devsubmittedlands')}
                             />
@@ -122,22 +122,22 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                         <Box textAlign="center" onClick={() => navigate('/myfilledlands')}>
-                        <Typography color="#F9F9F8">Plantation Form Filled</Typography>
-                        <Typography color="#ACE1AF">{totalFormCount}</Typography>
+                        <Typography color="#455636">Plantation Form Filled</Typography>
+                        <Typography color="#808000">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">Update Plantation Form</Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#455636">Update Plantation Form</Typography>
+                        <Typography color="#808000">
                             <AddCircleOutlineIcon
                                 onClick={() => navigate('/listedlands')}
                             />
                         </Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">
+                        <Typography color="#455636">
                             Edit Plantation Form
                         </Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             <UpgradeIcon
                                 onClick={() => navigate('/myfilledlands')}
                             />
@@ -154,22 +154,22 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                         <Box textAlign="center" onClick={() => navigate('/vvblandsubmissions')}>
-                            <Typography color="#F9F9F8">VVB Form Filled</Typography>
-                        <Typography color="#ACE1AF">{totalFormCount}</Typography>
+                            <Typography color="#455636">VVB Form Filled</Typography>
+                        <Typography color="#808000">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">Update VVB Form</Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#455636">Update VVB Form</Typography>
+                        <Typography color="#808000">
                             <AddCircleOutlineIcon
                                 onClick={() => navigate('/listedlands')}
                             />
                         </Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">
+                        <Typography color="#455636">
                             Edit VVB Form
                         </Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             <UpgradeIcon
                                 onClick={() => navigate('/vvblandsubmissions')}
                             />
@@ -186,22 +186,22 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                         <Box textAlign="center" onClick={() => navigate('/crisubmissions')}>
-                            <Typography color="#F9F9F8" >CRI Form Filled</Typography>
-                        <Typography color="#ACE1AF">{totalFormCount}</Typography>
+                            <Typography color="#455636" >CRI Form Filled</Typography>
+                        <Typography color="#808000">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">Update CRI LandForm</Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#455636">Update CRI LandForm</Typography>
+                        <Typography color="#808000">
                             <AddCircleOutlineIcon
                                 onClick={() => navigate('/listedlands')}
                             />
                         </Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">
+                        <Typography color="#455636">
                             Edit CRI LandForm
                         </Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             <UpgradeIcon
                                 onClick={() => navigate('/crisubmissions')}
                             />
@@ -218,22 +218,22 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                     <Box textAlign="center">
-                    <Typography color="#F9F9F8" onClick={() => navigate('/govtsubmissions')}>GovtAgency Form Filled</Typography>
-                        <Typography color="#ACE1AF">{totalFormCount}</Typography>
+                    <Typography color="#455636" onClick={() => navigate('/govtsubmissions')}>GovtAgency Form Filled</Typography>
+                        <Typography color="#808000">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">Update GovtAgency Form</Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#455636">Update GovtAgency Form</Typography>
+                        <Typography color="#808000">
                             <AddCircleOutlineIcon
                                 onClick={() => navigate('/listedlands')}
                             />
                         </Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             Edit GovtAgency Form
                         </Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             <UpgradeIcon
                                 onClick={() => navigate('/govtsubmissions')}
                             />
@@ -250,22 +250,22 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                         <Box textAlign="center" onClick={() => navigate('/adminsubmittedlands')}>
-                            <Typography color="#F9F9F8">Admin Form Filled</Typography>
-                        <Typography color="#ACE1AF">{totalFormCount}</Typography>
+                            <Typography color="#455636">Admin Form Filled</Typography>
+                        <Typography color="#808000">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">Update Form</Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#455636">Update Form</Typography>
+                        <Typography color="#808000">
                             <AddCircleOutlineIcon
                                 onClick={() => navigate('/listedlands')}
                             />
                         </Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">
+                        <Typography color="#455636">
                             Edit Form
                         </Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             <UpgradeIcon
                                 onClick={() => navigate('/adminsubmittedlands')}
                             />
@@ -282,22 +282,22 @@ export default function ProfileRoutes({totalFormCount} : totalprop) {
                     justifyContent="space-around"
                 >
                         <Box textAlign="center" onClick={() => navigate('/yourlands')}>
-                        <Typography color="#F9F9F8">Bought Lands</Typography>
-                        <Typography color="#ACE1AF">{totalFormCount}</Typography>
+                        <Typography color="#455636">Bought Lands</Typography>
+                        <Typography color="#808000">{totalFormCount}</Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">Buy Lands</Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#455636">Buy Lands</Typography>
+                        <Typography color="#808000">
                             <AddCircleOutlineIcon
                                     onClick={() => navigate('/listedlands')}
                             />
                         </Typography>
                     </Box>
                     <Box textAlign="center">
-                        <Typography color="#F9F9F8">
+                        <Typography color="#455636">
                             Edit Purchase Information
                         </Typography>
-                        <Typography color="#ACE1AF">
+                        <Typography color="#808000">
                             <UpgradeIcon
                                 onClick={() => navigate('/yourlands')}
                             />

@@ -164,11 +164,11 @@ export default function ProfileUpdateForm() {
             <Box
               component={Card}
               p={4}
-              boxShadow={5}
+              boxShadow={8}
               alignItems="center"
               display="flex"
               flexDirection="row"
-              bgcolor='#008080'
+              bgcolor='#C8CDC2'
             >
               <Box mt={2}>
                 <img
@@ -186,7 +186,7 @@ export default function ProfileUpdateForm() {
                 aria-label="upload"
                 component="label"
                 >
-                <EditIcon  />
+                <EditIcon color='warning' />
                 <TextField
                 hidden
                 id="profilePicUpload"
@@ -200,7 +200,7 @@ export default function ProfileUpdateForm() {
                 <Box px={2}>
                 {
                 !ShowUpdateUserName ?
-                <Typography color="#F9F9F8" fontWeight={600} fontSize={17}>
+                <Typography color="#455636" fontWeight={600} fontSize={17}>
                 {UserName} <EditIcon color='warning' onClick={ShowUserNameField} sx={{ verticalAlign: 'middle' }} />
                 </Typography>
                 :
@@ -224,10 +224,10 @@ export default function ProfileUpdateForm() {
                 </Box>
                 }
 
-                <Typography color="#F9F9F8" variant="subtitle1">
+                <Typography color="#455636" variant="subtitle1">
                   {UserProfileType}
                 </Typography>
-                <Typography color="#ACE1AF" variant="caption">
+                <Typography color="#808000" variant="caption">
                 Customer Id : {UserUniqueId}
                 </Typography>
                 </Box>
@@ -237,21 +237,21 @@ export default function ProfileUpdateForm() {
               mt={1}
               mb={2}
               component={Card}
-              boxShadow={5}
+              boxShadow={8}
               p={2}
               display="flex"
               justifyContent="space-between"
               flexDirection="column"
-              bgcolor='#008080'
+              bgcolor='#C8CDC2'
             >
               <Box
                 display="flex"
                 justifyContent="space-between"
                 flexDirection="row"
               >
-                <Typography color="#F9F9F8" fontWeight={600}>Status</Typography>
+                <Typography color="#455636" fontWeight={600}>Status</Typography>
                 <Box alignSelf="center">
-                  <LandscapeIcon sx={{ color: '#F9F9F8' }} fontSize="large" />
+                  <LandscapeIcon sx={{ color: '#455636' }} fontSize="large" />
                 </Box>
               </Box>
               <Box
@@ -262,8 +262,8 @@ export default function ProfileUpdateForm() {
               >
                   {Object.keys(StatusData).map((key) => (
                     <Box textAlign="center" key={key}>
-                      <Typography color="#F9F9F8">{key}</Typography>
-                      <Typography color={key !== 'Expired' ? "#ACE1AF" : "#c2312f"}>{StatusData[key].length}</Typography>
+                      <Typography color="#455636">{key}</Typography>
+                      <Typography color={key !== 'Expired' ? "#808000" : "#c2312f"}>{StatusData[key].length}</Typography>
                     </Box>
                   ))}
               </Box>
@@ -273,12 +273,12 @@ export default function ProfileUpdateForm() {
           <Grid item xs={6} sm={6} md={6} lg={6}>
             <Box
               component={Card}
-              boxShadow={5}
+              boxShadow={8}
               p={3}
               display="flex"
               justifyContent="space-between"
               flexDirection="column"
-              bgcolor='#008080'
+              bgcolor='#C8CDC2'
             >
               <Box
                 display="flex"
@@ -286,10 +286,10 @@ export default function ProfileUpdateForm() {
                 flexDirection="row"
                 mb={4}
               >
-                <Typography fontWeight={600} color="#F9F9F8">Work</Typography>
+                <Typography fontWeight={600} color="#455636">Work</Typography>
                 <Box alignSelf="center">
                   <FormatListBulletedIcon
-                    sx={{ color: '#F9F9F8' }}
+                    sx={{ color: '#455636' }}
                     fontSize="large"
                   />
                 </Box>
@@ -301,21 +301,21 @@ export default function ProfileUpdateForm() {
               mt={1}
               mb={2}
               component={Card}
-              boxShadow={5}
+              boxShadow={8}
               p={2}
               display="flex"
               justifyContent="space-between"
               flexDirection="column"
-              bgcolor='#008080'
+              bgcolor='#C8CDC2'
             >
               <Box
                 display="flex"
                 justifyContent="space-between"
                 flexDirection="row"
               >
-                <Typography fontWeight={600} color="#F9F9F8">Contact</Typography>
+                <Typography fontWeight={600} color="#455636">Contact</Typography>
                 <Box alignSelf="center">
-                  <ContactsIcon sx={{ color: '#F9F9F8' }} fontSize="large" />
+                  <ContactsIcon sx={{ color: '#455636' }} fontSize="large" />
                 </Box>
               </Box>
               <Box mt={6}>
@@ -332,8 +332,8 @@ export default function ProfileUpdateForm() {
                             !ShowUpdateUserPhone ?
                      
                      <Stack spacing={1}>
-                     <Typography color="#F9F9F8">Phone Number</Typography>
-                      <Typography color="#ACE1AF" variant="subtitle2">
+                     <Typography color="#455636">Phone Number</Typography>
+                      <Typography color="#808000" variant="subtitle2">
                       {UserPhone} <EditIcon color='warning' onClick={ShowUserPhoneField} sx={{ verticalAlign: 'middle' }} />
                       </Typography>
                       </Stack>
@@ -363,8 +363,8 @@ export default function ProfileUpdateForm() {
                     {
                     !ShowUpdateUserMail ?
                     <Stack spacing={1}>
-                    <Typography color="#F9F9F8">Email</Typography>
-                    <Typography color="#ACE1AF" variant="subtitle2" sx={{wordWrap:'break-word'}}>
+                    <Typography color="#455636">Email</Typography>
+                    <Typography color="#808000" variant="subtitle2" sx={{wordWrap:'break-word'}}>
                     {UserMail} <EditIcon color='warning' onClick={ShowUserMailField} sx={{ verticalAlign: 'middle' }} />
                     </Typography>
                    </Stack>
@@ -396,8 +396,8 @@ export default function ProfileUpdateForm() {
                     !ShowUpdateUserAddress ?
 
                     <Stack spacing={1}>
-                    <Typography color="#F9F9F8">Address</Typography>
-                    <Typography color="#ACE1AF" variant="subtitle2">
+                    <Typography color="#455636">Address</Typography>
+                    <Typography color="#808000" variant="subtitle2">
                     {UserCity}, {UserState} <EditIcon color='warning' onClick={ShowUserAddressField} sx={{ verticalAlign: 'middle' }} />
                     </Typography>
                     </Stack>

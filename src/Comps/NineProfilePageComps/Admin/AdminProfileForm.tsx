@@ -226,7 +226,7 @@ export default function AdminProfileForm() {
                         <Grid container>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2} className="text-container">
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem' }}>Admin Form</Typography>                  </Box>
+                              <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.3rem' ,textTransform:'uppercase' }}>Admin Form</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>

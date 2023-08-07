@@ -44,6 +44,7 @@ interface GovAgencyData {
 interface PropType {
   data: GovAgencyData[];
   Loading: boolean;
+  getNotVerifiedLands: () => void;
 }
 
 interface State {
@@ -52,7 +53,7 @@ interface State {
 }
 
 
-export default function GovtAgencyQueue({ data, Loading }: PropType) {
+export default function GovtAgencyQueue({ data, Loading, getNotVerifiedLands }: PropType) {
 
 
   const [state, setState] = useState<any[]>([]);
@@ -208,7 +209,7 @@ export default function GovtAgencyQueue({ data, Loading }: PropType) {
       <Box p={1}>
         <GovtAgencyLandDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
 
-        <VerifyDialog UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
+        <VerifyDialog getNotVerifiedLands={getNotVerifiedLands} UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
 
 
         <Grid container spacing={2} display='flex' justifyContent='space-between'>

@@ -17,7 +17,6 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Skeleton from '@mui/material/Skeleton';
-import CloseIcon from '@mui/icons-material/Close';
 import SnackBar from '../../SnackBar/SnackBar';
 import AdminLandDialog from './AdminLandDialog';
 
@@ -56,7 +55,7 @@ const AdminUpdatedLands: React.FC = () => {
 
     const [state, setState] = useState<any[]>([]);
     const [page, setPage] = useState<number>(0);
-   const [rowsPerPage, setRowsPerPage] = useState<number>(6);
+   const [rowsPerPage, setRowsPerPage] = useState<number>(8);
     const [data, setData] = useState<any[]>([]);
     const [open, setOpen] = useState<boolean>(false);
     const [status, setStatus] = useState<boolean>(false);
@@ -210,15 +209,6 @@ const AdminUpdatedLands: React.FC = () => {
     const AdminList = searchResults && searchResults.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
 
-    const removeSearchText = (index: number) => {
-        if (index >= 0 && index < recentSearch.length) {
-            const updatedRecentSearch = [...recentSearch];
-            updatedRecentSearch.splice(index, 1);
-            localStorage.setItem('RecentSearch', JSON.stringify(updatedRecentSearch));
-            setRecentSearch(updatedRecentSearch);
-        }
-    };
-
     const resetFilter = () => {
         setShowFilterList(false);
         setInputKey((prevKey) => prevKey + 1);
@@ -239,18 +229,11 @@ const AdminUpdatedLands: React.FC = () => {
                         <Grid container>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box width='100%' textAlign='center' py={2} className="text-container">
-                                    <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem' }} >Submitted Lands</Typography>                  
+                                    <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.3rem' , textTransform:'uppercase' }} >Submitted Lands</Typography>                  
                                     </Box>
                             </Grid>
-                        </Grid>
-                    </Box>
-                </Container>
-
-                <Grid container spacing={2} display='flex' justifyContent='space-between'>
-
-                    <Grid item xs={12} sm={12} md={3} lg={3} height='auto'>
-                        <Box p={1}>
-                            <Box py={3}>
+                            <Grid item xs={12} md={12} lg={12} xl={12}>
+                                <Box display='flex' justifyContent='end'>
                                 <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center', }}>
                                     <Autocomplete
                                         id="combo-box-demo"
@@ -279,20 +262,16 @@ const AdminUpdatedLands: React.FC = () => {
                                         <SearchIcon />
                                     </IconButton>
                                 </Paper>
-                            </Box>
-                            <Box py={3}>
-                                <Stack spacing={2}>
-                                     <Typography color='#008080' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
-                                    {
-                                        recentSearch && recentSearch.map((i, index) =>
-                                            <Typography sx={{ marginBottom: 1 }} key={index}>{i}<CloseIcon sx={{ verticalAlign: 'middle' }} fontSize='small' onClick={() => removeSearchText(index)} /> </Typography>
-                                        )}
-                                </Stack>
-                            </Box>
-                        </Box>
-                    </Grid>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Container>
 
-                    <Grid item xs={12} sm={12} md={9} lg={9}>
+                <Container>
+                <Grid container spacing={2} display='flex' justifyContent='space-between'>
+
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
                         {
                             ShowFilterList && searchQuery !== '' ?
                                 <>
@@ -309,11 +288,12 @@ const AdminUpdatedLands: React.FC = () => {
                                             <Typography variant='h6' color='text.secondary'>Nothing Mathces Your Search Results. <Typography color='#3285a8' onClick={() => setShowFilterList(false)} sx={{ textDecoration: 'underline' }}>View All</Typography></Typography>
                                         </Box>
                                     }
-                                    <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
+                                    <Grid container spacing={1} display='flex' justifyContent='start' px={1}>
                                         {AdminList.map((i) => (
-                                            <Grid item xs={12} sm={6} md={4} lg={4} key={i.AdminId} my={3}>
-                                                <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
-                                                    <CardActionArea>
+                                            <Grid item xs={12} sm={6} md={3} lg={3} key={i.AdminId} my={2}>
+                                                <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5, borderRadius: '10px' }}>
+                                                    <Box p={2}>
+                                                        <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                                                         {Loading ? (
                                                             <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
                                                         ) : (
@@ -323,6 +303,10 @@ const AdminUpdatedLands: React.FC = () => {
                                                                 width='100%'
                                                                 src={i.VirtualVideo}
                                                                 controls
+                                                                style={{
+                                                                    border: '2px solid #007bff', // Customize the outline color and thickness
+                                                                    boxSizing: 'border-box', // Ensure that the border doesn't affect the layout
+                                                                }}
                                                             />
                                                         )}
                                                         <CardContent>
@@ -333,41 +317,42 @@ const AdminUpdatedLands: React.FC = () => {
                                                                 </React.Fragment>
                                                             ) : (
                                                                 <>
-                                                                    <Typography gutterBottom variant="h5" component="div" textAlign='left'>
+                                                                            <Typography gutterBottom variant="h5" component="div" textAlign='left' color='#D6A31E'>
                                                                         {i.AdminId}
                                                                     </Typography>
                                                                     <Stack spacing={1}>
                                                                         <Box display='flex' gap={1} flexDirection='row'>
-                                                                            <Typography variant="body2" color="text.secondary" fontWeight={600}>Located:</Typography>
-                                                                            <Typography variant="body2">{i.AdminCity}, {i.AdminState}, {i.AdminCountry}</Typography>
+                                                                                    <Typography variant="body2" color="#455636" fontWeight={600}>Located:</Typography>
+                                                                                    <Typography variant="body2" color="#455636">{i.AdminCity}, {i.AdminState}, {i.AdminCountry}</Typography>
                                                                         </Box>
                                                                         <Box display='flex' gap={1} flexDirection='row'>
-                                                                            <Typography variant="body2" color="text.secondary" fontWeight={600}>Status:</Typography>
-                                                                            <Typography variant="body2"> {i.AdminStatus}</Typography>
+                                                                                    <Typography variant="body2" color="#455636" fontWeight={600}>Status:</Typography>
+                                                                                    <Typography variant="body2" color="#455636"> {i.AdminStatus}</Typography>
                                                                         </Box>
                                                                     </Stack>
                                                                 </>
                                                             )}
                                                         </CardContent>
                                                     </CardActionArea>
-                                                    <CardActions>
+                                                        <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                                                         {Loading ? (
                                                             <React.Fragment>
                                                                 <Skeleton animation="wave" height={10} width="80%" />
                                                             </React.Fragment>
                                                         ) : (
                                                             <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                                                                <Button size="small" color="primary" onClick={() => handleOpenDialog(i)}>
+                                                                        <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => handleOpenDialog(i)}>
                                                                     View
                                                                 </Button>
 
 
-                                                                <Button size="small" color="primary" onClick={() => movedtoEditPage(i.AdminId)}>
+                                                                        <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => movedtoEditPage(i.AdminId)}>
                                                                     Update
                                                                 </Button>
                                                             </Box>
                                                         )}
                                                     </CardActions>
+                                                    </Box>
                                                 </Card>
                                             </Grid>
                                         ))}
@@ -385,11 +370,12 @@ const AdminUpdatedLands: React.FC = () => {
                                     </Grid>
                                 </>
                                 :
-                                <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
+                                <Grid container spacing={1} display='flex' justifyContent='start' px={1}>
                                     {slicedData.map((i) => (
-                                        <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
-                                            <Card sx={{ maxWidth: 300 , height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 }}>
-                                                <CardActionArea>
+                                        <Grid item xs={12} sm={6} md={3} lg={3} key={i.id} my={2}>
+                                            <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE',  height:'100%' , display:'flex',flexDirection:'column',  justifyContent:'space-between' , boxShadow:5 , borderRadius:'10px' }}>
+                                                <Box p={2}>
+                                                    <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                                                     {Loading ? (
                                                         <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
                                                     ) : (
@@ -399,6 +385,10 @@ const AdminUpdatedLands: React.FC = () => {
                                                             width='100%'
                                                             src={i?.VirtualVideo}
                                                             controls
+                                                            style={{
+                                                                border: '1px solid #E0E3DE', // Customize the outline color and thickness
+                                                                boxSizing: 'border-box', // Ensure that the border doesn't affect the layout
+                                                            }}
                                                         />
                                                     )}
                                                     <CardContent>
@@ -409,41 +399,42 @@ const AdminUpdatedLands: React.FC = () => {
                                                             </React.Fragment>
                                                         ) : (
                                                             <>
-                                                                <Typography gutterBottom variant="h5" component="div" textAlign='left'>
+                                                                <Typography gutterBottom variant="h5" component="div" textAlign='left' color='#D6A31E'>
                                                                     {i.AdminId}
                                                                 </Typography>
                                                                 <Stack spacing={1}>
                                                                     <Box display='flex' gap={1} flexDirection='row'>
-                                                                        <Typography variant="body2" color="text.secondary" fontWeight={600}>Located:</Typography>
-                                                                        <Typography variant="body2">{i.AdminCity}, {i.AdminState}, {i.AdminCountry}</Typography>
+                                                                    <Typography variant="body2" color="#455636" fontWeight={600}>Located:</Typography>
+                                                                    <Typography variant="body2" color='#455636'>{i.AdminCity}, {i.AdminState}, {i.AdminCountry}</Typography>
                                                                     </Box>
                                                                     <Box display='flex' gap={1} flexDirection='row'>
-                                                                        <Typography variant="body2" color="text.secondary" fontWeight={600}>Status:</Typography>
-                                                                        <Typography variant="body2"> {i.AdminStatus}</Typography>
+                                                                    <Typography variant="body2" color="#455636" fontWeight={600}>Status:</Typography>
+                                                                    <Typography variant="body2" color='#455636'> {i.AdminStatus}</Typography>
                                                                     </Box>
                                                                 </Stack>
                                                             </>
                                                         )}
                                                     </CardContent>
                                                 </CardActionArea>
-                                                <CardActions>
+                                                    <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                                                     {Loading ? (
                                                         <React.Fragment>
                                                             <Skeleton animation="wave" height={10} width="80%" />
                                                         </React.Fragment>
                                                     ) : (
                                                         <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                                                            <Button size="small" color="primary" onClick={() => handleOpenDialog(i)}>
+                                                                    <Button size="small" sx={{ color:'#D6A31E'}} onClick={() => handleOpenDialog(i)}>
                                                                 View
                                                             </Button>
 
 
-                                                            <Button size="small" color="primary" onClick={() => movedtoEditPage(i.AdminId)}>
+                                                                    <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => movedtoEditPage(i.AdminId)}>
                                                                 Update
                                                             </Button>
                                                         </Box>
                                                     )}
                                                 </CardActions>
+                                                </Box>
                                             </Card>
                                         </Grid>
                                     ))}
@@ -462,7 +453,7 @@ const AdminUpdatedLands: React.FC = () => {
                         }
                     </Grid>
                 </Grid>
-
+                </Container>
             </Box>
         </Box>
     );

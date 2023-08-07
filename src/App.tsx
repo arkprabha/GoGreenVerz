@@ -17,10 +17,10 @@ import {
   SolletWalletAdapter,
   SolletExtensionWalletAdapter,
 } from "@solana/wallet-adapter-sollet";
-
+import GGV from './assets/GGVLOGO.png';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './Routes';
-
+import {Box} from '@mui/material';
 
 
 
@@ -50,6 +50,9 @@ const App = () => {
             <Router>
               <Routes />
             </Router>
+            <Box display='flex' justifyContent='end'>
+            <img src={GGV} alt='logo' style={{ width: 100, height: 90, objectFit: 'contain' , position:'fixed', top:'86%', right:'-15px' }} />
+            </Box>
           </WalletDialogProvider>
         </WalletProvider>
       </ConnectionProvider>

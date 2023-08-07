@@ -4,9 +4,12 @@ input {
 .desktop-1-42aa {
     padding: 0.5rem 0rem 0rem 0rem;
     overflow: hidden;
-    position: relative;
+    position: sticky;
+    top: 0%;
     align-items: flex-end;
     display: flex;
+    z-index: 10;
+    background-color: #fff;
 }
 
 .desktop-1-42aa .auto-group-wh57-8wY {
@@ -31,7 +34,7 @@ input {
 
 .desktop-1-42aa .auto-group-wh57-8wY .home-VSe {
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.2125;
     color: #455636;
     font-family: Inter, 'Source Sans Pro';

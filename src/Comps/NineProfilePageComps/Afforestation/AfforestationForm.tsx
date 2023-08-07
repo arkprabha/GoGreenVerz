@@ -257,12 +257,12 @@ export default function AfforestationForm({setValue}:SetValueProps) {
         <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Box display="flex" alignItems="center">
 
-                <Box py={2} className='borderAnimae' sx={{ px: 5, backgroundColor: '#daf6e8', mx: 3, my: 4, ':hover': { boxShadow: 10 }, }}>
+                <Box py={2} sx={{ px: 5, backgroundColor: '#E0E3DE', mx: 3, my: 4,  boxShadow: 10 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
                         <Grid item lg={12} xl={12}>
 
-                            <Box sx={{ border: "1px solid black", px: 4, pb: 5, pt: 4, borderColor: '#d2cbcb;', borderRadius: '4px', ':hover': { boxShadow: 2 }, mt: 5 }}>
+                            <Box sx={{ border: "1px solid black", px: 4, pb: 5, pt: 4, borderRadius: '4px', borderColor: '#d2cbcb;', ':hover': { boxShadow: 2 }, mt: 5 }}>
                                 <Box sx={{ pb: 5, textAlign: 'left' }}>
                                     <h5>Location of Land</h5>
                                 </Box>

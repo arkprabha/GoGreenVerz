@@ -501,7 +501,7 @@ const Home = (props: HomeProps) => {
 
   return (
      <>
-        <Box className="desktop-1-42a" sx={{  overflowY: 'hidden'}}>
+        <Box className="desktop-1-42a" sx={{  overflowY: 'hidden'}} position='relative'>
             <Header  isConnectedWallet={ isConnectedWallet} />
             <Box className="auto-group-zlsh-nEi">
                 <Box className="auto-group-gjdw-qin">

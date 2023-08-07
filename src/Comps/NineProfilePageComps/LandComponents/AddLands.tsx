@@ -213,13 +213,13 @@ export default function AddLands() {
             <Grid container>
             <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box width='100%' textAlign='center' py={2} className="text-container">
-            <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.8rem' }} >Add Your Lands</Typography>                  </Box>
+            <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.3rem' , textTransform:'uppercase' }} >Add Your Lands</Typography>                  </Box>
             </Grid>
             </Grid>
             </Box>
             </Container>
 
-                <Box className='borderAnimae' sx={{ px: 4, backgroundColor: '#daf6e8', mx: 4, my: 2, ':hover': { boxShadow: 10 }, }}>
+                <Box className='borderAnimae' sx={{ px: 4, backgroundColor: '#E0E3DE', mx: 4, my: 2, ':hover': { boxShadow: 10 }, }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={2} >
                         <Grid item lg={12} xl={12} >

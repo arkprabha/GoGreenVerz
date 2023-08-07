@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import {
   Button, CardActionArea, CardActions, Grid, Stack, TextField,
-  TablePagination, Autocomplete
+  TablePagination, Autocomplete, Container
 } from '@mui/material';
 import { useState } from 'react';
 import { Box, } from '@mui/material';
@@ -15,7 +15,6 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Skeleton from '@mui/material/Skeleton';
-import CloseIcon from '@mui/icons-material/Close';
 import LandDataDialog from '../../LandComponents/LandDataDialog';
 import SnackBar from '../../../SnackBar/SnackBar';
 import VerifyDialog from './VerifyDialog';
@@ -42,6 +41,7 @@ interface LandItem {
 interface PropType {
   data: LandItem[];
   Loading: boolean;
+  getNotVerifiedLands: () => void;
 }
 interface State {
   StateId: string;
@@ -49,7 +49,7 @@ interface State {
 }
 
 
-export default function LandQueue({data , Loading} : PropType) {
+export default function LandQueue({ data, Loading, getNotVerifiedLands } : PropType) {
 
   const [state, setState] = useState<any[]>([]);
   const [page, setPage] = useState<number>(0);
@@ -129,10 +129,11 @@ export default function LandQueue({data , Loading} : PropType) {
   };
 
   const handleSearch = () => {
-    if (searchQuery !== '' || searchQuery !== null) {
-      setRecentSearch([...recentSearch, searchQuery]);
+    if (searchQuery && searchQuery.trim() !== '') {
+      setRecentSearch(prevSearch => [...prevSearch, searchQuery]);
       localStorage.setItem('RecentSearch', JSON.stringify(recentSearch));
       setShowFilterList(true);
+
       const filteredProducts = data && data.filter((i) => {
         const { LandAddress1, LandAddress2, LandId, LandCity, LandState, LandCountry, Latitude, Longitude } = i;
         // Apply the search logic based on your requirements
@@ -145,7 +146,7 @@ export default function LandQueue({data , Loading} : PropType) {
         const matchesLandId = LandId.toString().includes(searchQuery);
         const matchesLatitude = Latitude.toString().includes(searchQuery);
 
-        return (
+        const matches = (
           matchesCity ||
           matchesState ||
           matchesAddress1 ||
@@ -155,28 +156,30 @@ export default function LandQueue({data , Loading} : PropType) {
           matchesLatitude ||
           matchesLongitude
         );
+
+        console.log('Search Query:', searchQuery);
+        console.log('Item:', i);
+        console.log('Matches:', matches);
+
+        return matches;
       });
 
       setSearchResults(filteredProducts);
-    }
-    else {
+      console.log('Filtered Products:', filteredProducts);
+    } else {
       setShowFilterList(false);
       setSearchResults([]);
     }
-  }
+  };
+
+
+  console.log(searchResults);
+  console.log(searchQuery);
 
   const slicedData = data && data.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
   const LandList = searchResults && searchResults.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
 
-  const removeSearchText = (index: number) => {
-    if (index >= 0 && index < recentSearch.length) {
-      const updatedRecentSearch = [...recentSearch];
-      updatedRecentSearch.splice(index, 1);
-      localStorage.setItem('RecentSearch', JSON.stringify(updatedRecentSearch));
-      setRecentSearch(updatedRecentSearch);
-    }
-  };
 
   const resetFilter = () => {
     setShowFilterList(false);
@@ -199,14 +202,29 @@ export default function LandQueue({data , Loading} : PropType) {
 
         <LandDataDialog openDialog={openLandDialog} setOpenDialog={setOpenLandDialog} i={selectedItem} />
 
-        <VerifyDialog UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
+        <VerifyDialog getNotVerifiedLands={getNotVerifiedLands} UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
+        <Container>
+        <Grid container spacing={2}>
 
-        <Grid container spacing={2} display='flex' justifyContent='space-between'>
-
-          <Grid item xs={12} sm={12} md={3} lg={3} height='auto' >
+          {/* <Grid item xs={12} sm={12} md={3} lg={3} height='auto' >
             <Box p={1}>
               <Box py={3}>
-                <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center', }}>
+              </Box>
+              <Box py={3}>
+                <Stack spacing={2}>
+                  <Typography color='#008080' sx={{ textDecoration: 'underline' }} fontWeight={600}>Recent Searches</Typography>
+                  {
+                    recentSearch && recentSearch.map((i, index) =>
+                      <Typography sx={{ marginBottom: 1 }} key={index}>{i}<CloseIcon sx={{ verticalAlign: 'middle' }} fontSize='small' onClick={() => removeSearchText(index)} /> </Typography>
+                    )}
+                </Stack>
+              </Box>
+            </Box>
+          </Grid> */}
+          
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Box display='flex' justifyContent='end'>
+                <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center'}}>
                   <Autocomplete
                     id="combo-box-demo"
                     size="small"
@@ -234,20 +252,7 @@ export default function LandQueue({data , Loading} : PropType) {
                     <SearchIcon />
                   </IconButton>
                 </Paper>
-              </Box>
-              <Box py={3}>
-                <Stack spacing={2}>
-                  <Typography color='#008080' sx={{ textDecoration: 'underline' }} fontWeight={600}>Recent Searches</Typography>
-                  {
-                    recentSearch && recentSearch.map((i, index) =>
-                      <Typography sx={{ marginBottom: 1 }} key={index}>{i}<CloseIcon sx={{ verticalAlign: 'middle' }} fontSize='small' onClick={() => removeSearchText(index)} /> </Typography>
-                    )}
-                </Stack>
-              </Box>
             </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={9} lg={9}>
             {
               ShowFilterList && searchQuery !== '' ?
                 <>
@@ -417,7 +422,7 @@ export default function LandQueue({data , Loading} : PropType) {
             }
           </Grid>
         </Grid>
-
+      </Container>
       </Box>
     </Box>
   )

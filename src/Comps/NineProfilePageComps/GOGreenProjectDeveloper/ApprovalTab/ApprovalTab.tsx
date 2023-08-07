@@ -218,7 +218,8 @@ export default function ApprovalTab() {
     const [AdminData, setAdminData] = useState<AdminData[]>([]);
     const [BuyerData, setBuyerData] = useState<BuyerData[]>([]);
 
-    useEffect(() => {
+    
+    const getNotVerifiedLands = () => {
         axios({
             method: methodGet,
             url: get_not_verified_profile_form,
@@ -249,6 +250,10 @@ export default function ApprovalTab() {
         }).catch(err => {
             alert('Oops something went wrong ' + err)
         });
+    }
+
+    useEffect(() => {
+        getNotVerifiedLands();
     }, [])
 
     return (
@@ -299,31 +304,31 @@ export default function ApprovalTab() {
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                <LandQueue data={LandData} Loading={Loading} />
+                    <LandQueue data={LandData} Loading={Loading} getNotVerifiedLands={getNotVerifiedLands} />
                 </TabPanel>
 
                 <TabPanel value={value} index={1}>
-                 <PlantationQueue data={PlantationData} Loading={Loading} />
+                    <PlantationQueue data={PlantationData} Loading={Loading} getNotVerifiedLands={getNotVerifiedLands} />
                 </TabPanel>
 
                 <TabPanel value={value} index={2}>
-                    <VVBQueue data={VVBData} Loading={Loading} />
+                    <VVBQueue data={VVBData} Loading={Loading} getNotVerifiedLands={getNotVerifiedLands} />
                 </TabPanel>
 
                 <TabPanel value={value} index={3}>
-                    <CRIQueue data={CRIData} Loading={Loading} />
+                    <CRIQueue data={CRIData} Loading={Loading} getNotVerifiedLands={getNotVerifiedLands} />
                 </TabPanel>
 
                 <TabPanel value={value} index={4}>
-                    <GovtAgencyQueue data={GovtData} Loading={Loading} />
+                    <GovtAgencyQueue data={GovtData} Loading={Loading} getNotVerifiedLands={getNotVerifiedLands} />
                 </TabPanel>
 
                 <TabPanel value={value} index={5}>
-                    <AdminQueue data={AdminData} Loading={Loading}  />
+                    <AdminQueue data={AdminData} Loading={Loading} getNotVerifiedLands={getNotVerifiedLands} />
                 </TabPanel>
 
                 <TabPanel value={value} index={6}>
-                    <BuyerQueue data={BuyerData} Loading={Loading} />
+                    <BuyerQueue data={BuyerData} Loading={Loading} getNotVerifiedLands={getNotVerifiedLands} />
                 </TabPanel>
 
             </Box>

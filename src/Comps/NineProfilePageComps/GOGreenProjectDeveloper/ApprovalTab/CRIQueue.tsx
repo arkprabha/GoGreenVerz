@@ -58,9 +58,10 @@ interface State {
 interface PropType {
   data: CRIData[];
   Loading: boolean;
+  getNotVerifiedLands: () => void;
 }
 
-export default function CRIQueue({ data, Loading }: PropType) {
+export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropType) {
 
   const [state, setState] = useState<any[]>([]);
   const [page, setPage] = useState<number>(0);
@@ -250,7 +251,7 @@ export default function CRIQueue({ data, Loading }: PropType) {
           i={selectedItem}
         />
 
-        <VerifyDialog UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
+        <VerifyDialog getNotVerifiedLands={getNotVerifiedLands} UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
 
         <Grid
           container
