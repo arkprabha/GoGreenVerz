@@ -278,7 +278,7 @@ const CRIUpdatedLands: React.FC = () => {
                   px={1}
                 >
                   {CRIList.map((i) => (
-                    <Grid item xs={12} sm={6} md={3} lg={3} key={i.id} my={2}>
+                    <Grid item xs={12} sm={6} md={3} lg={3} key={i.CRIId} my={2}>
                       <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE', borderRadius: '10px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
                         <Box p={2}>
                           <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
@@ -424,7 +424,7 @@ const CRIUpdatedLands: React.FC = () => {
                     px={1}
                   >
                     {slicedData.map((i) => (
-                      <Grid item xs={12} sm={6} md={3} lg={3} key={i.id} my={2}>
+                      <Grid item xs={12} sm={6} md={3} lg={3} key={i.CRIId} my={2}>
                         <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE', borderRadius: '10px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
                           <Box p={2}>
                             <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>

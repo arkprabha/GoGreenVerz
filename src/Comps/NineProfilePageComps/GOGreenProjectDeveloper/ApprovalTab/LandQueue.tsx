@@ -4,13 +4,11 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import {
-  Button, CardActionArea, CardActions, Grid, Stack, TextField,
-  TablePagination, Autocomplete, Container
+  Button, CardActionArea, CardActions, Grid, Stack,
+  TablePagination, Container, InputBase
 } from '@mui/material';
 import { useState } from 'react';
 import { Box, } from '@mui/material';
-import axios from 'axios';
-import {  get_state, methodGet,} from '../../../../API_Service/API_Service';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
@@ -43,22 +41,17 @@ interface PropType {
   Loading: boolean;
   getNotVerifiedLands: () => void;
 }
-interface State {
-  StateId: string;
-  StateName: string;
-}
 
 
 export default function LandQueue({ data, Loading, getNotVerifiedLands } : PropType) {
 
-  const [state, setState] = useState<any[]>([]);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(6);
   const [open, setOpen] = useState<boolean>(false);
   const [status, setStatus] = useState<boolean>(false);
   const [color, setColor] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
+  // const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
   const UserProfileTypeId: string = '1';
   const [openLandDialog, setOpenLandDialog] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<LandItem | null>(null);
@@ -66,7 +59,6 @@ export default function LandQueue({ data, Loading, getNotVerifiedLands } : PropT
   const [searchResults, setSearchResults] = useState<LandItem[]>([]);
   const [ShowFilterList, setShowFilterList] = useState<boolean>(false);
   const [recentSearch, setRecentSearch] = useState<any[]>([]);
-  const [inputKey, setInputKey] = useState<number>(0);
   const [LandId, setLandId] = useState<string>('');
 
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
@@ -80,32 +72,6 @@ export default function LandQueue({ data, Loading, getNotVerifiedLands } : PropT
     }
   }, []);
 
-
-  useEffect(() => {
-    axios({
-      method: methodGet,
-      url: get_state,
-      headers: {
-        'Authorization': `Bearer ${UserToken}`,
-      }
-    }).then(res => {
-      if (res.data.error) {
-        setMessage(res.data.message)
-        setOpen(true)
-        setStatus(false)
-        setColor(false)
-      } else {
-        setMessage(res.data.message)
-        setState(res.data.data)
-        setOpen(false)
-        setStatus(true)
-        setColor(true)
-
-      }
-    }).catch(err => {
-      alert('Oops something went wrong ' + err)
-    });
-  }, [])
 
 
   const handleLandOpenDialog = (item: LandItem) => {
@@ -123,9 +89,8 @@ export default function LandQueue({ data, Loading, getNotVerifiedLands } : PropT
   };
 
 
-  const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null) => {
-    const selectedValue = newValue ? newValue.StateName : event.target.value;
-    setSearchQuery(selectedValue);
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
 
   const handleSearch = () => {
@@ -183,7 +148,6 @@ export default function LandQueue({ data, Loading, getNotVerifiedLands } : PropT
 
   const resetFilter = () => {
     setShowFilterList(false);
-    setInputKey((prevKey) => prevKey + 1);
   }
 
   const handleOpenVerfiyDialog = (id: string) => {
@@ -203,56 +167,29 @@ export default function LandQueue({ data, Loading, getNotVerifiedLands } : PropT
         <LandDataDialog openDialog={openLandDialog} setOpenDialog={setOpenLandDialog} i={selectedItem} />
 
         <VerifyDialog getNotVerifiedLands={getNotVerifiedLands} UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
-        <Container>
-        <Grid container spacing={2}>
+       
 
-          {/* <Grid item xs={12} sm={12} md={3} lg={3} height='auto' >
-            <Box p={1}>
-              <Box py={3}>
-              </Box>
-              <Box py={3}>
-                <Stack spacing={2}>
-                  <Typography color='#008080' sx={{ textDecoration: 'underline' }} fontWeight={600}>Recent Searches</Typography>
-                  {
-                    recentSearch && recentSearch.map((i, index) =>
-                      <Typography sx={{ marginBottom: 1 }} key={index}>{i}<CloseIcon sx={{ verticalAlign: 'middle' }} fontSize='small' onClick={() => removeSearchText(index)} /> </Typography>
-                    )}
-                </Stack>
-              </Box>
-            </Box>
-          </Grid> */}
-          
-          <Grid item xs={12} sm={12} md={12} lg={12}>
-            <Box display='flex' justifyContent='end'>
-                <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center'}}>
-                  <Autocomplete
-                    id="combo-box-demo"
-                    size="small"
-                    freeSolo
-                    key={inputKey}
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={12} lg={12} xl={12}>
+              <Box display='flex' justifyContent='end'>
+
+                <Paper
+                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '30ch' }}
+                >
+                  <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Search Google Maps"
+                    inputProps={{ 'aria-label': 'search google maps' }}
                     onChange={handleSearchChange}
-                    options={state}
-                    getOptionLabel={(option) => (option ? option.StateName : '')}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        placeholder="  Search By Location"
-                        variant="standard"
-                        sx={{ width: '25ch' }}
-                        color="success"
-                        InputProps={{
-                          ...params.InputProps,
-                          disableUnderline: true,
-                        }}
-                        onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
-                      />
-                    )}
                   />
                   <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
                     <SearchIcon />
                   </IconButton>
                 </Paper>
-            </Box>
+
+              </Box>
+
+
             {
               ShowFilterList && searchQuery !== '' ?
                 <>
@@ -269,65 +206,71 @@ export default function LandQueue({ data, Loading, getNotVerifiedLands } : PropT
                       <Typography variant='h6' color='text.secondary'>Nothing Mathces Your Search Results. <Typography color='#3285a8' onClick={() => setShowFilterList(false)} sx={{ textDecoration: 'underline' }}>See All Lands</Typography></Typography>
                     </Box>
                   }
-                  <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
-                    {LandList.map((i) => (
-                      <Grid item xs={12} sm={6} md={4} lg={4} key={i.LandId} my={3}>
-                        <Card sx={{ maxWidth: 300, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
-                          <CardActionArea>
-                            {Loading ? (
-                              <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
-                            ) : (
-                              <CardMedia
-                                component="video"
-                                height="170"
-                                width='100%'
-                                src={i.VirtualVideo}
-                                controls
-                              />
-                            )}
-                            <CardContent>
-                              {Loading ? (
-                                <React.Fragment>
-                                  <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-                                  <Skeleton animation="wave" height={10} width="80%" />
-                                </React.Fragment>
-                              ) : (
-                                <>
-                                  <Typography gutterBottom variant="h5" component="div" textAlign='left'>
-                                    {i.LandId}
-                                  </Typography>
-                                  <Stack spacing={1}>
-                                    <Box display='flex' gap={1} flexDirection='row'>
-                                      <Typography variant="body2" color="text.secondary" fontWeight={600}>Located:</Typography>
-                                      <Typography variant="body2">{i.LandCity}, {i.LandState}, {i.LandCountry}</Typography>
-                                    </Box>
-                                    <Box display='flex' gap={1} flexDirection='row'>
-                                      <Typography variant="body2" color="text.secondary" fontWeight={600}>Status:</Typography>
-                                      <Typography variant="body2"> {i.LandStatus}</Typography>
-                                    </Box>
-                                  </Stack>
-                                </>
-                              )}
-                            </CardContent>
-                          </CardActionArea>
-                          <CardActions>
+                    <Grid container spacing={1} display='flex' justifyContent='start' px={1}>
+                      {LandList.map((i) => (
+                        <Grid item xs={12} sm={6} md={3} lg={3} key={i.LandId} my={2}>
+                          <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5, borderRadius: '10px' }}>
+                            <Box p={2}>
+                              <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
+                                {Loading ? (
+                                  <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+                                ) : (
+                                  <CardMedia
+                                    component="video"
+                                    height="170"
+                                    width='100%'
+                                    src={i.VirtualVideo}
+                                    controls
+                                    style={{
+                                      border: '1px solid #E0E3DE', // Customize the outline color and thickness
+                                      boxSizing: 'border-box', // Ensure that the border doesn't affect the layout
+                                    }}
+                                  />
+                                )}
+                                <CardContent>
+                                  {Loading ? (
+                                    <React.Fragment>
+                                      <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                      <Skeleton animation="wave" height={10} width="80%" />
+                                    </React.Fragment>
+                                  ) : (
+                                    <>
+                                      <Typography gutterBottom variant="h5" component="div" textAlign='left' color='#D6A31E'>
+                                        {i.LandId}
+                                      </Typography>
+                                      <Stack spacing={1}>
+                                        <Box display='flex' gap={1} flexDirection='row'>
+                                          <Typography variant="body2" color="#455636" fontWeight={600}>Located:</Typography>
+                                          <Typography color="#455636" variant="body2">{i.LandCity}, {i.LandState}, {i.LandCountry}</Typography>
+                                        </Box>
+                                        <Box display='flex' gap={1} flexDirection='row'>
+                                          <Typography variant="body2" color="#455636" fontWeight={600}>Status:</Typography>
+                                          <Typography color="#455636" variant="body2"> {i.LandStatus}</Typography>
+                                        </Box>
+                                      </Stack>
+                                    </>
+                                  )}
+                                </CardContent>
+                              </CardActionArea>
+                              <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                             {Loading ? (
                               <React.Fragment>
                                 <Skeleton animation="wave" height={10} width="80%" />
                               </React.Fragment>
                             ) : (
                                 <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                                  <Button size="small" color="primary" onClick={() => handleLandOpenDialog(i)}>
+                                      <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => handleLandOpenDialog(i)}>
                                     View
                                   </Button>
 
 
-                                  <Button size="small" color="primary" onClick={() => handleOpenVerfiyDialog(i.LandId)}>
+                                      <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => handleOpenVerfiyDialog(i.LandId)}>
                                     Verify
                                   </Button>
                                 </Box>
                             )}
                           </CardActions>
+                          </Box>
                         </Card>
                       </Grid>
                     ))}
@@ -345,84 +288,90 @@ export default function LandQueue({ data, Loading, getNotVerifiedLands } : PropT
                   </Grid>
                 </>
                 :
-                <Grid container spacing={1} display='flex' justifyContent='start' px={3}>
-                  {slicedData.map((i) => (
-                    <Grid item xs={12} sm={6} md={4} lg={4} key={i.LandId} my={3}>
-                      <Card sx={{ maxWidth: 300, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
-                        <CardActionArea>
-                          {Loading ? (
-                            <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
-                          ) : (
-                            <CardMedia
-                              component="video"
-                              height="170"
-                              width='100%'
-                              src={i.VirtualVideo}
-                              controls
-                            />
-                          )}
-                          <CardContent>
-                            {Loading ? (
-                              <React.Fragment>
-                                <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-                                <Skeleton animation="wave" height={10} width="80%" />
-                              </React.Fragment>
-                            ) : (
-                              <>
-                                <Typography gutterBottom variant="h5" component="div" textAlign='left'>
-                                  {i.LandId}
-                                </Typography>
-                                <Stack spacing={1}>
-                                  <Box display='flex' gap={1} flexDirection='row'>
-                                    <Typography variant="body2" color="text.secondary" fontWeight={600}>Located:</Typography>
-                                    <Typography variant="body2">{i.LandCity}, {i.LandState}, {i.LandCountry}</Typography>
-                                  </Box>
-                                  <Box display='flex' gap={1} flexDirection='row'>
-                                    <Typography variant="body2" color="text.secondary" fontWeight={600}>Status:</Typography>
-                                    <Typography variant="body2"> {i.LandStatus}</Typography>
-                                  </Box>
-                                </Stack>
-                              </>
-                            )}
-                          </CardContent>
-                        </CardActionArea>
-                        <CardActions>
-                          {Loading ? (
-                            <React.Fragment>
-                              <Skeleton animation="wave" height={10} width="80%" />
-                            </React.Fragment>
-                          ) : (
-                              <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                                <Button size="small" color="primary" onClick={() => handleLandOpenDialog(i)}>
-                                  View
-                                </Button>
+                  <Grid container spacing={1} display='flex' justifyContent='start' px={1}>
+                    {slicedData.map((i) => (
+                      <Grid item xs={12} sm={6} md={3} lg={3} key={i.LandId} my={2}>
+                        <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5, borderRadius: '10px' }}>
+                          <Box p={2}>
+                            <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
+                              {Loading ? (
+                                <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+                              ) : (
+                                <CardMedia
+                                  component="video"
+                                  height="170"
+                                  width='100%'
+                                  src={i.VirtualVideo}
+                                  controls
+                                  style={{
+                                    border: '1px solid #E0E3DE', // Customize the outline color and thickness
+                                    boxSizing: 'border-box', // Ensure that the border doesn't affect the layout
+                                  }}
+                                />
+                              )}
+                              <CardContent>
+                                {Loading ? (
+                                  <React.Fragment>
+                                    <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+                                    <Skeleton animation="wave" height={10} width="80%" />
+                                  </React.Fragment>
+                                ) : (
+                                  <>
+                                    <Typography gutterBottom variant="h5" component="div" textAlign='left' color='#D6A31E'>
+                                      {i.LandId}
+                                    </Typography>
+                                    <Stack spacing={1}>
+                                      <Box display='flex' gap={1} flexDirection='row'>
+                                        <Typography variant="body2" color="#455636" fontWeight={600}>Located:</Typography>
+                                        <Typography color="#455636" variant="body2">{i.LandCity}, {i.LandState}, {i.LandCountry}</Typography>
+                                      </Box>
+                                      <Box display='flex' gap={1} flexDirection='row'>
+                                        <Typography variant="body2" color="#455636" fontWeight={600}>Status:</Typography>
+                                        <Typography color="#455636" variant="body2"> {i.LandStatus}</Typography>
+                                      </Box>
+                                    </Stack>
+                                  </>
+                                )}
+                              </CardContent>
+                            </CardActionArea>
+                            <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
+                              {Loading ? (
+                                <React.Fragment>
+                                  <Skeleton animation="wave" height={10} width="80%" />
+                                </React.Fragment>
+                              ) : (
+                                <Box display='flex' justifyContent='space-between' flexDirection='row'>
+                                  <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => handleLandOpenDialog(i)}>
+                                    View
+                                  </Button>
 
 
-                                <Button size="small" color="primary" onClick={() => handleOpenVerfiyDialog(i.LandId)}>
-                                  Verify
-                                </Button>
-                              </Box>
-                          )}
-                        </CardActions>
-                      </Card>
+                                  <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => handleOpenVerfiyDialog(i.LandId)}>
+                                    Verify
+                                  </Button>
+                                </Box>
+                              )}
+                            </CardActions>
+                          </Box>
+                        </Card>
+                      </Grid>
+                    ))}
+                    <Grid item xs={12}>
+                      <TablePagination
+                        component="div"
+                        count={slicedData.length}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        rowsPerPage={rowsPerPage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        rowsPerPageOptions={[5, 10, 15]}
+                      />
                     </Grid>
-                  ))}
-                  <Grid item xs={12}>
-                    <TablePagination
-                      component="div"
-                      count={data.length}
-                      page={page}
-                      onPageChange={handleChangePage}
-                      rowsPerPage={rowsPerPage}
-                      onRowsPerPageChange={handleChangeRowsPerPage}
-                      rowsPerPageOptions={[5, 10, 15]}
-                    />
                   </Grid>
-                </Grid>
             }
           </Grid>
         </Grid>
-      </Container>
+   
       </Box>
     </Box>
   )

@@ -245,7 +245,7 @@ const AdminUpdatedLands: React.FC = () => {
                                                                 src={i.VirtualVideo}
                                                                 controls
                                                                 style={{
-                                                                    border: '2px solid #007bff', // Customize the outline color and thickness
+                                                                    border: '1px solid #E0E3DE', // Customize the outline color and thickness
                                                                     boxSizing: 'border-box', // Ensure that the border doesn't affect the layout
                                                                 }}
                                                             />

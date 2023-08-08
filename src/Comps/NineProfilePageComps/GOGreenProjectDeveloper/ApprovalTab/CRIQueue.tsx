@@ -9,22 +9,15 @@ import {
   CardActions,
   Grid,
   Stack,
-  TextField,
-  TablePagination,
-  Autocomplete,
+  TablePagination
+  , InputBase
 } from "@mui/material";
 import { useState } from "react";
 import { Box } from "@mui/material";
-import axios from "axios";
-import {
-  get_state,
-  methodGet,
-} from "../../../../API_Service/API_Service";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Skeleton from "@mui/material/Skeleton";
-import CloseIcon from "@mui/icons-material/Close";
 import SnackBar from "../../../SnackBar/SnackBar";
 import CRILandDialog from "../../CRI Carbon/CRILandDialog";
 import VerifyDialog from "./VerifyDialog";
@@ -50,11 +43,6 @@ interface CRIData {
   LandId:string;
 }
 
-interface State {
-  StateId: string;
-  StateName: string;
-}
-
 interface PropType {
   data: CRIData[];
   Loading: boolean;
@@ -63,14 +51,14 @@ interface PropType {
 
 export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropType) {
 
-  const [state, setState] = useState<any[]>([]);
+
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(6);
   const [open, setOpen] = useState<boolean>(false);
   const [status, setStatus] = useState<boolean>(false);
   const [color, setColor] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
-  const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
+  // const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
   // const UserId: string | null = localStorage.getItem('UserId') ?? '';
   const UserProfileTypeId: string = '6';
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -79,7 +67,6 @@ export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropTyp
   const [searchResults, setSearchResults] = useState<CRIData[]>([]);
   const [ShowFilterList, setShowFilterList] = useState<boolean>(false);
   const [recentSearch, setRecentSearch] = useState<any[]>([]);
-  const [inputKey, setInputKey] = useState<number>(0);
   const [LandId, setLandId] = useState<string>('');
 
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
@@ -94,31 +81,6 @@ export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropTyp
   }, []);
 
 
-  useEffect(() => {
-    axios({
-      method: methodGet,
-      url: get_state,
-      headers: {
-        'Authorization': `Bearer ${UserToken}`,
-      }
-    }).then(res => {
-      if (res.data.error) {
-        setMessage(res.data.message)
-        setOpen(true)
-        setStatus(false)
-        setColor(false)
-      } else {
-        setMessage(res.data.message)
-        setState(res.data.data)
-        setOpen(false)
-        setStatus(true)
-        setColor(true)
-
-      }
-    }).catch(err => {
-      alert('Oops something went wrong ' + err)
-    });
-  }, [])
 
   const handleOpenDialog = (item: CRIData) => {
     setSelectedItem(item);
@@ -140,12 +102,8 @@ export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropTyp
   };
 
 
-  const handleSearchChange = (
-    event: ChangeEvent<{} | any>,
-    newValue: State | null
-  ) => {
-    const selectedValue = newValue ? newValue.StateName : event.target.value;
-    setSearchQuery(selectedValue);
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
 
   const handleSearch = () => {
@@ -212,18 +170,8 @@ export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropTyp
     searchResults &&
     searchResults.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
-  const removeSearchText = (index: number) => {
-    if (index >= 0 && index < recentSearch.length) {
-      const updatedRecentSearch = [...recentSearch];
-      updatedRecentSearch.splice(index, 1);
-      localStorage.setItem("RecentSearch", JSON.stringify(updatedRecentSearch));
-      setRecentSearch(updatedRecentSearch);
-    }
-  };
-
   const resetFilter = () => {
     setShowFilterList(false);
-    setInputKey((prevKey) => prevKey + 1);
   };
 
 
@@ -253,90 +201,25 @@ export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropTyp
 
         <VerifyDialog getNotVerifiedLands={getNotVerifiedLands} UserProfileTypeId={UserProfileTypeId} setOpen={setOpen} setMessage={setMessage} setColor={setColor} setStatus={setStatus} LandId={LandId} options={options} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} openVerifyDialog={openVerifyDialog} setOpenVerifyDialog={setOpenVerifyDialog} />
 
-        <Grid
-          container
-          spacing={2}
-          display="flex"
-          justifyContent="space-between"
-        >
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={3}
-            lg={3}
-            height="auto"
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={12} lg={12} xl={12}>
+            <Box display='flex' justifyContent='end'>
 
-          >
-            <Box p={1}>
-              <Box py={3}>
-                <Paper
-                  sx={{
-                    p: "2px 4px",
-                    width: "30ch",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Autocomplete
-                    id="combo-box-demo"
-                    size="small"
-                    freeSolo
-                    key={inputKey}
-                    onChange={handleSearchChange}
-                    options={state}
-                    getOptionLabel={(option) =>
-                      option ? option.StateName : ""
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        placeholder="  Search By Location"
-                        variant="standard"
-                        sx={{ width: '25ch' }}
-                        color="success"
-                        InputProps={{
-                          ...params.InputProps,
-                          disableUnderline: true,
-                        }}
-                        onChange={
-                          handleSearchChange as React.ChangeEventHandler<
-                            HTMLInputElement | HTMLTextAreaElement
-                          >
-                        }
-                      />
-                    )}
-                  />
-                  <IconButton
-                    type="button"
-                    sx={{ p: "10px" }}
-                    aria-label="search"
-                    onClick={handleSearch}
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </Paper>
-              </Box>
-              <Box py={3}>
-                <Stack spacing={2}>
-                  <Typography color='#008080' sx={{ textDecoration: 'underline' }} fontWeight={600}>Recent Searches</Typography>
-                  {recentSearch &&
-                    recentSearch.map((i, index) => (
-                      <Typography sx={{ marginBottom: 1 }} key={index}>
-                        {i}
-                        <CloseIcon
-                          sx={{ verticalAlign: "middle" }}
-                          fontSize="small"
-                          onClick={() => removeSearchText(index)}
-                        />{" "}
-                      </Typography>
-                    ))}
-                </Stack>
-              </Box>
+              <Paper
+                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '30ch' }}
+              >
+                <InputBase
+                  sx={{ ml: 1, flex: 1 }}
+                  placeholder="Search Google Maps"
+                  inputProps={{ 'aria-label': 'search google maps' }}
+                  onChange={handleSearchChange}
+                />
+                <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
+                  <SearchIcon />
+                </IconButton>
+              </Paper>
             </Box>
-          </Grid>
 
-          <Grid item xs={12} sm={12} md={9} lg={9}>
             {ShowFilterList && searchQuery !== "" ? (
               <>
                 <Box p={1}>
@@ -375,91 +258,97 @@ export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropTyp
                   spacing={1}
                   display="flex"
                   justifyContent="start"
-                  px={3}
+                  px={1}
                 >
                   {CRIList.map((i) => (
-                    <Grid item xs={12} sm={6} md={4} lg={4} key={i.CRIId} my={3}>
-                      <Card sx={{ maxWidth: 300, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
-                        <CardActionArea>
-                          {Loading ? (
-                            <Skeleton
-                              sx={{ height: 190 }}
-                              animation="wave"
-                              variant="rectangular"
-                            />
-                          ) : (
-                            <CardMedia
-                              component="video"
-                              height="170"
-                              width="100%"
-                              src={i.VirtualVideo}
-                              controls
-                            />
-                          )}
-                          <CardContent>
+                    <Grid item xs={12} sm={6} md={3} lg={3} key={i.CRIId} my={2}>
+                      <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE', borderRadius: '10px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
+                        <Box p={2}>
+                          <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                             {Loading ? (
-                              <React.Fragment>
-                                <Skeleton
-                                  animation="wave"
-                                  height={10}
-                                  style={{ marginBottom: 6 }}
-                                />
-                                <Skeleton
-                                  animation="wave"
-                                  height={10}
-                                  width="80%"
-                                />
-                              </React.Fragment>
+                              <Skeleton
+                                sx={{ height: 190 }}
+                                animation="wave"
+                                variant="rectangular"
+                              />
                             ) : (
-                              <>
-                                <Typography
-                                  gutterBottom
-                                  variant="h5"
-                                  component="div"
-                                  textAlign="left"
-                                >
-                                  {i.CRIId}
-                                </Typography>
-                                <Stack spacing={1}>
-                                  <Box
-                                    display="flex"
-                                    gap={1}
-                                    flexDirection="row"
-                                  >
-                                    <Typography
-                                      variant="body2"
-                                      color="text.secondary"
-                                      fontWeight={600}
-                                    >
-                                      Located:
-                                    </Typography>
-                                    <Typography variant="body2">
-                                      {i.CRICity}, {i.CRIState}, {i.CRICountry}
-                                    </Typography>
-                                  </Box>
-                                  <Box
-                                    display="flex"
-                                    gap={1}
-                                    flexDirection="row"
-                                  >
-                                    <Typography
-                                      variant="body2"
-                                      color="text.secondary"
-                                      fontWeight={600}
-                                    >
-                                      Status:
-                                    </Typography>
-                                    <Typography variant="body2">
-                                      {" "}
-                                      {i.CRIStatus}
-                                    </Typography>
-                                  </Box>
-                                </Stack>
-                              </>
+                              <CardMedia
+                                component="video"
+                                height="170"
+                                width="100%"
+                                src={i.VirtualVideo}
+                                controls
+                                style={{
+                                  border: '1px solid #E0E3DE', // Customize the outline color and thickness
+                                  boxSizing: 'border-box', // Ensure that the border doesn't affect the layout
+                                }}
+                              />
                             )}
-                          </CardContent>
-                        </CardActionArea>
-                        <CardActions>
+                            <CardContent>
+                              {Loading ? (
+                                <React.Fragment>
+                                  <Skeleton
+                                    animation="wave"
+                                    height={10}
+                                    style={{ marginBottom: 6 }}
+                                  />
+                                  <Skeleton
+                                    animation="wave"
+                                    height={10}
+                                    width="80%"
+                                  />
+                                </React.Fragment>
+                              ) : (
+                                <>
+                                  <Typography
+                                    gutterBottom
+                                    variant="h5"
+                                    component="div"
+                                    textAlign="left"
+                                    color="#455636"
+                                  >
+                                    {i.CRIId}
+                                  </Typography>
+                                  <Stack spacing={1}>
+                                    <Box
+                                      display="flex"
+                                      gap={1}
+                                      flexDirection="row"
+                                    >
+                                      <Typography
+                                        variant="body2"
+                                        color="#455636"
+                                        fontWeight={600}
+                                      >
+                                        Located:
+                                      </Typography>
+                                      <Typography variant="body2" color="#455636">
+                                        {i.CRICity}, {i.CRIState}, {i.CRICountry}
+                                      </Typography>
+                                    </Box>
+                                    <Box
+                                      display="flex"
+                                      gap={1}
+                                      flexDirection="row"
+                                    >
+                                      <Typography
+                                        variant="body2"
+                                        color="#455636"
+                                        fontWeight={600}
+                                      >
+                                        Status:
+                                      </Typography>
+                                      <Typography variant="body2" color="#455636">
+                                        {" "}
+                                        {i.CRIStatus}
+                                      </Typography>
+                                    </Box>
+                                  </Stack>
+                                </>
+                              )}
+                            </CardContent>
+                          </CardActionArea>
+                          <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                           {Loading ? (
                             <React.Fragment>
                               <Skeleton
@@ -470,17 +359,18 @@ export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropTyp
                             </React.Fragment>
                           ) : (
                               <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                                <Button size="small" color="primary" onClick={() => handleOpenDialog(i)}>
+                                  <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => handleOpenDialog(i)}>
                                   View
                                 </Button>
 
 
-                                <Button size="small" color="primary" onClick={() => handleOpenVerfiyDialog(i.LandId)}>
+                                  <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => handleOpenVerfiyDialog(i.LandId)}>
                                   Verify
                                 </Button>
                               </Box>
                           )}
                         </CardActions>
+                        </Box>
                       </Card>
                     </Grid>
                   ))}
@@ -498,124 +388,139 @@ export default function CRIQueue({ data, Loading, getNotVerifiedLands }: PropTyp
                 </Grid>
               </>
             ) : (
-              <Grid
-                container
-                spacing={1}
-                display="flex"
-                justifyContent="start"
-                px={3}
-              >
-                {slicedData.map((i) => (
-                  <Grid item xs={12} sm={6} md={4} lg={4} key={i.CRIId} my={3}>
-                    <Card sx={{ maxWidth: 300, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
-                      <CardActionArea>
-                        {Loading ? (
-                          <Skeleton
-                            sx={{ height: 190 }}
-                            animation="wave"
-                            variant="rectangular"
-                          />
-                        ) : (
-                          <CardMedia
-                            component="video"
-                            height="170"
-                            width="100%"
-                            src={i.VirtualVideo}
-                            controls
-                          />
-                        )}
-                        <CardContent>
-                          {Loading ? (
-                            <React.Fragment>
+                <Grid
+                  container
+                  spacing={1}
+                  display="flex"
+                  justifyContent="start"
+                  px={1}
+                >
+                  {slicedData.map((i) => (
+                    <Grid item xs={12} sm={6} md={3} lg={3} key={i.CRIId} my={2}>
+                      <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE', borderRadius: '10px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
+                        <Box p={2}>
+                          <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
+                            {Loading ? (
                               <Skeleton
+                                sx={{ height: 190 }}
                                 animation="wave"
-                                height={10}
-                                style={{ marginBottom: 6 }}
+                                variant="rectangular"
                               />
-                              <Skeleton
-                                animation="wave"
-                                height={10}
-                                width="80%"
+                            ) : (
+                              <CardMedia
+                                component="video"
+                                height="170"
+                                width="100%"
+                                src={i.VirtualVideo}
+                                controls
+                                style={{
+                                  border: '1px solid #E0E3DE', // Customize the outline color and thickness
+                                  boxSizing: 'border-box', // Ensure that the border doesn't affect the layout
+                                }}
                               />
-                            </React.Fragment>
-                          ) : (
-                            <>
-                              <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="div"
-                                textAlign="left"
-                              >
-                                {i.CRIId}
-                              </Typography>
-                              <Stack spacing={1}>
-                                <Box display="flex" gap={1} flexDirection="row">
+                            )}
+                            <CardContent>
+                              {Loading ? (
+                                <React.Fragment>
+                                  <Skeleton
+                                    animation="wave"
+                                    height={10}
+                                    style={{ marginBottom: 6 }}
+                                  />
+                                  <Skeleton
+                                    animation="wave"
+                                    height={10}
+                                    width="80%"
+                                  />
+                                </React.Fragment>
+                              ) : (
+                                <>
                                   <Typography
-                                    variant="body2"
-                                    color="text.secondary"
-                                    fontWeight={600}
+                                    gutterBottom
+                                    variant="h5"
+                                    component="div"
+                                    textAlign="left"
+                                    color="#455636"
                                   >
-                                    Located:
+                                    {i.CRIId}
                                   </Typography>
-                                  <Typography variant="body2">
-                                    {i.CRICity}, {i.CRIState}, {i.CRICountry}
-                                  </Typography>
-                                </Box>
-                                <Box display="flex" gap={1} flexDirection="row">
-                                  <Typography
-                                    variant="body2"
-                                    color="text.secondary"
-                                    fontWeight={600}
-                                  >
-                                    Status:
-                                  </Typography>
-                                  <Typography variant="body2">
-                                    {" "}
-                                    {i.CRIStatus}
-                                  </Typography>
-                                </Box>
-                              </Stack>
-                            </>
-                          )}
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        {Loading ? (
-                          <React.Fragment>
-                            <Skeleton
-                              animation="wave"
-                              height={10}
-                              width="80%"
-                            />
-                          </React.Fragment>
-                        ) : (
-                            <Box display='flex' justifyContent='space-between' flexDirection='row'>
-                              <Button size="small" color="primary" onClick={() => handleOpenDialog(i)}>
-                                View
-                              </Button>
+                                  <Stack spacing={1}>
+                                    <Box
+                                      display="flex"
+                                      gap={1}
+                                      flexDirection="row"
+                                    >
+                                      <Typography
+                                        variant="body2"
+                                        color="#455636"
+                                        fontWeight={600}
+                                      >
+                                        Located:
+                                      </Typography>
+                                      <Typography variant="body2" color="#455636">
+                                        {i.CRICity}, {i.CRIState}, {i.CRICountry}
+                                      </Typography>
+                                    </Box>
+                                    <Box
+                                      display="flex"
+                                      gap={1}
+                                      flexDirection="row"
+                                    >
+                                      <Typography
+                                        variant="body2"
+                                        color="#455636"
+                                        fontWeight={600}
+                                      >
+                                        Status:
+                                      </Typography>
+                                      <Typography variant="body2" color="#455636">
+                                        {" "}
+                                        {i.CRIStatus}
+                                      </Typography>
+                                    </Box>
+                                  </Stack>
+                                </>
+                              )}
+                            </CardContent>
+                          </CardActionArea>
+                          <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
+                            {Loading ? (
+                              <React.Fragment>
+                                <Skeleton
+                                  animation="wave"
+                                  height={10}
+                                  width="80%"
+                                />
+                              </React.Fragment>
+                            ) : (
+                              <Box display='flex' justifyContent='space-between' flexDirection='row'>
+                                <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => handleOpenDialog(i)}>
+                                  View
+                                </Button>
 
 
-                              <Button size="small" color="primary" onClick={() => handleOpenVerfiyDialog(i.LandId)}>
-                                Verify
-                              </Button>
-                            </Box>
-                        )}
-                      </CardActions>
-                    </Card>
+                                <Button size="small" sx={{ color: '#D6A31E' }} onClick={() => handleOpenVerfiyDialog(i.LandId)}>
+                                  Verify
+                                </Button>
+                              </Box>
+                            )}
+                          </CardActions>
+                        </Box>
+                      </Card>
+                    </Grid>
+                  ))}
+                  <Grid item xs={12}>
+                    <TablePagination
+                      component="div"
+                      count={slicedData.length}
+                      page={page}
+                      onPageChange={handleChangePage}
+                      rowsPerPage={rowsPerPage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                      rowsPerPageOptions={[5, 10, 15]}
+                    />
                   </Grid>
-                ))}
-                <Grid item xs={12}>
-                  <TablePagination
-                    component="div"
-                    count={data.length}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    rowsPerPage={rowsPerPage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    rowsPerPageOptions={[5, 10, 15]}
-                  />
                 </Grid>
-              </Grid>
             )}
           </Grid>
         </Grid>

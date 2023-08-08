@@ -264,19 +264,19 @@ const BoughtLands: React.FC = () => {
                                   </Typography>
                                   <Stack spacing={1}>
                                     <Box display='flex' gap={1} flexDirection='row'>
-                                      <Typography variant="body2"  color='#D6A31E' fontWeight={600}>Located:</Typography>
-                                          <Typography variant="body2" color='#D6A31E'>{i.BuyerCity}, {i.BuyerState}, {i.BuyerCountry}</Typography>
+                                          <Typography variant="body2" color="#455636" fontWeight={600}>Located:</Typography>
+                                          <Typography variant="body2" color="#455636">{i.BuyerCity}, {i.BuyerState}, {i.BuyerCountry}</Typography>
                                     </Box>
                                     <Box display='flex' gap={1} flexDirection='row'>
-                                      <Typography variant="body2"  color='#D6A31E' fontWeight={600}>Status:</Typography>
-                                          <Typography variant="body2" color='#D6A31E'> {i.BuyerStatus}</Typography>
+                                          <Typography variant="body2" color="#455636" fontWeight={600}>Status:</Typography>
+                                          <Typography variant="body2" color="#455636"> {i.BuyerStatus}</Typography>
                                     </Box>
                                   </Stack>
                                 </>
                               )}
                             </CardContent>
                           </CardActionArea>
-                          <CardActions>
+                            <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                             {Loading ? (
                               <React.Fragment>
                                 <Skeleton animation="wave" height={10} width="80%" />
@@ -346,19 +346,19 @@ const BoughtLands: React.FC = () => {
                                     </Typography>
                                     <Stack spacing={1}>
                                       <Box display='flex' gap={1} flexDirection='row'>
-                                        <Typography variant="body2" color='#D6A31E' fontWeight={600}>Located:</Typography>
-                                        <Typography variant="body2" color='#D6A31E'>{i.BuyerCity}, {i.BuyerState}, {i.BuyerCountry}</Typography>
+                                          <Typography variant="body2" color="#455636" fontWeight={600}>Located:</Typography>
+                                          <Typography variant="body2" color="#455636">{i.BuyerCity}, {i.BuyerState}, {i.BuyerCountry}</Typography>
                                       </Box>
                                       <Box display='flex' gap={1} flexDirection='row'>
-                                        <Typography variant="body2" color='#D6A31E' fontWeight={600}>Status:</Typography>
-                                        <Typography variant="body2" color='#D6A31E'> {i.BuyerStatus}</Typography>
+                                          <Typography variant="body2" color="#455636" fontWeight={600}>Status:</Typography>
+                                          <Typography variant="body2" color="#455636"> {i.BuyerStatus}</Typography>
                                       </Box>
                                     </Stack>
                                   </>
                                 )}
                               </CardContent>
                             </CardActionArea>
-                            <CardActions>
+                            <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                               {Loading ? (
                                 <React.Fragment>
                                   <Skeleton animation="wave" height={10} width="80%" />
