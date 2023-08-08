@@ -154,7 +154,6 @@ export default function InvestForm() {
         if(id !== ''){
             const lData = new FormData()
             lData.append('LandId', id);
-            lData.append('UserId', UserId);
             lData.append('UserProfileTypeId', UserProfileTypeId);
             axios({
                 method: methodPost,
@@ -271,7 +270,7 @@ export default function InvestForm() {
                     </Box>
                 </Container>
 
-                <Box py={4} className='borderAnimae' sx={{ px: 5, backgroundColor: '#daf6e8', mx: 3, my: 4, ':hover': { boxShadow: 10 }, }}>
+                <Box py={4} className='borderAnimae' sx={{ px: 5, backgroundColor: '#E0E3DE', mx: 3, my: 4,  boxShadow: 10 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
                         <Grid item lg={12} xl={12} >

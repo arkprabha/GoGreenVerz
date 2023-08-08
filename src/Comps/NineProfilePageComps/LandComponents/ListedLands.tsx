@@ -16,7 +16,6 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Skeleton from '@mui/material/Skeleton';
 import LandDataDialog from './LandDataDialog';
-import SnackBar from '../../SnackBar/SnackBar';
 import GoProjectLandDialog from '../GOGreenProjectDeveloper/GoProjectLandDialog';
 import PlantationLandDialog from '../Planatation/PlantationLandDialog';
 import VVBLandDialog from '../VVB/VVBLandDialog';
@@ -219,10 +218,6 @@ const ListedLands: React.FC = () => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(6);
   const [data, setData] = useState<any[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
-  const [status, setStatus] = useState<boolean>(false);
-  const [color, setColor] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
   const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
   const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
   // const UserId: string | null = localStorage.getItem('UserId') ?? '';
@@ -483,7 +478,7 @@ const ListedLands: React.FC = () => {
 
     return (
         <Box>
-           <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
+
              <Header isConnectedWallet={isConnectedWallet} />
             <Box p={1}>
 
@@ -531,7 +526,7 @@ const ListedLands: React.FC = () => {
           </Container>
 
           <Container>
-          <Grid container spacing={2}  display='flex' justifyContent='space-between'>
+          <Grid container spacing={2}>
       <Grid item xs={12} sm={12} md={12} lg={12}>
           {
           ShowFilterList && searchQuery !== '' ?
@@ -578,7 +573,7 @@ const ListedLands: React.FC = () => {
           </React.Fragment>
         ) : (
           <>
-                            <Typography gutterBottom variant="h5" component="div" textAlign='left' color='#D6A31E'>
+       <Typography gutterBottom variant="h5" component="div" textAlign='left' color='#D6A31E'>
             {i.LandId}
             </Typography>
             <Stack spacing={1}>

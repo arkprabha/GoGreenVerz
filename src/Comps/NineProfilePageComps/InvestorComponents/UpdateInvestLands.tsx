@@ -280,13 +280,13 @@ export default function UpdateInvestLands() {
                         <Grid container>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                             <Box width='100%' textAlign='center' py={2} className="text-container">
-                                                                            <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.3rem' ,textTransform:'uppercase' }} >Edit Investment Form</Typography>                  </Box>
+                            <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.3rem' ,textTransform:'uppercase' }} >Edit Investment Form</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>
                 </Container>
 
-                <Box py={4} className='borderAnimae' sx={{ px: 5, backgroundColor: '#daf6e8', mx: 3, my: 4, ':hover': { boxShadow: 10 }, }}>
+                <Box py={4} sx={{ px: 5, backgroundColor: '#E0E3DE', mx: 3, my: 4, boxShadow: 10  }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
                         <Grid item lg={12} xl={12} >

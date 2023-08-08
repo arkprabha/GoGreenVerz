@@ -216,7 +216,7 @@ export default function GoProjectDeveloperForm() {
                         <Grid container>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                             <Box width='100%' textAlign='center' py={2} className="text-container">
-                                                                            <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.3rem' ,textTransform:'uppercase' }} >Go Project Developer Form</Typography>                  </Box>
+                             <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.3rem' ,textTransform:'uppercase' }} >Go Project Developer Form</Typography>                  </Box>
                             </Grid>
                         </Grid>
                     </Box>
@@ -228,7 +228,7 @@ export default function GoProjectDeveloperForm() {
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box className='borderAnimae' sx={{  px: 2, pb: 2, pt: 2, backgroundColor: '#daf6e8',  ':hover': { boxShadow: 10 }, mt: 3 }}>
+                            <Box sx={{  px: 2, pb: 2, pt: 2, backgroundColor:'#E0E3DE' ,  boxShadow: 10 , mt: 3 }}>
                                 <Box sx={{ pb: 2, textAlign: 'left' }}>
                                     <h5>GO GREEN PROJECT DEVELOPER</h5>
                                 </Box>

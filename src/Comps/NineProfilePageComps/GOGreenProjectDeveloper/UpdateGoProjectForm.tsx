@@ -282,7 +282,7 @@ export default function UpdateGoProjectForm() {
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box className='borderAnimae' sx={{  px: 2, pb: 2, pt: 2, backgroundColor: '#daf6e8',  ':hover': { boxShadow: 10 }, mt: 3 }}>
+                            <Box sx={{  px: 2, pb: 2, pt: 2, backgroundColor:'#E0E3DE' ,  boxShadow: 10 , mt: 3 }}>
                                 <Box sx={{ pb: 2, textAlign: 'left' }}>
                                     <h5>GO GREEN PROJECT DEVELOPER</h5>
                                 </Box>
