@@ -90,7 +90,7 @@ export default function UpdateAddedLands() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                 } else {
@@ -122,7 +122,7 @@ export default function UpdateAddedLands() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                     setCityList([])
@@ -161,7 +161,7 @@ export default function UpdateAddedLands() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                 } else {
@@ -273,7 +273,7 @@ export default function UpdateAddedLands() {
                     </Box>
                 </Container>
 
-                <Box className='borderAnimae' sx={{ px: 4, backgroundColor: '#daf6e8', mx: 4, my: 2, ':hover': { boxShadow: 10 }, }}>
+                <Box sx={{ px: 4, backgroundColor: '#E0E3DE', mx: 4, my: 2, boxShadow: 10 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={2} >
                         <Grid item lg={12} xl={12} >

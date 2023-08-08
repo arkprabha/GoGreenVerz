@@ -270,7 +270,7 @@ export default function InvestForm() {
                     </Box>
                 </Container>
 
-                <Box py={4} className='borderAnimae' sx={{ px: 5, backgroundColor: '#E0E3DE', mx: 3, my: 4,  boxShadow: 10 }}>
+                <Box py={4} sx={{ px: 5, backgroundColor: '#E0E3DE', mx: 3, my: 4,  boxShadow: 10 }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={4} >
                         <Grid item lg={12} xl={12} >

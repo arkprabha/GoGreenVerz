@@ -90,7 +90,7 @@ export default function UpdateGoProjectForm() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                 } else {
@@ -121,7 +121,7 @@ export default function UpdateGoProjectForm() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                     setCityList([])
@@ -163,7 +163,7 @@ export default function UpdateGoProjectForm() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                 } else {

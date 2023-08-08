@@ -9,17 +9,14 @@ import {
   CardActions,
   Grid,
   Stack,
-  TextField,
   TablePagination,
-  Autocomplete,Container,
+  Container, InputBase
 } from "@mui/material";
 import { useState } from "react";
 import { Box } from "@mui/material";
 import axios from "axios";
 import {
   get_land_by_profile_users,
-  get_state,
-  methodGet,
 } from "../../../API_Service/API_Service";
 import Header from "../../../Header";
 import { useNavigate } from "react-router-dom";
@@ -27,8 +24,6 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Skeleton from "@mui/material/Skeleton";
-import CloseIcon from "@mui/icons-material/Close";
-import SnackBar from "../../SnackBar/SnackBar";
 import CRILandDialog from "./CRILandDialog";
 
 interface CRIData {
@@ -52,20 +47,10 @@ interface CRIData {
   LandId:string;
 }
 
-interface State {
-  StateId: string;
-  StateName: string;
-}
-
 const CRIUpdatedLands: React.FC = () => {
-  const [state, setState] = useState<any[]>([]);
   const [page, setPage] = useState<number>(0);
  const [rowsPerPage, setRowsPerPage] = useState<number>(6);
   const [data, setData] = useState<any[]>([]);
-  const [open, setOpen] = useState<boolean>(false);
-  const [status, setStatus] = useState<boolean>(false);
-  const [color, setColor] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>("");
   const isConnectedWallet: string | null = localStorage.getItem("Wallet") ?? "";
   const UserToken: string | null = localStorage.getItem("UserToken") ?? "";
   const UserId: string | null = localStorage.getItem("UserId") ?? "";
@@ -77,7 +62,6 @@ const CRIUpdatedLands: React.FC = () => {
   const [ShowFilterList, setShowFilterList] = useState<boolean>(false);
   const [Loading, setLoading] = useState<boolean>(true);
   const [recentSearch, setRecentSearch] = useState<any[]>([]);
-  const [inputKey, setInputKey] = useState<number>(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -88,32 +72,6 @@ const CRIUpdatedLands: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    axios({
-      method: methodGet,
-      url: get_state,
-      headers: {
-        Authorization: `Bearer ${UserToken}`,
-      },
-    })
-      .then((res) => {
-        if (res.data.error) {
-          setMessage(res.data.message);
-          setOpen(true);
-          setStatus(false);
-          setColor(false);
-        } else {
-          setMessage(res.data.message);
-          setState(res.data.data);
-          setOpen(false)
-          setStatus(true);
-          setColor(true);
-        }
-      })
-      .catch((err) => {
-        alert("Oops something went wrong " + err);
-      });
-  }, []);
 
   useEffect(() => {
     const lData = new FormData();
@@ -164,12 +122,8 @@ const CRIUpdatedLands: React.FC = () => {
     navigate("/updateaddedcri", { state: { id: id } });
   };
 
-  const handleSearchChange = (
-    event: ChangeEvent<{} | any>,
-    newValue: State | null
-  ) => {
-    const selectedValue = newValue ? newValue.StateName : event.target.value;
-    setSearchQuery(selectedValue);
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
   };
 
   const handleSearch = () => {
@@ -236,29 +190,13 @@ const CRIUpdatedLands: React.FC = () => {
     searchResults &&
     searchResults.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
 
-  const removeSearchText = (index: number) => {
-    if (index >= 0 && index < recentSearch.length) {
-      const updatedRecentSearch = [...recentSearch];
-      updatedRecentSearch.splice(index, 1);
-      localStorage.setItem("RecentSearch", JSON.stringify(updatedRecentSearch));
-      setRecentSearch(updatedRecentSearch);
-    }
-  };
 
   const resetFilter = () => {
     setShowFilterList(false);
-    setInputKey((prevKey) => prevKey + 1);
   };
 
   return (
     <Box>
-      <SnackBar
-        open={open}
-        setOpen={setOpen}
-        message={message}
-        color={color}
-        status={status}
-      />
       <Header isConnectedWallet={isConnectedWallet} />
       <Box p={1}>
         <CRILandDialog
@@ -273,99 +211,37 @@ const CRIUpdatedLands: React.FC = () => {
             <Box width='100%' textAlign='center' py={2} className="text-container">
                   <Typography className="FormheadingName" sx={{fontSize:'2.5rem' , fontWeight:700 ,letterSpacing:'0.3rem' , textTransform:'uppercase' }} >My Work Submissions</Typography>                  </Box>
               </Grid>
+              <Grid item xs={12} md={12} lg={12} xl={12}>
+                <Box display='flex' justifyContent='end'>
+
+                  <Paper
+                    sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '30ch' }}
+                  >
+                    <InputBase
+                      sx={{ ml: 1, flex: 1 }}
+                      placeholder="Search Google Maps"
+                      inputProps={{ 'aria-label': 'search google maps' }}
+                      onChange={handleSearchChange}
+                    />
+                    <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
+                      <SearchIcon />
+                    </IconButton>
+                  </Paper>
+
+                </Box>
+              </Grid>
             </Grid>
           </Box>
         </Container>
 
-        <Grid
-          container
-          spacing={2}
-          display="flex"
-          justifyContent="space-between"
-        >
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={3}
-            lg={3}
-            height="auto"
-           
-          >
-            <Box p={1}>
-              <Box py={3}>
-                <Paper
-                  sx={{
-                    p: "2px 4px",
-                    width: "30ch",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Autocomplete
-                    id="combo-box-demo"
-                    size="small"
-                    freeSolo
-                    key={inputKey}
-                    onChange={handleSearchChange}
-                    options={state}
-                    getOptionLabel={(option) =>
-                      option ? option.StateName : ""
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        placeholder="  Search By Location"
-                        variant="standard"
-                        sx={{ width: '25ch' }}
-                        color="success"
-                        InputProps={{
-                          ...params.InputProps,
-                          disableUnderline: true,
-                        }}
-                        onChange={
-                          handleSearchChange as React.ChangeEventHandler<
-                            HTMLInputElement | HTMLTextAreaElement
-                          >
-                        }
-                      />
-                    )}
-                  />
-                  <IconButton
-                    type="button"
-                    sx={{ p: "10px" }}
-                    aria-label="search"
-                    onClick={handleSearch}
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </Paper>
-              </Box>
-              <Box py={3}>
-                <Stack spacing={2}>
-               <Typography color='#008080' sx={{textDecoration:'underline'}} fontWeight={600}>Recent Searches</Typography>
-                  {recentSearch &&
-                    recentSearch.map((i, index) => (
-                      <Typography sx={{ marginBottom: 1 }} key={index}>
-                        {i}
-                        <CloseIcon
-                          sx={{ verticalAlign: "middle" }}
-                          fontSize="small"
-                          onClick={() => removeSearchText(index)}
-                        />{" "}
-                      </Typography>
-                    ))}
-                </Stack>
-              </Box>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={9} lg={9}>
+        <Container>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
             {ShowFilterList && searchQuery !== "" ? (
               <>
                 <Box p={1}>
                   <Box display="flex" justifyContent="space-between">
-                    <Typography variant="h6" color="text.secondary">
+                    <Typography variant="h6" color="#455636">
                       Best Results
                     </Typography>
                     <Typography
@@ -382,7 +258,7 @@ const CRIUpdatedLands: React.FC = () => {
                 </Box>
                 {CRIList.length === 0 && (
                   <Box py={1}>
-                    <Typography variant="h6" color="text.secondary">
+                    <Typography variant="h6" color="#455636">
                       Nothing Mathces Your Search Results.{" "}
                       <Typography
                         color="#3285a8"
@@ -399,12 +275,13 @@ const CRIUpdatedLands: React.FC = () => {
                   spacing={1}
                   display="flex"
                   justifyContent="start"
-                  px={3}
+                  px={1}
                 >
                   {CRIList.map((i) => (
-                    <Grid item xs={12} sm={6} md={4} lg={4} key={i.id} my={3}>
-                      <Card sx={{ maxWidth: 300, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
-                        <CardActionArea>
+                    <Grid item xs={12} sm={6} md={3} lg={3} key={i.id} my={2}>
+                      <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE', borderRadius: '10px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
+                        <Box p={2}>
+                          <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                           {Loading ? (
                             <Skeleton
                               sx={{ height: 190 }}
@@ -418,6 +295,10 @@ const CRIUpdatedLands: React.FC = () => {
                               width="100%"
                               src={i.VirtualVideo}
                               controls
+                                  style={{
+                                    border: '1px solid #E0E3DE', // Customize the outline color and thickness
+                                    boxSizing: 'border-box', // Ensure that the border doesn't affect the layout
+                                  }}
                             />
                           )}
                           <CardContent>
@@ -441,6 +322,7 @@ const CRIUpdatedLands: React.FC = () => {
                                   variant="h5"
                                   component="div"
                                   textAlign="left"
+                                      color="#455636"
                                 >
                                   {i.CRIId}
                                 </Typography>
@@ -452,12 +334,12 @@ const CRIUpdatedLands: React.FC = () => {
                                   >
                                     <Typography
                                       variant="body2"
-                                      color="text.secondary"
+                                      color="#455636"
                                       fontWeight={600}
                                     >
                                       Located:
                                     </Typography>
-                                    <Typography variant="body2">
+                                        <Typography variant="body2" color="#455636">
                                       {i.CRICity}, {i.CRIState}, {i.CRICountry}
                                     </Typography>
                                   </Box>
@@ -468,12 +350,12 @@ const CRIUpdatedLands: React.FC = () => {
                                   >
                                     <Typography
                                       variant="body2"
-                                      color="text.secondary"
+                                      color="#455636"
                                       fontWeight={600}
                                     >
                                       Status:
                                     </Typography>
-                                    <Typography variant="body2">
+                                        <Typography variant="body2" color="#455636">
                                       {" "}
                                       {i.CRIStatus}
                                     </Typography>
@@ -483,7 +365,7 @@ const CRIUpdatedLands: React.FC = () => {
                             )}
                           </CardContent>
                         </CardActionArea>
-                        <CardActions>
+                          <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
                           {Loading ? (
                             <React.Fragment>
                               <Skeleton
@@ -500,7 +382,7 @@ const CRIUpdatedLands: React.FC = () => {
                             >
                               <Button
                                 size="small"
-                                color="primary"
+                                sx={{ color: '#D6A31E' }}
                                 onClick={() => handleOpenDialog(i)}
                               >
                                 View
@@ -508,7 +390,7 @@ const CRIUpdatedLands: React.FC = () => {
 
                               <Button
                                 size="small"
-                                color="primary"
+                                sx={{ color: '#D6A31E' }}
                                 onClick={() => movedtoEditPage(i.CRIId)}
                               >
                                 Update
@@ -516,6 +398,7 @@ const CRIUpdatedLands: React.FC = () => {
                             </Box>
                           )}
                         </CardActions>
+                        </Box>
                       </Card>
                     </Grid>
                   ))}
@@ -533,138 +416,154 @@ const CRIUpdatedLands: React.FC = () => {
                 </Grid>
               </>
             ) : (
-              <Grid
-                container
-                spacing={1}
-                display="flex"
-                justifyContent="start"
-                px={3}
-              >
-                {slicedData.map((i) => (
-                  <Grid item xs={12} sm={6} md={4} lg={4} key={i.CRIId} my={3}>
-                    <Card sx={{ maxWidth: 300, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
-                      <CardActionArea>
-                        {Loading ? (
-                          <Skeleton
-                            sx={{ height: 190 }}
-                            animation="wave"
-                            variant="rectangular"
-                          />
-                        ) : (
-                          <CardMedia
-                            component="video"
-                            height="170"
-                            width="100%"
-                            src={i.VirtualVideo}
-                            controls
-                          />
-                        )}
-                        <CardContent>
-                          {Loading ? (
-                            <React.Fragment>
-                              <Skeleton
-                                animation="wave"
-                                height={10}
-                                style={{ marginBottom: 6 }}
-                              />
-                              <Skeleton
-                                animation="wave"
-                                height={10}
-                                width="80%"
-                              />
-                            </React.Fragment>
-                          ) : (
-                            <>
-                              <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="div"
-                                textAlign="left"
-                              >
-                                {i.CRIId}
-                              </Typography>
-                              <Stack spacing={1}>
-                                <Box display="flex" gap={1} flexDirection="row">
-                                  <Typography
-                                    variant="body2"
-                                    color="text.secondary"
-                                    fontWeight={600}
+                  <Grid
+                    container
+                    spacing={1}
+                    display="flex"
+                    justifyContent="start"
+                    px={1}
+                  >
+                    {slicedData.map((i) => (
+                      <Grid item xs={12} sm={6} md={3} lg={3} key={i.id} my={2}>
+                        <Card sx={{ maxWidth: 250, bgcolor: '#E0E3DE', borderRadius: '10px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: 5 }}>
+                          <Box p={2}>
+                            <CardActionArea sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
+                              {Loading ? (
+                                <Skeleton
+                                  sx={{ height: 190 }}
+                                  animation="wave"
+                                  variant="rectangular"
+                                />
+                              ) : (
+                                <CardMedia
+                                  component="video"
+                                  height="170"
+                                  width="100%"
+                                  src={i.VirtualVideo}
+                                  controls
+                                  style={{
+                                    border: '1px solid #E0E3DE', // Customize the outline color and thickness
+                                    boxSizing: 'border-box', // Ensure that the border doesn't affect the layout
+                                  }}
+                                />
+                              )}
+                              <CardContent>
+                                {Loading ? (
+                                  <React.Fragment>
+                                    <Skeleton
+                                      animation="wave"
+                                      height={10}
+                                      style={{ marginBottom: 6 }}
+                                    />
+                                    <Skeleton
+                                      animation="wave"
+                                      height={10}
+                                      width="80%"
+                                    />
+                                  </React.Fragment>
+                                ) : (
+                                  <>
+                                    <Typography
+                                      gutterBottom
+                                      variant="h5"
+                                      component="div"
+                                      textAlign="left"
+                                      color="#455636"
+                                    >
+                                      {i.CRIId}
+                                    </Typography>
+                                    <Stack spacing={1}>
+                                      <Box
+                                        display="flex"
+                                        gap={1}
+                                        flexDirection="row"
+                                      >
+                                        <Typography
+                                          variant="body2"
+                                          color="#455636"
+                                          fontWeight={600}
+                                        >
+                                          Located:
+                                        </Typography>
+                                        <Typography variant="body2" color="#455636">
+                                          {i.CRICity}, {i.CRIState}, {i.CRICountry}
+                                        </Typography>
+                                      </Box>
+                                      <Box
+                                        display="flex"
+                                        gap={1}
+                                        flexDirection="row"
+                                      >
+                                        <Typography
+                                          variant="body2"
+                                          color="#455636"
+                                          fontWeight={600}
+                                        >
+                                          Status:
+                                        </Typography>
+                                        <Typography variant="body2" color="#455636">
+                                          {" "}
+                                          {i.CRIStatus}
+                                        </Typography>
+                                      </Box>
+                                    </Stack>
+                                  </>
+                                )}
+                              </CardContent>
+                            </CardActionArea>
+                            <CardActions sx={{ bgcolor: '#fff', borderRadius: '5px' }}>
+                              {Loading ? (
+                                <React.Fragment>
+                                  <Skeleton
+                                    animation="wave"
+                                    height={10}
+                                    width="80%"
+                                  />
+                                </React.Fragment>
+                              ) : (
+                                <Box
+                                  display="flex"
+                                  justifyContent="space-between"
+                                  flexDirection="row"
+                                >
+                                  <Button
+                                    size="small"
+                                    sx={{ color: '#D6A31E' }}
+                                    onClick={() => handleOpenDialog(i)}
                                   >
-                                    Located:
-                                  </Typography>
-                                  <Typography variant="body2">
-                                    {i.CRICity}, {i.CRIState}, {i.CRICountry}
-                                  </Typography>
-                                </Box>
-                                <Box display="flex" gap={1} flexDirection="row">
-                                  <Typography
-                                    variant="body2"
-                                    color="text.secondary"
-                                    fontWeight={600}
-                                  >
-                                    Status:
-                                  </Typography>
-                                  <Typography variant="body2">
-                                    {" "}
-                                    {i.CRIStatus}
-                                  </Typography>
-                                </Box>
-                              </Stack>
-                            </>
-                          )}
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        {Loading ? (
-                          <React.Fragment>
-                            <Skeleton
-                              animation="wave"
-                              height={10}
-                              width="80%"
-                            />
-                          </React.Fragment>
-                        ) : (
-                          <Box
-                            display="flex"
-                            justifyContent="space-between"
-                            flexDirection="row"
-                          >
-                            <Button
-                              size="small"
-                              color="primary"
-                              onClick={() => handleOpenDialog(i)}
-                            >
-                              View
-                            </Button>
+                                    View
+                                  </Button>
 
-                            <Button
-                              size="small"
-                              color="primary"
-                              onClick={() => movedtoEditPage(i.CRIId)}
-                            >
-                              Update
-                            </Button>
+                                  <Button
+                                    size="small"
+                                    sx={{ color: '#D6A31E' }}
+                                    onClick={() => movedtoEditPage(i.CRIId)}
+                                  >
+                                    Update
+                                  </Button>
+                                </Box>
+                              )}
+                            </CardActions>
                           </Box>
-                        )}
-                      </CardActions>
-                    </Card>
+                        </Card>
+                      </Grid>
+                    ))}
+                    <Grid item xs={12}>
+                      <TablePagination
+                        component="div"
+                        count={slicedData.length}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        rowsPerPage={rowsPerPage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        rowsPerPageOptions={[5, 10, 15]}
+                      />
+                    </Grid>
                   </Grid>
-                ))}
-                <Grid item xs={12}>
-                  <TablePagination
-                    component="div"
-                    count={data.length}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    rowsPerPage={rowsPerPage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                    rowsPerPageOptions={[5, 10, 15]}
-                  />
-                </Grid>
-              </Grid>
             )}
           </Grid>
         </Grid>
+        </Container>
       </Box>
     </Box>
   );

@@ -4,20 +4,19 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import {
-    Button, CardActionArea, CardActions, Grid, Stack, TextField,
-    TablePagination, Autocomplete , Container,
+    Button, CardActionArea, CardActions, Grid, Stack, 
+    TablePagination, Container, InputBase
 } from '@mui/material';
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import axios from 'axios';
-import { get_land_by_profile_users, get_state, methodGet } from '../../../API_Service/API_Service';
+import { get_land_by_profile_users } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Skeleton from '@mui/material/Skeleton';
-import SnackBar from '../../SnackBar/SnackBar';
 import AdminLandDialog from './AdminLandDialog';
 
 
@@ -43,24 +42,11 @@ interface AdminData {
 }
 
 
-
-interface State {
-    StateId: string;
-    StateName: string;
-}
-
-
-
 const AdminUpdatedLands: React.FC = () => {
 
-    const [state, setState] = useState<any[]>([]);
     const [page, setPage] = useState<number>(0);
    const [rowsPerPage, setRowsPerPage] = useState<number>(8);
     const [data, setData] = useState<any[]>([]);
-    const [open, setOpen] = useState<boolean>(false);
-    const [status, setStatus] = useState<boolean>(false);
-    const [color, setColor] = useState<boolean>(false);
-    const [message, setMessage] = useState<string>('');
     const isConnectedWallet: string | null = localStorage.getItem('Wallet') ?? '';
     const UserToken: string | null = localStorage.getItem('UserToken') ?? '';
     const UserId: string | null = localStorage.getItem('UserId') ?? '';
@@ -72,7 +58,6 @@ const AdminUpdatedLands: React.FC = () => {
     const [ShowFilterList, setShowFilterList] = useState<boolean>(false);
     const [Loading, setLoading] = useState<boolean>(true);
     const [recentSearch, setRecentSearch] = useState<any[]>([]);
-    const [inputKey, setInputKey] = useState<number>(0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -82,34 +67,6 @@ const AdminUpdatedLands: React.FC = () => {
             setRecentSearch(parsedRecentSearch);
         }
     }, []);
-
-
-    useEffect(() => {
-        axios({
-            method: methodGet,
-            url: get_state,
-            headers: {
-                'Authorization': `Bearer ${UserToken}`,
-            }
-        }).then(res => {
-            if (res.data.error) {
-                setMessage(res.data.message)
-                setOpen(true)
-                setStatus(false)
-                setColor(false)
-            } else {
-                setMessage(res.data.message)
-                setState(res.data.data)
-                setOpen(false)
-                setStatus(true)
-                setColor(true)
-
-            }
-        }).catch(err => {
-            alert('Oops something went wrong ' + err)
-        });
-    }, [])
-
 
     useEffect(() => {
         const lData = new FormData()
@@ -162,9 +119,9 @@ const AdminUpdatedLands: React.FC = () => {
         navigate('/updateaddedadmin', { state: { id: id } })
     }
 
-    const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null) => {
-        const selectedValue = newValue ? newValue.StateName : event.target.value;
-        setSearchQuery(selectedValue);
+
+    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
     };
 
     const handleSearch = () => {
@@ -211,15 +168,12 @@ const AdminUpdatedLands: React.FC = () => {
 
     const resetFilter = () => {
         setShowFilterList(false);
-        setInputKey((prevKey) => prevKey + 1);
     }
 
 
 
     return (
         <Box>
-
-            <SnackBar open={open} setOpen={setOpen} message={message} color={color} status={status} />
             <Header isConnectedWallet={isConnectedWallet} />
             <Box p={1}>
                 <AdminLandDialog openDialog={openDialog} setOpenDialog={setOpenDialog} i={selectedItem} />
@@ -234,34 +188,21 @@ const AdminUpdatedLands: React.FC = () => {
                             </Grid>
                             <Grid item xs={12} md={12} lg={12} xl={12}>
                                 <Box display='flex' justifyContent='end'>
-                                <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center', }}>
-                                    <Autocomplete
-                                        id="combo-box-demo"
-                                        size="small"
-                                        freeSolo
-                                        key={inputKey}
-                                        onChange={handleSearchChange}
-                                        options={state}
-                                        getOptionLabel={(option) => (option ? option.StateName : '')}
-                                        renderInput={(params) => (
-                                            <TextField
-                                                {...params}
-                                                placeholder="  Search By Location"
-                                                variant="standard"
-                                                sx={{ width: '25ch' }}
-                                                color="success"
-                                                InputProps={{
-                                                    ...params.InputProps,
-                                                    disableUnderline: true,
-                                                }}
-                                                onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
-                                            />
-                                        )}
-                                    />
-                                    <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
-                                        <SearchIcon />
-                                    </IconButton>
-                                </Paper>
+
+                                    <Paper
+                                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '30ch' }}
+                                    >
+                                        <InputBase
+                                            sx={{ ml: 1, flex: 1 }}
+                                            placeholder="Search Google Maps"
+                                            inputProps={{ 'aria-label': 'search google maps' }}
+                                            onChange={handleSearchChange}
+                                        />
+                                        <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
+                                            <SearchIcon />
+                                        </IconButton>
+                                    </Paper>
+
                                 </Box>
                             </Grid>
                         </Grid>

@@ -92,7 +92,7 @@ export default function GoProjectDeveloperForm() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                 } else {
@@ -123,7 +123,7 @@ export default function GoProjectDeveloperForm() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                     setCityList([])

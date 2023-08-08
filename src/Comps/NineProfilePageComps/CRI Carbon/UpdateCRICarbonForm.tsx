@@ -92,7 +92,7 @@ export default function UpdateCRICarbonForm() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                 } else {
@@ -123,7 +123,7 @@ export default function UpdateCRICarbonForm() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                     setCityList([])
@@ -164,7 +164,7 @@ export default function UpdateCRICarbonForm() {
             }).then(res => {
                 if (res.data.error) {
                     setMessage(res.data.message)
-                    setOpen(true)
+                    setOpen(false)
                     setStatus(false)
                     setColor(false)
                 } else {
@@ -284,7 +284,7 @@ export default function UpdateCRICarbonForm() {
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={3} >
                         <Grid item lg={12} xl={12} >
 
-                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#daf6e8', borderRadius: '10px', ':hover': { boxShadow: 4 }, mt: 7 }}>
+                            <Box sx={{ border: "1px solid black", px: 2, pb: 2, pt: 2, borderColor: '#d2cbcb;', backgroundColor: '#E0E3DE', boxShadow: 5, mt: 7 }}>
                                 <Box sx={{ pb: 2, textAlign: 'left' }}>
                                     <h5>UPDATE CRI CARBON DETAILS</h5>
                                 </Box>

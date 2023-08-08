@@ -208,8 +208,8 @@ const InvestedLands: React.FC = () => {
             </Box>
           </Container>
 
-          <Container>
-           <Grid container spacing={2}>
+      <Container>
+      <Grid container spacing={2}>
       <Grid item xs={12} sm={12} md={12} lg={12}>
           {
           ShowFilterList && searchQuery !== '' ?
