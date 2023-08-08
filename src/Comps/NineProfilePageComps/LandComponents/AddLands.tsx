@@ -219,7 +219,7 @@ export default function AddLands() {
             </Box>
             </Container>
 
-                <Box className='borderAnimae' sx={{ px: 4, backgroundColor: '#E0E3DE', mx: 4, my: 2, ':hover': { boxShadow: 10 }, }}>
+                <Box className='borderAnimae' sx={{ px: 4, backgroundColor: '#E0E3DE', mx: 4, my: 2,  boxShadow: 10  }}>
 
                     <Grid container display="flex" justifyContent='center' sx={{ textAlign: 'center' }} spacing={2} >
                         <Grid item lg={12} xl={12} >

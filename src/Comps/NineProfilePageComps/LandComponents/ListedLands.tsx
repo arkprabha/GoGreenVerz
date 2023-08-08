@@ -3,12 +3,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, Grid, Stack, TextField,
-TablePagination, Autocomplete } from '@mui/material';
+import { Button, CardActionArea, CardActions, Grid, Stack,
+TablePagination, InputBase } from '@mui/material';
 import { useState } from 'react';
 import { Box , Container} from '@mui/material';
 import axios from 'axios';
-import {get_land_by_profile_users, get_land_details, get_state, methodGet, methodPost } from '../../../API_Service/API_Service';
+import {get_land_by_profile_users, get_land_details, methodPost } from '../../../API_Service/API_Service';
 import Header from '../../../Header';
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
@@ -213,14 +213,9 @@ interface VVBData {
 
 
 
-interface State {
-  StateId: string;
-  StateName: string;
-}
 
 const ListedLands: React.FC = () => {
 
-  const [state, setState] = useState<any[]>([]);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(6);
   const [data, setData] = useState<any[]>([]);
@@ -248,7 +243,6 @@ const ListedLands: React.FC = () => {
   const [ShowFilterList, setShowFilterList] = useState<boolean>(false);
   const [Loading, setLoading] = useState<boolean>(true);
   const [recentSearch, setRecentSearch] = useState<any[]>([]);
-  const [inputKey, setInputKey] = useState<number>(0);
   const navigate = useNavigate();
   const UserId: string | null = localStorage.getItem('UserId') ?? '';
   const UserProfileTypeId: string | null = localStorage.getItem('UserProfileTypeId') ?? '';
@@ -271,34 +265,6 @@ const ListedLands: React.FC = () => {
           setRecentSearch(parsedRecentSearch);
         }
       }, []);
-
-
-    useEffect(() => {
-            axios({
-                method: methodGet,
-                url: get_state,
-                headers: {
-                'Authorization': `Bearer ${UserToken}`,
-            }
-            }).then(res => {
-                if (res.data.error) {
-                    setMessage(res.data.message)
-                    setOpen(true)
-                    setStatus(false)
-                    setColor(false)
-                } else {
-                    setMessage(res.data.message)
-                    setState(res.data.data)
-                  setOpen(false)
-                    setStatus(true)
-                    setColor(true)
-
-                }
-            }).catch(err => {
-                alert('Oops something went wrong ' + err)
-            });
-    }, [])
-
 
    useEffect(()=>{
     if(UserType !== 'Land owner'){
@@ -422,10 +388,9 @@ const ListedLands: React.FC = () => {
     navigate('/updateaddedlands', {state:{id:id}})
  }
 
-const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null) => {
-  const selectedValue = newValue ? newValue.StateName : event.target.value ;
-  setSearchQuery(selectedValue);
-};
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
 
   const handleSearch = () => {
     if (searchQuery !== '' || searchQuery !== null) {
@@ -473,7 +438,6 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
 
   const resetFilter = () =>{
     setShowFilterList(false);
-     setInputKey((prevKey) => prevKey + 1);
   }
 
   const handleClickOpenInvestor = (id: string) =>{
@@ -545,34 +509,21 @@ const handleSearchChange = (event: ChangeEvent<{} | any>, newValue: State | null
                 </Grid>
                 <Grid item xs={12} md={12} lg={12} xl={12}>
                   <Box display='flex' justifyContent='end'>
-                    <Paper sx={{ p: '2px 4px', width: '30ch', display: 'flex', alignItems: 'center', }}>
-                      <Autocomplete
-                        id="combo-box-demo"
-                        size="small"
-                        freeSolo
-                        key={inputKey}
+
+                    <Paper
+                      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '30ch' }}
+                    >
+                      <InputBase
+                        sx={{ ml: 1, flex: 1 }}
+                        placeholder="Search Google Maps"
+                        inputProps={{ 'aria-label': 'search google maps' }}
                         onChange={handleSearchChange}
-                        options={state}
-                        getOptionLabel={(option) => (option ? option.StateName : '')}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            placeholder="  Search By Location"
-                            variant="standard"
-                            sx={{ width: '25ch' }}
-                            color="success"
-                            InputProps={{
-                              ...params.InputProps,
-                              disableUnderline: true,
-                            }}
-                            onChange={handleSearchChange as React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>}
-                          />
-                        )}
                       />
                       <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
                         <SearchIcon />
                       </IconButton>
                     </Paper>
+
                   </Box>
                 </Grid>
               </Grid>
